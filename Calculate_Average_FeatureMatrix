@@ -1,0 +1,8 @@
+clc;
+close all;
+clear all;
+
+%Author: Roger Gomez Nieto
+%Date> 28 March 2019
+%This code calculatesssss the average of a matrix
+

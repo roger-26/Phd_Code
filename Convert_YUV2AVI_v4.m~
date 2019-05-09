@@ -1,0 +1,176 @@
+%este script permite convertir los videos en formato .yuv a .AVI
+%Roger Gomez Nieto - 20 de marzo de 2019
+i=1
+clear all
+video_resolution=[1920 1080]
+video_fps=30
+name='0912_Cheerleader1_GS5_20150912_153429'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+name='0912_Cheerleader1_iphone_IMG_0184'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0912_Cheerleader1_Note4_20150912_152444'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0912_CheerLeader1_Nokia1080_20130306_17_46_21_Pro '
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0913playSand_GS5_20150913_183702'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0913playSand_iPhone5s_IMG_0251'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0913playSand_Note4_20150913_182713'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0918_CyclistsNear1_GS6_20150919_081325'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0918_CyclistsNear1_HTCOneVX_VIDEO0050'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0918_CyclistsNear1_LGG2_CAM00795'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0918_CyclistsNear1_OppoFind7_VID20150407033615'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_SwingingArm_GS5_20150925_154945'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_SwingingArm_iphone5_IMG_0266'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_SwingingArm_Note4_20150925_153938'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_WalkingToLunch2_G2_CAM00812'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_WalkingToLunch2_GS6_20150923_120934'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_WalkingToLunch2_HTCOneVx_VIDEO0065'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='0923_WalkingToLunch2_Oppo_VID20150411073225'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_BollywoodDanceTraining_GS6_20151017_175412'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_BollywoodDanceTraining_HTCOneVX_VIDEO0103'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_BollywoodDanceTraining_LGG2_CAM00851'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_BollywoodDanceTraining_OppoFind7_VID20150505131616'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_ConstructionBuggy2_GS6_20151020_133229'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_ConstructionBuggy2_HTCOneVX_VIDEO0119'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_ConstructionBuggy2_LGG2_CAM00867'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_ConstructionBuggy2_OppoFind7_VID20150508085425'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_MetroArrives_GS6_20151020_133409'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_MetroArrives_HTCOneVX_VIDEO0120'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_MetroArrives_LGG2_CAM00868'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_MetroArrives_OppoFind7_VID20150508085607'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_SkateBoarderStepsOut_GS6_20151019_182712'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_SkateBoarderStepsOut_HTCOneVX'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_SkateBoarderStepsOut_LGG2_CAM00857'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+i=i+1
+
+name='1019_SkateBoarderStepsOut_LGG2_CAM00857'
+ numfrm = yuv2avi(strcat(name,'.yuv'),video_resolution,...
+     strcat(name,'.avi'),'none',video_fps,'YUV420_8');
+
+
+

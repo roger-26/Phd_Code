@@ -1,0 +1,5 @@
+path_video= '/home/javeriana/roger_gomez/Dropbox/crowds.mp4';
+BB=[561,311,22,51];
+path_mainFolder_Tracking='/home/javeriana/roger_gomez/Dropbox';
+
+[positions_originals]= tracker_dsst2(BB,path_video,path_mainFolder_Tracking);

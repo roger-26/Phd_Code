@@ -1,0 +1,4 @@
+%este script permite convertir los videos en formato .yuv a .AVI
+%Roger Gomez Nieto - 20 de marzo de 2019
+
+ numfrm = yuv2avi('city_CIF.yuv',[1920 1080],'test.avi','none',30,'YUV420_8');
