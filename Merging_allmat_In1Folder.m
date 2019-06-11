@@ -13,7 +13,8 @@ for q = 1:length(mat)
     %IMPRIMe el nombre del video en pantalla
    %cambiar esta variable segun el nombre que tenga la estructura que
    %contiene los datos deseados
-   variable_containing_data = aux.data;
+%    variable_containing_data = aux.data;
+   variable_containing_data = aux.Feature_vect;
    current_value_to_Save= variable_containing_data;   
    [rows normal_size]=size(current_value_to_Save);
    rows
@@ -26,10 +27,10 @@ for q = 1:length(mat)
    end
 end
 
-save('C3D_ALLfeatures_OppoFind7_qualcomm','data')
+save('fc6_UniqueScene_AllVideos','data')
 
 
-%Create a Z-matrix with mean 0 and std=1, with normalized data
+%% Create a Z-matrix with mean 0 and std=1, with normalized data
 
 Z_matrix = reshape(zscore(data(:)),size(data,1),size(data,2));
 maximum_number = max(Z_matrix(:))
