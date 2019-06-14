@@ -10,7 +10,11 @@ addpath(path2folder);
 
 vid1=VideoReader(Name_Video)
 Number_Frames_Video=vid1.NumberOfFrames;
-namevideo_msnc='0723_ManUnderTree_GS5_03_20150723_130016_mscn';
+
+ Full_Name_Divided= strsplit(Name_Video,'.');
+    %To extract only the name, without the point from extension
+    Only_Name_NoExt= char(Full_Name_Divided(1));
+namevideo_msnc=strcat(Only_Name_NoExt,'_mscn');
 
 writerObj1 = VideoWriter(namevideo_msnc,'Uncompressed AVI');
 
@@ -27,7 +31,9 @@ for i = 1 : vid1.NumberOfFrames
     
     
     writeVideo(writerObj1,imgOut);
+    if mod(i,100)==0
     i
+    end
 end
 close(writerObj1)
 successful_conversion=1;
