@@ -14,7 +14,7 @@ Number_Frames_Video=vid1.NumberOfFrames;
  Full_Name_Divided= strsplit(Name_Video,'.');
     %To extract only the name, without the point from extension
     Only_Name_NoExt= char(Full_Name_Divided(1));
-namevideo_msnc=strcat(Only_Name_NoExt,'_mscn');
+namevideo_msnc=strcat(Only_Name_NoExt,'_ycbcr');
 
 writerObj1 = VideoWriter(namevideo_msnc,'Uncompressed AVI');
 
