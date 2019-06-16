@@ -27,10 +27,10 @@ for i = 1 : vid1.NumberOfFrames
 
     %obtaining ycbcrrepresentation
     YCBCR=rgb2ycbcr(im);
-    imgOut=normalize(YCBCR,'range');
+%     imgOut=normalize(YCBCR,'range');
     
     
-    writeVideo(writerObj1,imgOut);
+    writeVideo(writerObj1,YCBCR);
     if mod(i,100)==0
     i
     end
