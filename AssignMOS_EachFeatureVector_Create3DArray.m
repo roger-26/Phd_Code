@@ -1,30 +1,40 @@
 clc;
 close all;
 clear all;
-%Roger Gomez Nieto May 9, 2019
+%Roger Gomez Nieto June 19 1019
 %Generating matrix with features C3D no averaged.
+
 %Este código toma todos los .mat que existan en la carpeta, y luego separa cada una de las
 %observaciones (1 observación en C3D son 16 frames), y a todas las observaciones del mismo video les
-%asigna el mismo MOS del video al que pertenecen. 
+%asigna el mismo MOS del video al que pertenecen. Genera una matriz en 3D donde la primera dimension
+%es el video, la segunda dimension es cada uno de los feature vector que pertenecen a ese video, y
+%la 3ra dimensión son cada una de las características extraidas.
 
-%Se debe colocar el current folder en la carpeta 
+%Se debe colocar el current folder en la carpeta
 %C:\Dropbox\Javeriana\current_work\Features_fc6_QualcommDataset_AVIUncompressed\fc6Features_UniqueScene
-%% 
+%%
 %Cargando el archivo donde estan los MOS
 
 FileName   = 'qualcommSubjectiveData.mat';
 FolderName = 'C:\Dropbox\Javeriana\current_work';
 File       = fullfile(FolderName, FileName);
-load(File);   % 
+load(File);   %
 MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 
-Number_Videos=208; 
+Number_Videos=208;
 
-
+Name_To_Save_Data= 'fc6_Overlap8_YCbCr_Color';
 rows_data=1;
 %para leer todos los archivos .mat de la carpeta
 mat = dir('*.mat');
-Consecutivo_Video_Save=1;
+
+%el 50 sale porque los videos de qualcomm dataset tienen 450 frames y C3D esta
+%avanzando de a 8 frames (toma 16 en cada operación pero tiene un overlap de 8
+%frames). Sin embargo, hay videos que son mas cortos, entonces para que alcance a tomar esos videos
+%se deja en 52 features per video. 
+Number_Of_Features_PerVideo=50
+
+
 Videos_QUe_Coinciden=0
 for i=1:Number_Videos
     aux1=qualcommVideoData.vidNames(i); %get the name of video of the Original MOS
@@ -41,30 +51,27 @@ for i=1:Number_Videos
                 i;
                 
                 Videos_QUe_Coinciden=Videos_QUe_Coinciden+1
-%                 MOS_Videos_Folder(Consecutivo_Video_Save)=MOS_Unbiased(i);
+                %                 MOS_Videos_Folder(Consecutivo_Video_Save)=MOS_Unbiased(i);
                 Exit =1;
                 Current_Video_to_Process
                 name_video_MOS_ACTUAL
                 aux = load(mat(q).name);
-%                 variable_containing_data = aux.average_features;
-                 variable_containing_data = aux.Feature_vect;
-%                 variable_containing_data = au
+                %                 variable_containing_data = aux.average_features;
+                variable_containing_data = aux.Feature_vect;
+                %                 variable_containing_data = au
                 %variable_containing_dx.average_features;
                 current_value_to_Save= variable_containing_data;
-                [rows normal_size]=size(current_value_to_Save);
-                for i1=1:rows
+                
+                
+                for i1=1:Number_Of_Features_PerVideo
                     %guarda los datos en las filas correspondientes para que al
                     %final quede un matriz de n filas
                     %y 4096 columnas, donde n es el número de características para cada
                     %uno de los videos de la carpeta, este número depende de la duración y
                     %cantidad de los videos
-                    data(i,Consecutivo_Video_Save,:)= variable_containing_data(i1,:);
-                    MOS_fc6(i,Consecutivo_Video_Save)=MOS_Unbiased(i);
-                    Video_current(Consecutivo_Video_Save)=q;
-                    
-                    
-                    rows_data=rows_data+1;
-                    Consecutivo_Video_Save=Consecutivo_Video_Save+1;
+                    data(q,i1,:)= variable_containing_data(i1,:);
+                    MOS_fc6(q)=MOS_Unbiased(i);
+                    Video_current(i1)=q;
                     
                 end
             end
@@ -73,13 +80,7 @@ for i=1:Number_Videos
     
 end
 
-save('fc6_UniqueScene_Allvideos_542222','data')
-save('MOS_fc6_UniqueScene_Allvideos_542222','MOS_fc6')
+save(strcat('DATA_', Name_To_Save_Data),'data')
+save(strcat('MOS_', Name_To_Save_Data),'MOS_fc6')
+% save('MOS_fc6_Overlap8_YCbCr_Stabilization','MOS_fc6')
 
-%% Calculando el número de ceros en la matriz
-
-size_Matrix_Total=size(data);
-Number_Elements_Matrix=size_Matrix_Total(1)*size_Matrix_Total(2);
-Number_zeros=sum(~data(:));
-Percentage_zeros=(Number_zeros*100)/Number_Elements_Matrix;
-disp(['The matrix have ', num2str(Percentage_zeros),'% of zeros']);
