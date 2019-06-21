@@ -6,11 +6,11 @@ tic
 %you want to save the videos in MSCN Format. This save the videos in format uncompressed AVI
 %Roger Gomez Nieto - Created: June 14 2019
 Folder_Containing_Videos = ...
-    '/media/javeriana/TOSHIBA_2TB/Dataset/LIVE-Qualcomm/Artifacts/'; 
-cd '/media/javeriana/TOSHIBA_2TB/Dataset/LIVE-Qualcomm/Artifacts/'
+    '/media/javeriana/VISION_2/datasets/LIVE-Qualcomm/color/'; 
+cd '/media/javeriana/VISION_2/datasets/LIVE-Qualcomm/color/'
 %Fetching all names from AVI files in folder
 Videos_Inside_Folder = dir('*.avi');
-cd '/media/javeriana/VISION_EXT/Datasets/LIVE-Qualcomm_ycbcr/Artifacts/'
+cd '/media/javeriana/VISION_EXT/Datasets/LIVE-Qualcomm_ycbcr/color/'
 addpath('/home/javeriana/roger_gomez/Phd_Code/')
 %THis is the folder where are the videos in AVI Format. This can be different to folder to save MSCN
 %videos 
