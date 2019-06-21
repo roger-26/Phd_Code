@@ -10,8 +10,7 @@ clear all;
 %es el video, la segunda dimension es cada uno de los feature vector que pertenecen a ese video, y
 %la 3ra dimensión son cada una de las características extraidas.
 
-%Se debe colocar el current folder en la carpeta
-%C:\Dropbox\Javeriana\current_work\Features_fc6_QualcommDataset_AVIUncompressed\fc6Features_UniqueScene
+
 %%
 %Cargando el archivo donde estan los MOS
 
@@ -23,7 +22,7 @@ MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 
 Number_Videos=208;
 
-Name_To_Save_Data= 'fc6_Overlap8_YCbCr_Color';
+Name_To_Save_Data= 'fc6_Overlap8_YCbCr_focus';
 rows_data=1;
 %para leer todos los archivos .mat de la carpeta
 mat = dir('*.mat');
@@ -45,7 +44,6 @@ for i=1:Number_Videos
     for q = 1:length(mat)%Este es el número de videos que hay en la carpeta
         if Exit==0
             Current_Video_to_Process=    mat(q).name;
-            
             %IMPRIMe el nombre del video en pantalla
             if contains(Current_Video_to_Process,name_video_MOS_ACTUAL)
                 i;
