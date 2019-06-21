@@ -3,6 +3,9 @@ function [successful_conversion]=avi2mscn(Name_Video,path2folder)
 % Format)
 % Roger Gomez Nieto -  June 12 2019
 
+%path2folder is the folder that contains the video to convert. 
+%Name_Video is the name of video to converst, includes the file extension (e.g. .avi)
+
 % Read the AVI file
 % addpath('C:\Users\DeepLearning_PUJ\Documents\javeriana')
 addpath(path2folder);
