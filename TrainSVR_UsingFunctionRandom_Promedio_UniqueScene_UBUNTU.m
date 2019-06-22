@@ -13,14 +13,19 @@ clear all;
 %que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
 %tiene todos los videos ya anteriormente conseguidos.
 
+%This code only uses one video per scene. In this way, there 36 videos for training and 18 videos
+%for test. 
+
 %A�adiendo a la ruta la carpeta donde se encuentran los datos
-% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
-addpath('/home/javeriana/Dropbox/Ubuntu/Features_fc6_Avance8Frames_YCbCr/Features_Per_Distortion_1Matrix_DataMOS/');
+addpath('/home/javeriana/Dropbox/Ubuntu/Features_fc6_Avance8Frames_YCbCr/Features_Per_Distortion_1Matrix_DataMOS_UniqueScene/');
 
 addpath('/home/javeriana/roger_gomez/Phd_Code/');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=1000;
+VideosTraining_PerDistortion= 6; %el n�mero de videos que se usara para Training por cada distorsion
+
 
 Stabilization   =1;
 Focus           =1;
@@ -31,16 +36,17 @@ Color           =1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
+
 for iteration=1:Number_Iterations
     %Stabilization
+    tic
     TrainingData_AveragedFeaturesPerVideo=[];
     TestData_AveragedFeaturesPerVideo =[];
     TrainingMOS_AveragedFeaturesPerVideo=[];
     TestMOS_AveragedFeaturesPerVideo =[];
     if Stabilization ==1
-        tic
         [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization.mat','MOS_fc6_Overlap8_YCbCr_Stabilization.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization_UniqueScene.mat','MOS_fc6_Overlap8_YCbCr_Stabilization_UniqueScene.mat',VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -62,7 +68,7 @@ for iteration=1:Number_Iterations
     %Focus
     if Focus ==1
         [ Training_Data_Focus,Test_Data_Focus,Training_MOS_Focus,Test_MOS_Focus] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_focus.mat','MOS_fc6_Overlap8_YCbCr_focus.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Focus_UniqueScene.mat','MOS_fc6_Overlap8_YCbCr_Focus_UniqueScene.mat',VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -89,7 +95,7 @@ for iteration=1:Number_Iterations
     
     if Artifacts ==1
         [ Training_Data_Artifacts,Test_Data_Artifacts,Training_MOS_Artifacts,Test_MOS_Artifacts] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Artifacts.mat','MOS_fc6_Overlap8_YCbCr_Artifacts.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Artifacts_UniqueScene.mat','MOS_fc6_Overlap8_YCbCr_Artifacts_UniqueScene.mat',VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -116,7 +122,7 @@ for iteration=1:Number_Iterations
     
     if Sharpness ==1
         [ Training_Data_Sharpness,Test_Data_Sharpness,Training_MOS_Sharpness,Test_MOS_Sharpness] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat','MOS_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat',VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -144,7 +150,7 @@ for iteration=1:Number_Iterations
     
     if Exposure ==1
         [ Training_Data_Exposure,Test_Data_Exposure,Training_MOS_Exposure,Test_MOS_Exposure] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat','MOS_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat',VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -171,7 +177,7 @@ for iteration=1:Number_Iterations
     %Color
     if Color ==1
         [ Training_Data_Color,Test_Data_Color,Training_MOS_Color,Test_MOS_Color] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat','MOS_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat',VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -195,6 +201,7 @@ for iteration=1:Number_Iterations
     end
     
     %% TRAINING SVR
+    %tiene configuracion ya para no mostrar la grafica luego de cada iteration 'Showplots' false
     Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',false,...
         'OptimizeHyperparameters',...
         {'BoxConstraint', 'Epsilon', 'KernelFunction'},...
@@ -216,8 +223,12 @@ for iteration=1:Number_Iterations
     toc
 end
 toc
-fprintf('\nPearson = %.4f +- %.4f\nSpearman = %.4f +- %.4f\n',...
+fprintf('Pearson = %.4f +- %.4f\nSpearman = %.4f +- %.4f\n',...
     nanmedian(Spearman),nanstd(Spearman),nanmedian(Pearson),nanstd(Pearson));
 toc
 
 
+
+%  Exposure
+
+%Color
