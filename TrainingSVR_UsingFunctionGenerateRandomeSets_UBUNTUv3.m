@@ -33,27 +33,32 @@ tic
 %Obteniendo los conjuntos de training and test for all distortions.
 for iteration=1:Number_Iterations
     %Stabilization
-    tic
-    [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
-    divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization.mat','MOS_fc6_Overlap8_YCbCr_Stabilization.mat',28);
-    
-    %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
-    %vector per video.
-    Training_Data_Stabilization_Averaged= squeeze(mean(Training_Data_Stabilization,2));
-    Test_Data_Stabilization_Averaged    =   squeeze(mean(Test_Data_Stabilization,2));
-    
-    TrainingData_AveragedFeaturesPerVideo =...
-        [Training_Data_Stabilization_Averaged];
-    
-    TestData_AveragedFeaturesPerVideo =...
-        [Test_Data_Stabilization_Averaged];
-    
-    TrainingMOS_AveragedFeaturesPerVideo = ...
-        [Training_MOS_Stabilization];
-    
-    TestMOS_AveragedFeaturesPerVideo =...
-        [Test_MOS_Stabilization];
-    
+   TrainingData_AveragedFeaturesPerVideo=[];
+    TestData_AveragedFeaturesPerVideo =[];
+    TrainingMOS_AveragedFeaturesPerVideo=[];
+    TestMOS_AveragedFeaturesPerVideo =[];
+    if Stabilization ==1
+        tic
+        [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization.mat','MOS_fc6_Overlap8_YCbCr_Stabilization.mat',28);
+        
+        %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
+        %vector per video.
+        Training_Data_Stabilization_Averaged= squeeze(mean(Training_Data_Stabilization,2));
+        Test_Data_Stabilization_Averaged    =   squeeze(mean(Test_Data_Stabilization,2));
+        
+        TrainingData_AveragedFeaturesPerVideo =...
+            [Training_Data_Stabilization_Averaged];
+        
+        TestData_AveragedFeaturesPerVideo =...
+            [Test_Data_Stabilization_Averaged];
+        
+        TrainingMOS_AveragedFeaturesPerVideo = ...
+            [Training_MOS_Stabilization];
+        
+        TestMOS_AveragedFeaturesPerVideo =...
+            [Test_MOS_Stabilization];
+    end
     %Focus
     if Focus ==1
         [ Training_Data_Focus,Test_Data_Focus,Training_MOS_Focus,Test_MOS_Focus] = ...
@@ -210,7 +215,7 @@ for iteration=1:Number_Iterations
     fprintf('Iteration %d\n',iteration);
     toc
 end
-toc
+
 fprintf('\nPearson = %.4f +- %.4f\nSpearman = %.4f +- %.4f\n',...
     nanmedian(Spearman),nanstd(Spearman),nanmedian(Pearson),nanstd(Pearson));
 toc
