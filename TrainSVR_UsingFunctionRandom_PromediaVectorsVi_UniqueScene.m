@@ -13,12 +13,15 @@ clear all;
 %que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
 %tiene todos los videos ya anteriormente conseguidos.
 
+%This code only uses one video per scene. In this way, there 36 videos for training and 18 videos
+%for test. 
+
 %Añadiendo a la ruta la carpeta donde se encuentran los datos
 addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
 addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
-Number_Iterations=10;
+Number_Iterations=100;
 VideosTraining_PerDistortion= 6; %el número de videos que se usara para Training por cada distorsion
 
 

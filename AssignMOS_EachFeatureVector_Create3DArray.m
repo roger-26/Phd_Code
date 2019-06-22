@@ -22,7 +22,7 @@ MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 
 Number_Videos=208;
 
-Name_To_Save_Data= 'fc6_Overlap8_YCbCr_focus';
+Name_To_Save_Data= 'fc6_Overlap8_YCbCr_Stabilization_UniqueScene';
 rows_data=1;
 %para leer todos los archivos .mat de la carpeta
 mat = dir('*.mat');
