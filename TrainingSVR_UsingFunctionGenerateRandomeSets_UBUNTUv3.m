@@ -24,9 +24,9 @@ Number_Iterations=1000;
 
 Stabilization   =0;
 Focus           =0;
-Artifacts       =1;
+Artifacts       =0;
 Sharpness       =0;
-Exposure        =0;
+Exposure        =1;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
@@ -62,7 +62,7 @@ for iteration=1:Number_Iterations
     %Focus
     if Focus ==1
         [ Training_Data_Focus,Test_Data_Focus,Training_MOS_Focus,Test_MOS_Focus] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_focus.mat','MOS_fc6_Overlap8_YCbCr_focus.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Focus.mat','MOS_fc6_Overlap8_YCbCr_Focus.mat',28);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
