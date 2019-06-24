@@ -22,12 +22,12 @@ addpath('/home/javeriana/roger_gomez/Phd_Code/');
 Test_Same_Training= 0
 Number_Iterations=1000;
 
-Stabilization   =1;
-Focus           =1;
+Stabilization   =0;
+Focus           =0;
 Artifacts       =1;
-Sharpness       =1;
-Exposure        =1;
-Color           =1;
+Sharpness       =0;
+Exposure        =0;
+Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.

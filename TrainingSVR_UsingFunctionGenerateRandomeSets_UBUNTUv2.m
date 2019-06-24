@@ -11,7 +11,7 @@ clear all;
 %regresor, se le puede ingresar como conjunto de prueba el mismo conjunto de entrenamiento, esto se
 %hace colocando en 1 Test_Same_training. La matriz de entrenamiento se va haciendo grande a medida
 %que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
-%tiene todos los videos ya anteriormente conseguidos. 
+%tiene todos los videos ya anteriormente conseguidos.
 
 %A�adiendo a la ruta la carpeta donde se encuentran los datos
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
@@ -23,9 +23,9 @@ Test_Same_Training= 0
 Number_Iterations=1000;
 
 Stabilization   =0;
-Focus           =1;
+Focus           =0;
 Artifacts       =0;
-Sharpness       =0;
+Sharpness       =1;
 Exposure        =0;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,27 +33,32 @@ tic
 %Obteniendo los conjuntos de training and test for all distortions.
 for iteration=1:Number_Iterations
     %Stabilization
-    tic
-    [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
-    divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization.mat','MOS_fc6_Overlap8_YCbCr_Stabilization.mat',28);
-    
-    %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
-    %vector per video.
-    Training_Data_Stabilization_Averaged= squeeze(mean(Training_Data_Stabilization,2));
-    Test_Data_Stabilization_Averaged    =   squeeze(mean(Test_Data_Stabilization,2));
-    
-    TrainingData_AveragedFeaturesPerVideo =...
-        [Training_Data_Stabilization_Averaged];
-    
-    TestData_AveragedFeaturesPerVideo =...
-        [Test_Data_Stabilization_Averaged];
-    
-    TrainingMOS_AveragedFeaturesPerVideo = ...
-        [Training_MOS_Stabilization];
-    
-    TestMOS_AveragedFeaturesPerVideo =...
-        [Test_MOS_Stabilization];
-    
+    TrainingData_AveragedFeaturesPerVideo=[];
+    TestData_AveragedFeaturesPerVideo =[];
+    TrainingMOS_AveragedFeaturesPerVideo=[];
+    TestMOS_AveragedFeaturesPerVideo =[];
+    if Stabilization ==1
+        tic
+        [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization.mat','MOS_fc6_Overlap8_YCbCr_Stabilization.mat',28);
+        
+        %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
+        %vector per video.
+        Training_Data_Stabilization_Averaged= squeeze(mean(Training_Data_Stabilization,2));
+        Test_Data_Stabilization_Averaged    =   squeeze(mean(Test_Data_Stabilization,2));
+        
+        TrainingData_AveragedFeaturesPerVideo =...
+            [Training_Data_Stabilization_Averaged];
+        
+        TestData_AveragedFeaturesPerVideo =...
+            [Test_Data_Stabilization_Averaged];
+        
+        TrainingMOS_AveragedFeaturesPerVideo = ...
+            [Training_MOS_Stabilization];
+        
+        TestMOS_AveragedFeaturesPerVideo =...
+            [Test_MOS_Stabilization];
+    end
     %Focus
     if Focus ==1
         [ Training_Data_Focus,Test_Data_Focus,Training_MOS_Focus,Test_MOS_Focus] = ...
@@ -82,9 +87,9 @@ for iteration=1:Number_Iterations
     
     %artifacts
     
-     if Artifacts ==1
+    if Artifacts ==1
         [ Training_Data_Artifacts,Test_Data_Artifacts,Training_MOS_Artifacts,Test_MOS_Artifacts] = ...
-        divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Artifacts.mat','MOS_fc6_Overlap8_YCbCr_Artifacts.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Artifacts.mat','MOS_fc6_Overlap8_YCbCr_Artifacts.mat',28);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -105,13 +110,13 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Artifacts];
-     end
+    end
     
     %Sharpness
     
-      if Sharpness ==1
+    if Sharpness ==1
         [ Training_Data_Sharpness,Test_Data_Sharpness,Training_MOS_Sharpness,Test_MOS_Sharpness] = ...
-        divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -132,14 +137,14 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Sharpness];
-      end
+    end
     
-     
+    
     %Exposure
     
-        if Exposure ==1
+    if Exposure ==1
         [ Training_Data_Exposure,Test_Data_Exposure,Training_MOS_Exposure,Test_MOS_Exposure] = ...
-        divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -160,13 +165,13 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Exposure];
-     end
+    end
     
     
     %Color
     if Color ==1
         [ Training_Data_Color,Test_Data_Color,Training_MOS_Color,Test_MOS_Color] = ...
-        divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat','MOS_fc6_Overlap8_YCbCr_Sharpness.mat',28);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -187,7 +192,7 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Color];
-     end
+    end
     
     %% TRAINING SVR
     Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',false,...

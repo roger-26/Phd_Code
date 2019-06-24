@@ -38,6 +38,7 @@ tic
 %Obteniendo los conjuntos de training and test for all distortions.
 
 for iteration=1:Number_Iterations
+    
     %Stabilization
     tic
     TrainingData_AveragedFeaturesPerVideo=[];
