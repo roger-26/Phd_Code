@@ -3,10 +3,10 @@ close all;
 clear all;
 
 %Este c�digo entrena un SVR con los videos de QUALCOMM-LIVE dataset. Usamos una funci�n que
-%previamente genera y ordena cada uno de los videos por distorsi�n, de manera aleatoria dejando 28
+%previamente genera y ordena cada uno de los videos por distorsion, de manera aleatoria dejando 28
 %videos para entrenamiento y el resto para prueba. Esto se ejecuta en cada una de las iteracciones
 %del servidor. No se guardan archivos .mat, solo se leen los que se tienen guardados con las
-%caracteristicas extraidas de C3D. Se pueden activar o desactivar distorsiones en los par�metros de
+%caracteristicas extraidas de C3D. Se pueden activar o desactivar distorsiones en los parametros de
 %entrada, si se quiere desactivar se le coloca un cero. Si se quiere probar el funcionamiento del
 %regresor, se le puede ingresar como conjunto de prueba el mismo conjunto de entrenamiento, esto se
 %hace colocando en 1 Test_Same_training. La matriz de entrenamiento se va haciendo grande a medida
@@ -23,16 +23,16 @@ addpath('/home/javeriana/roger_gomez/Phd_Code/');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
-Number_Iterations=1000;
-VideosTraining_PerDistortion= 6; %el n�mero de videos que se usara para Training por cada distorsion
+Number_Iterations=10;
+VideosTraining_PerDistortion= 6; %number of videos used for training in each distortion
 
 
 Stabilization   =1;
-Focus           =1;
-Artifacts       =1;
-Sharpness       =1;
-Exposure        =1;
-Color           =1;
+Focus           =0;
+Artifacts       =0;
+Sharpness       =0;
+Exposure        =0;
+Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
