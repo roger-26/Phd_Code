@@ -17,9 +17,15 @@ clear all;
 %for test.
 
 %Añadiendo a la ruta la carpeta donde se encuentran los datos
-% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
-addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
-addpath('C:\Dropbox\git');
+
+% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
+% addpath('C:\Dropbox\git');
+
+
+addpath('/home/javeriana/Dropbox/Ubuntu/Features_fc6_Avance8Frames_YCbCr/Features_Per_Distortion_1Matrix_DataMOS/');
+addpath('/home/javeriana/roger_gomez/Phd_Code/');
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
@@ -33,7 +39,7 @@ Focus           =1;
 Artifacts       =1;
 Sharpness       =1;
 Exposure        =1;
-Color           =0;
+Color           =1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
@@ -229,35 +235,35 @@ for iteration=1:Number_Iterations
     %Color
     if Color ==1
         [ Training_Data_Color,Test_Data_Color,Training_MOS_Color,Test_MOS_Color] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat',...
-            'MOS_fc6_Overlap8_YCbCr_Sharpness_UniqueScene.mat',VideosTraining_PerDistortion);
+            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat',...
+            'MOS_fc6_Overlap8_YCbCr_Sharpness.mat',VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Color,1)
             indice= 1+(50*(i-1));
             Training_Data_Color_50Vectors(indice:indice+49,:)=...
                 squeeze(Training_Data_Color(i,:,:));
-            Training_MOS__50Vectors(indice:indice+49,1)=Training_MOS_Color(i);
+            Training_MOS_Color_50Vectors(indice:indice+49,1)=Training_MOS_Color(i);
         end
         
         for i=1:size(Test_Data_Color,1)
             indice= 1+(50*(i-1));
-            Test_Data_Exposure_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Color(i,:,:));
-            Test_MOS_Exposure_50Vectors(indice:indice+49,1)=Test_MOS_Color(i);
+            Test_Data_Color_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Color(i,:,:));
+            Test_MOS_Color_50Vectors(indice:indice+49,1)=Test_MOS_Color(i);
         end
         
         
         %Uniendo las matrices de todas las distorsiones
         TrainingData_50FeaturesPerVideo =...
-            [TrainingData_50FeaturesPerVideo;Training_Data_Exposure_50Vectors];
+            [TrainingData_50FeaturesPerVideo;Training_Data_Color_50Vectors];
         
         TestData_50FeaturesPerVideo =...
-            [TestData_50FeaturesPerVideo;Test_Data_Exposure_50Vectors];
+            [TestData_50FeaturesPerVideo;Test_Data_Color_50Vectors];
         
         TrainingMOS_50FeaturesPerVideo =...
-            [TrainingMOS_50FeaturesPerVideo;Training_MOS_Exposure_50Vectors];
+            [TrainingMOS_50FeaturesPerVideo;Training_MOS_Color_50Vectors];
         
         TestMOS_50FeaturesPerVideo =...
-            [TestMOS_50FeaturesPerVideo;Test_MOS_Exposure_50Vectors];
+            [TestMOS_50FeaturesPerVideo;Test_MOS_Color_50Vectors];
     end
     
     %% TRAINING SVR
