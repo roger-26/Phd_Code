@@ -30,9 +30,9 @@ VideosTraining_PerDistortion= 28; %el número de videos que se usara para Trainin
 
 Stabilization   =0;
 Focus           =0;
-Artifacts       =1;
+Artifacts       =0;
 Sharpness       =0;
-Exposure        =0;
+Exposure        =1;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic

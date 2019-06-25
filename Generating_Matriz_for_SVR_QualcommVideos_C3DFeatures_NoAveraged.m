@@ -73,8 +73,8 @@ for i=1:Number_Videos
     
 end
 
-save('fc6_UniqueScene_Allvideos_542222','data')
-save('MOS_fc6_UniqueScene_Allvideos_542222','MOS_fc6')
+save('DATA_conv5b_Artifacts_Allvideos','data')
+save('MOS_Conv5b_Artifacts_Allvideos','MOS_fc6')
 
 %% Calculando el número de ceros en la matriz
 
