@@ -24,7 +24,10 @@ MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 
 Number_Videos=208;
 
-Name_To_Save_Data= 'Conv5b_Advance8_RGB_Focus';
+Name_To_Save_Data= 'Conv5b_Advance16Frames_RGB_Stabilization';
+Number_Of_Features_PerVideo=25
+
+
 rows_data=1;
 %para leer todos los archivos .mat de la carpeta
 mat = dir('*.mat');
@@ -33,7 +36,7 @@ mat = dir('*.mat');
 %avanzando de a 8 frames (toma 16 en cada operación pero tiene un overlap de 8
 %frames). Sin embargo, hay videos que son mas cortos, entonces para que alcance a tomar esos videos
 %se deja en 52 features per video. 
-Number_Of_Features_PerVideo=50
+
 
 
 Videos_QUe_Coinciden=0

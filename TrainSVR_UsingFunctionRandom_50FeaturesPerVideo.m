@@ -13,8 +13,7 @@ clear all;
 %que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
 %tiene todos los videos ya anteriormente conseguidos.
 
-%This code only uses one video per scene. In this way, there 36 videos for training and 18 videos
-%for test.
+%ESTE NO CALCULA EL PROMEDIO, USA TODAS LAS CARACTERÍSTICAS
 
 %Añadiendo a la ruta la carpeta donde se encuentran los datos
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
