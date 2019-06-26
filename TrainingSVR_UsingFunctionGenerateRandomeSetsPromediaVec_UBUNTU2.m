@@ -19,19 +19,19 @@ clear all;
 addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
 
 
-addpat('
-addpath('C:\Dropbox\git');
+addpath('/home/javeriana/roger_gomez/Phd_Code/');
+% addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el n�mero de videos que se usara para Training por cada distorsion
 
 
-Stabilization   =1;
+Stabilization   =0;
 Focus           =0;
 Artifacts       =0;
 Sharpness       =0;
-Exposure        =0;
+Exposure        =1;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
