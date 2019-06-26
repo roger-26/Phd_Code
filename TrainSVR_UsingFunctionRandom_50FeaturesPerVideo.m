@@ -16,8 +16,12 @@ clear all;
 %ESTE NO CALCULA EL PROMEDIO, USA TODAS LAS CARACTERÍSTICAS
 
 %Añadiendo a la ruta la carpeta donde se encuentran los datos
+
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
-addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
+% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
+addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
+
+
 addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
@@ -27,13 +31,18 @@ VideosTraining_PerDistortion= 28; %el número de videos que se usara para Trainin
 %Si se quiere entrenar con todos los videos de los 4 devices per scene, debe cambiarse el nombre
 %correspondiente del .mat que contiene the C3D features
 
-Stabilization   =0;
+Stabilization   =1;
 Focus           =0;
-Artifacts       =1;
+Artifacts       =0;
 Sharpness       =0;
 Exposure        =0;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+commonName_DataMat='DATA_Conv5b_Advance8_RGB_';
+commonName_MOSMat = 'MOS_Conv5b_Advance8_RGB_';
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
 
@@ -45,10 +54,10 @@ for iteration=1:Number_Iterations
     TrainingMOS_50FeaturesPerVideo=[];
     TestMOS_50FeaturesPerVideo =[];
     if Stabilization ==1
-        [Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,...
-            Test_MOS_Stabilization] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Stabilization.mat',...
-            'MOS_fc6_Overlap8_YCbCr_Stabilization.mat',VideosTraining_PerDistortion);
+        
+        [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
+            divide_videos_randomly(strcat(commonName_DataMat,'Stabilization.mat'),strcat(commonName_MOSMat,'Stabilization.mat'),...
+            VideosTraining_PerDistortion);
         
         %En estos ciclos for es que se extraen cada una de las caracteristicas de los videos de
         %entrenamiento seleccionados y se forma una solo matriz con ellas, que se une a la matriz de
@@ -84,8 +93,8 @@ for iteration=1:Number_Iterations
     %Focus
     if Focus ==1
         [ Training_Data_Focus,Test_Data_Focus,Training_MOS_Focus,Test_MOS_Focus] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_focus.mat',...
-            'MOS_fc6_Overlap8_YCbCr_focus.mat',VideosTraining_PerDistortion);
+            divide_videos_randomly(strcat(commonName_DataMat,'Focus.mat'),strcat(commonName_MOSMat,'Focus.mat'),...
+         VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Focus,1)
             indice= 1+(50*(i-1));
@@ -119,8 +128,8 @@ for iteration=1:Number_Iterations
     
     if Artifacts ==1
         [ Training_Data_Artifacts,Test_Data_Artifacts,Training_MOS_Artifacts,Test_MOS_Artifacts] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Artifacts.mat',...
-            'MOS_fc6_Overlap8_YCbCr_Artifacts.mat',VideosTraining_PerDistortion);
+             divide_videos_randomly(strcat(commonName_DataMat,'Artifacts.mat'),strcat(commonName_MOSMat,'Artifacts.mat'),...
+         VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Artifacts,1)
             indice= 1+(50*(i-1));
@@ -155,9 +164,10 @@ for iteration=1:Number_Iterations
     %Sharpness
     
     if Sharpness ==1
-        [ Training_Data_Sharpness,Test_Data_Sharpness,Training_MOS_Sharpness,Test_MOS_Sharpness] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat',...
-            'MOS_fc6_Overlap8_YCbCr_Sharpness.mat',VideosTraining_PerDistortion);
+       [ Training_Data_Sharpness,Test_Data_Sharpness,Training_MOS_Sharpness,Test_MOS_Sharpness] = ...
+            divide_videos_randomly(strcat(commonName_DataMat,'Sharpness.mat'),........
+            strcat(commonName_MOSMat,'Sharpness.mat'),...
+         VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Sharpness,1)
             indice= 1+(50*(i-1));
@@ -192,9 +202,10 @@ for iteration=1:Number_Iterations
     %Exposure
     
     if Exposure ==1
-        [ Training_Data_Exposure,Test_Data_Exposure,Training_MOS_Exposure,Test_MOS_Exposure] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat',...
-            'MOS_fc6_Overlap8_YCbCr_Sharpness.mat',VideosTraining_PerDistortion);
+     [ Training_Data_Exposure,Test_Data_Exposure,Training_MOS_Exposure,Test_MOS_Exposure] = ...
+        divide_videos_randomly(strcat(commonName_DataMat,'Exposure.mat'),...
+        strcat(commonName_MOSMat,'Exposure.mat'),...
+         VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Exposure,1)
             indice= 1+(50*(i-1));
@@ -227,9 +238,9 @@ for iteration=1:Number_Iterations
     
     %Color
     if Color ==1
-        [ Training_Data_Color,Test_Data_Color,Training_MOS_Color,Test_MOS_Color] = ...
-            divide_videos_randomly('DATA_fc6_Overlap8_YCbCr_Sharpness.mat',...
-            'MOS_fc6_Overlap8_YCbCr_Sharpness.mat',VideosTraining_PerDistortion);
+       [ Training_Data_Color,Test_Data_Color,Training_MOS_Color,Test_MOS_Color] = ...
+            divide_videos_randomly(strcat(commonName_DataMat,'Color.mat'),strcat(commonName_MOSMat,'Color.mat'),...
+         VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Color,1)
             indice= 1+(50*(i-1));
@@ -288,7 +299,3 @@ fprintf('Pearson = %.4f +- %.4f\nSpearman = %.4f +- %.4f\n',...
 toc
 
 
-
-%  Exposure
-
-%Color

@@ -19,7 +19,6 @@ clear all;
 addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
 
 
-addpat('
 addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0

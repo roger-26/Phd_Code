@@ -22,10 +22,11 @@ File       = fullfile(FolderName, FileName);
 load(File);   %
 MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 
-Number_Videos=208;
+Number_Videos=208;%Esto es el numero de indices de la base de datos en los que busca para ver si hay 
+%coincidencia en el nombre con los videos de la carpeta. 
 
-Name_To_Save_Data= 'Conv5b_Advance16Frames_RGB_Stabilization';
-Number_Of_Features_PerVideo=25
+Name_To_Save_Data= 'fc6_Advance8Frames_MSCN_Stabilization';
+Number_Of_Features_PerVideo=50
 
 
 rows_data=1;
