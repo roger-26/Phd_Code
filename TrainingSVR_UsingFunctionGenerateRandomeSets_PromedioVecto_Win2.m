@@ -24,11 +24,11 @@ VideosTraining_PerDistortion= 28; %el número de videos que se usara para Trainin
 
 
 Stabilization   =1;
-Focus           =0;
-Artifacts       =0;
-Sharpness       =0;
-Exposure        =0;
-Color           =0;
+Focus           =1;
+Artifacts       =1;
+Sharpness       =1;
+Exposure        =1;
+Color           =1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.

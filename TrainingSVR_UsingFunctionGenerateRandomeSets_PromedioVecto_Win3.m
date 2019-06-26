@@ -14,7 +14,8 @@ clear all;
 %tiene todos los videos ya anteriormente conseguidos.
 
 %Añadiendo a la ruta la carpeta donde se encuentran los datos
-addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
+addpath...
+('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
 addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -23,10 +24,10 @@ Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el número de videos que se usara para Training por cada distorsion
 
 
-Stabilization   =1;
+Stabilization   =0;
 Focus           =0;
 Artifacts       =0;
-Sharpness       =0;
+Sharpness       =1;
 Exposure        =0;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

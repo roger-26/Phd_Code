@@ -16,13 +16,15 @@ clear all;
 
 FileName   = 'qualcommSubjectiveData.mat';
 FolderName = 'C:\Dropbox\Javeriana\current_work';
+% FolderName = 'C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Artifacts';
+
 File       = fullfile(FolderName, FileName);
 load(File);   %
 MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 
 Number_Videos=208;
 
-Name_To_Save_Data= 'fc6_Overlap8_YCbCr_Stabilization_UniqueScene';
+Name_To_Save_Data= 'Conv5b_Advance8_RGB_Focus';
 rows_data=1;
 %para leer todos los archivos .mat de la carpeta
 mat = dir('*.mat');
