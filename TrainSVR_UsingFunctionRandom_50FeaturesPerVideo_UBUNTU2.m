@@ -42,8 +42,8 @@ Color           =1;
 
 
 
-commonName_DataMat='DATA_Conv5b_Advance8_RGB_';
-commonName_MOSMat = 'MOS_Conv5b_Advance8_RGB_';
+commonName_DataMat='DATA_fc6_Advance8Frames_MSCN_';
+commonName_MOSMat = 'MOS_fc6_Advance8Frames_MSCN_';
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
 
