@@ -20,6 +20,7 @@ addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_MSCN\Features_Per_Distorti
 
 
 addpath('C:\Dropbox\git');
+% addpath('/home/javeriana/roger_gomez/Phd_Code/');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
