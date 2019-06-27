@@ -15,8 +15,8 @@ clear all;
 
 %A�adiendo a la ruta la carpeta donde se encuentran los datos
 % addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
-% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
-addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
+addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_MSCN\Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_8Frames');
+% addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
 
 
 addpath('C:\Dropbox\git');
@@ -35,8 +35,8 @@ Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
-commonName_DataMat='DATA_Conv5b_Advance8_RGB_';
-commonName_MOSMat = 'MOS_Conv5b_Advance8_RGB_';
+commonName_DataMat='DATA_fc6_Advance8Frames_MSCN_';
+commonName_MOSMat = 'MOS_fc6_Advance8Frames_MSCN_';
 for iteration=1:Number_Iterations
     %Stabilization
     tic
