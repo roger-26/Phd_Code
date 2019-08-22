@@ -15,31 +15,29 @@ clear all;
 
 %A�adiendo a la ruta la carpeta donde se encuentran los datos
 % addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
-addpath...
-('C:\Dropbox\Ubuntu\Features_fc6_Avance16Frames_YCbCr\Features_PerDistortion_YCbCr16Frames_1Matrix');
-
-% addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
+% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_MSCN\Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_8Frames');
+addpath('/home/javeriana/Dropbox/Ubuntu/Features_fc6_Avance8Frames_MSCN/Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_8Frames/');
 
 
-addpath('C:\Dropbox\git');
-% addpath('/home/javeriana/roger_gomez/Phd_Code/');
+% addpath('C:\Dropbox\git');
+addpath('/home/javeriana/roger_gomez/Phd_Code/');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el n�mero de videos que se usara para Training por cada distorsion
 
 
-Stabilization   =1;
-Focus           =1;
-Artifacts       =1;
-Sharpness       =1;
-Exposure        =1;
+Stabilization   =0;
+Focus           =0;
+Artifacts       =0;
+Sharpness       =0;
+Exposure        =0;
 Color           =1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
-commonName_DataMat='DATA_fc6_Advance16Frames_YCbCr_';
-commonName_MOSMat = 'MOS_fc6_Advance16Frames_YCbCr_';
+commonName_DataMat='DATA_fc6_Advance8Frames_MSCN_';
+commonName_MOSMat = 'MOS_fc6_Advance8Frames_MSCN_';
 for iteration=1:Number_Iterations
     %Stabilization
     tic
@@ -49,8 +47,7 @@ for iteration=1:Number_Iterations
     TestMOS_AveragedFeaturesPerVideo =[];
     if Stabilization ==1
         [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
-         divide_videos_randomly(strcat(commonName_DataMat,'Stabilization.mat'),...
-         strcat(commonName_MOSMat,'Stabilization.mat'),...
+         divide_videos_randomly(strcat(commonName_DataMat,'Stabilization.mat'),strcat(commonName_MOSMat,'Stabilization.mat'),...
          VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
@@ -101,8 +98,7 @@ for iteration=1:Number_Iterations
     
     if Artifacts ==1
         [ Training_Data_Artifacts,Test_Data_Artifacts,Training_MOS_Artifacts,Test_MOS_Artifacts] = ...
-             divide_videos_randomly(strcat(commonName_DataMat,'Artifacts.mat'),...
-             strcat(commonName_MOSMat,'Artifacts.mat'),...
+             divide_videos_randomly(strcat(commonName_DataMat,'Artifacts.mat'),strcat(commonName_MOSMat,'Artifacts.mat'),...
          VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
@@ -213,13 +209,11 @@ for iteration=1:Number_Iterations
     
     %% TRAINING SVR
     %tiene configuracion ya para no mostrar la grafica luego de cada iteration 'Showplots' false
-    Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',...
-        false,...
+    Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',false,...
         'OptimizeHyperparameters',...
         {'BoxConstraint', 'Epsilon', 'KernelFunction'},...
         'CacheSize','maximal',...
-        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,...
-        'ShowPlots',false));
+        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,'ShowPlots',false));
     if Test_Same_Training== 1
         %To test with all distortions
         TestData_AveragedFeaturesPerVideo=TrainingData_AveragedFeaturesPerVideo;

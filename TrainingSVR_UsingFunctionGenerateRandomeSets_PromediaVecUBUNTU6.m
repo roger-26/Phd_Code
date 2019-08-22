@@ -14,9 +14,12 @@ clear all;
 %tiene todos los videos ya anteriormente conseguidos.
 
 %A�adiendo a la ruta la carpeta donde se encuentran los datos
-% addpath...
-% ('C:\Dropbox\Ubuntu\Conv5b_Features_Avance16frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB_16Frames');
-addpath('/home/javeriana/Dropbox/Ubuntu/Conv5b_Features_Avance16frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB_16Frames/');
+% addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
+% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_MSCN\Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_8Frames');
+addpath('/home/javeriana/Dropbox/Ubuntu/Features_fc6_Avance8Frames_MSCN/Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_8Frames/');
+
+
+% addpath('C:\Dropbox\git');
 addpath('/home/javeriana/roger_gomez/Phd_Code/');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
@@ -27,14 +30,14 @@ VideosTraining_PerDistortion= 28; %el n�mero de videos que se usara para Train
 Stabilization   =0;
 Focus           =0;
 Artifacts       =0;
-Sharpness       =0;
-Exposure        =1;
+Sharpness       =1;
+Exposure        =0;
 Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
-commonName_DataMat='DATA_Conv5b_Advance16Frames_RGB_';
-commonName_MOSMat = 'MOS_Conv5b_Advance16Frames_RGB_';
+commonName_DataMat='DATA_fc6_Advance8Frames_MSCN_';
+commonName_MOSMat = 'MOS_fc6_Advance8Frames_MSCN_';
 for iteration=1:Number_Iterations
     %Stabilization
     tic
@@ -123,7 +126,8 @@ for iteration=1:Number_Iterations
     
     if Sharpness ==1
         [ Training_Data_Sharpness,Test_Data_Sharpness,Training_MOS_Sharpness,Test_MOS_Sharpness] = ...
-            divide_videos_randomly(strcat(commonName_DataMat,'Sharpness.mat'),strcat(commonName_MOSMat,'Sharpness.mat'),...
+            divide_videos_randomly(strcat(commonName_DataMat,'Sharpness.mat'),........
+            strcat(commonName_MOSMat,'Sharpness.mat'),...
          VideosTraining_PerDistortion);
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -151,7 +155,8 @@ for iteration=1:Number_Iterations
     
     if Exposure ==1
         [ Training_Data_Exposure,Test_Data_Exposure,Training_MOS_Exposure,Test_MOS_Exposure] = ...
-             divide_videos_randomly(strcat(commonName_DataMat,'Exposure.mat'),strcat(commonName_MOSMat,'Exposure.mat'),...
+        divide_videos_randomly(strcat(commonName_DataMat,'Exposure.mat'),...
+        strcat(commonName_MOSMat,'Exposure.mat'),...
          VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature

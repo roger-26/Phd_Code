@@ -36,8 +36,8 @@ Stabilization   =0;
 Focus           =0;
 Artifacts       =0;
 Sharpness       =0;
-Exposure        =0;
-Color           =1;
+Exposure        =1;
+Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

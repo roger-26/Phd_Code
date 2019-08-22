@@ -2,32 +2,32 @@ clc;
 close all;
 clear all;
 
-%Este código entrena un SVR con los videos de QUALCOMM-LIVE dataset. Usamos una función que
-%previamente genera y ordena cada uno de los videos por distorsión, de manera aleatoria dejando 28
+%Este cï¿½digo entrena un SVR con los videos de QUALCOMM-LIVE dataset. Usamos una funciï¿½n que
+%previamente genera y ordena cada uno de los videos por distorsiï¿½n, de manera aleatoria dejando 28
 %videos para entrenamiento y el resto para prueba. Esto se ejecuta en cada una de las iteracciones
 %del servidor. No se guardan archivos .mat, solo se leen los que se tienen guardados con las
-%caracteristicas extraidas de C3D. Se pueden activar o desactivar distorsiones en los parámetros de
+%caracteristicas extraidas de C3D. Se pueden activar o desactivar distorsiones en los parï¿½metros de
 %entrada, si se quiere desactivar se le coloca un cero. Si se quiere probar el funcionamiento del
 %regresor, se le puede ingresar como conjunto de prueba el mismo conjunto de entrenamiento, esto se
 %hace colocando en 1 Test_Same_training. La matriz de entrenamiento se va haciendo grande a medida
 %que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
 %tiene todos los videos ya anteriormente conseguidos.
 
-%ESTE NO CALCULA EL PROMEDIO, USA TODAS LAS CARACTERÍSTICAS
+%ESTE NO CALCULA EL PROMEDIO, USA TODAS LAS CARACTERï¿½STICAS
 
-%Añadiendo a la ruta la carpeta donde se encuentran los datos
+%Aï¿½adiendo a la ruta la carpeta donde se encuentran los datos
 
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
 % addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
-addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
+addpath('/home/javeriana/Dropbox/Ubuntu/Features_fc6_Avance8Frames_MSCN/Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_8Frames/');
 
 addpath('/home/javeriana/roger_gomez/Phd_Code/');
 % addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
-VideosTraining_PerDistortion= 28; %el número de videos que se usara para Training por cada distorsion
+VideosTraining_PerDistortion= 28; %el nï¿½mero de videos que se usara para Training por cada distorsion
 
 %Si se quiere entrenar con todos los videos de los 4 devices per scene, debe cambiarse el nombre
 %correspondiente del .mat que contiene the C3D features
