@@ -28,12 +28,12 @@ Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el n�mero de videos que se usara para Training por cada distorsion
 
 
-Stabilization   =1;
-Focus           =1;
-Artifacts       =1;
-Sharpness       =1;
+Stabilization   =0;
+Focus           =0;
+Artifacts       =0;
+Sharpness       =0;
 Exposure        =1;
-Color           =1;
+Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.

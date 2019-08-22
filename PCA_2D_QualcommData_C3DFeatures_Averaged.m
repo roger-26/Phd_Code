@@ -2,30 +2,28 @@ clc;
 close all;
 clear all;
 
-%Este cï¿½digo entrena un SVR con los videos de QUALCOMM-LIVE dataset. Usamos una funciï¿½n que
-%previamente genera y ordena cada uno de los videos por distorsiï¿½n, de manera aleatoria dejando 28
-%videos para entrenamiento y el resto para prueba. Esto se ejecuta en cada una de las iteracciones
-%del servidor. No se guardan archivos .mat, solo se leen los que se tienen guardados con las
-%caracteristicas extraidas de C3D. Se pueden activar o desactivar distorsiones en los parï¿½metros de
-%entrada, si se quiere desactivar se le coloca un cero. Si se quiere probar el funcionamiento del
-%regresor, se le puede ingresar como conjunto de prueba el mismo conjunto de entrenamiento, esto se
-%hace colocando en 1 Test_Same_training. La matriz de entrenamiento se va haciendo grande a medida
-%que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
-%tiene todos los videos ya anteriormente conseguidos.
+%Author Roger Gomez Nieto
+% Date   June 27 - 2019
 
-%Aï¿½adiendo a la ruta la carpeta donde se encuentran los datos
-% addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
+%This code calculates the PCA of set of C3D Features for LIVE QUalcomm Dataset
+
+
+%Se debe añadir la ruta de la carpeta donde estan las caracteristicas guardadas. estas se generan
+%con la funcion AssignMOS_EachFeatureVector_Create3DArray. QUeda una matriz para DATA y otra para
+%los MOS. Aunque las de los MOS no se usa para el PCA
+
+
+% addpath...
+%     ('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 addpath...
-('C:\Dropbox\Ubuntu\Features_fc6_Avance16Frames_YCbCr\Features_PerDistortion_YCbCr16Frames_1Matrix');
+    ('C:\Dropbox\Ubuntu\Features_fc6_Avance16Frames_YCbCr\Features_PerDistortion_YCbCr16Frames_1Matrix');
 
 % addpath('/home/javeriana/Dropbox/Ubuntu/Features_conv5b_Avance8Frames/Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB/');
 
 
 addpath('C:\Dropbox\git');
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Test_Same_Training= 0
-Number_Iterations=100;
-VideosTraining_PerDistortion= 28; %el nï¿½mero de videos que se usara para Training por cada distorsion
+
 
 
 Stabilization   =1;
@@ -34,12 +32,22 @@ Artifacts       =1;
 Sharpness       =1;
 Exposure        =1;
 Color           =1;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-tic
+VideosTraining_PerDistortion=28;
+%Cuales dimensiones del PCA se van a mostrar
+dimension1=1;
+dimension2=2;
+% cuantas componentes de PCA se van a calcular
+Number_Of_Components=2;
 %Obteniendo los conjuntos de training and test for all distortions.
 commonName_DataMat='DATA_fc6_Advance16Frames_YCbCr_';
 commonName_MOSMat = 'MOS_fc6_Advance16Frames_YCbCr_';
-for iteration=1:Number_Iterations
+
+%_fc6_Advance16Frames_YCbCr_
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Number_Of_Videos=0;
+
     %Stabilization
     tic
     TrainingData_AveragedFeaturesPerVideo=[];
@@ -48,9 +56,9 @@ for iteration=1:Number_Iterations
     TestMOS_AveragedFeaturesPerVideo =[];
     if Stabilization ==1
         [ Training_Data_Stabilization,Test_Data_Stabilization,Training_MOS_Stabilization,Test_MOS_Stabilization] = ...
-         divide_videos_randomly(strcat(commonName_DataMat,'Stabilization.mat'),...
-         strcat(commonName_MOSMat,'Stabilization.mat'),...
-         VideosTraining_PerDistortion);
+            divide_videos_randomly(strcat(commonName_DataMat,'Stabilization.mat'),...
+            strcat(commonName_MOSMat,'Stabilization.mat'),...
+            VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -68,12 +76,22 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [Test_MOS_Stabilization];
+        
+        %Esta es la parte que genera las etiquetas, dandole un numero segun la distorsion
+        %Stabilization le de un 1 y de ahi para abajo incrementalmente
+        
+        % El vector limites tiene el numero de videos por distorsion. Se usa para graficar cada una
+        % de las componentes PCA
+        PCA_Data= [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        Number_Of_Videos=size(PCA_Data,1)+Number_Of_Videos;
+        Limites(1) = Number_Of_Videos;
+        Labels(1:Number_Of_Videos,1)=1;
     end
     %Focus
     if Focus ==1
         [ Training_Data_Focus,Test_Data_Focus,Training_MOS_Focus,Test_MOS_Focus] = ...
             divide_videos_randomly(strcat(commonName_DataMat,'Focus.mat'),strcat(commonName_MOSMat,'Focus.mat'),...
-         VideosTraining_PerDistortion);
+            VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -94,15 +112,22 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Focus];
+        
+        
+        PCA_Data= [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        Labels(Number_Of_Videos+1:size(PCA_Data,1),1)=2;
+        Number_Of_Videos=size(PCA_Data,1);
+        Limites(2) = Number_Of_Videos;
+        
     end
     
     %artifacts
     
     if Artifacts ==1
         [ Training_Data_Artifacts,Test_Data_Artifacts,Training_MOS_Artifacts,Test_MOS_Artifacts] = ...
-             divide_videos_randomly(strcat(commonName_DataMat,'Artifacts.mat'),...
-             strcat(commonName_MOSMat,'Artifacts.mat'),...
-         VideosTraining_PerDistortion);
+            divide_videos_randomly(strcat(commonName_DataMat,'Artifacts.mat'),...
+            strcat(commonName_MOSMat,'Artifacts.mat'),...
+            VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -123,6 +148,11 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Artifacts];
+        
+        PCA_Data= [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        Labels(Number_Of_Videos+1:size(PCA_Data,1),1)=3;
+        Number_Of_Videos=size(PCA_Data,1);
+        Limites(3) = Number_Of_Videos;
     end
     
     %Sharpness
@@ -131,7 +161,7 @@ for iteration=1:Number_Iterations
         [ Training_Data_Sharpness,Test_Data_Sharpness,Training_MOS_Sharpness,Test_MOS_Sharpness] = ...
             divide_videos_randomly(strcat(commonName_DataMat,'Sharpness.mat'),........
             strcat(commonName_MOSMat,'Sharpness.mat'),...
-         VideosTraining_PerDistortion);
+            VideosTraining_PerDistortion);
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
         Training_Data_Sharpness_Averaged= squeeze(mean(Training_Data_Sharpness,2));
@@ -151,6 +181,11 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Sharpness];
+        
+  PCA_Data= [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        Labels(Number_Of_Videos+1:size(PCA_Data,1),1)=4;
+        Number_Of_Videos=size(PCA_Data,1);
+        Limites(4) = Number_Of_Videos;
     end
     
     
@@ -158,9 +193,9 @@ for iteration=1:Number_Iterations
     
     if Exposure ==1
         [ Training_Data_Exposure,Test_Data_Exposure,Training_MOS_Exposure,Test_MOS_Exposure] = ...
-        divide_videos_randomly(strcat(commonName_DataMat,'Exposure.mat'),...
-        strcat(commonName_MOSMat,'Exposure.mat'),...
-         VideosTraining_PerDistortion);
+            divide_videos_randomly(strcat(commonName_DataMat,'Exposure.mat'),...
+            strcat(commonName_MOSMat,'Exposure.mat'),...
+            VideosTraining_PerDistortion);
         
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
@@ -181,6 +216,11 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Exposure];
+        
+        PCA_Data= [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        Labels(Number_Of_Videos+1:size(PCA_Data,1),1)=5;
+        Number_Of_Videos=size(PCA_Data,1);
+        Limites(5) = Number_Of_Videos;
     end
     
     
@@ -188,7 +228,7 @@ for iteration=1:Number_Iterations
     if Color ==1
         [ Training_Data_Color,Test_Data_Color,Training_MOS_Color,Test_MOS_Color] = ...
             divide_videos_randomly(strcat(commonName_DataMat,'Color.mat'),strcat(commonName_MOSMat,'Color.mat'),...
-         VideosTraining_PerDistortion);
+            VideosTraining_PerDistortion);
         %Obteniendo el valor promedio para un video, Se promedian los 50 valores y queda un solo feature
         %vector per video.
         Training_Data_Color_Averaged= squeeze(mean(Training_Data_Color,2));
@@ -208,39 +248,63 @@ for iteration=1:Number_Iterations
         
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Color];
+        
+        PCA_Data= [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        Labels(Number_Of_Videos+1:size(PCA_Data,1),1)=6;
+        Number_Of_Videos=size(PCA_Data,1);
+        Limites(6) = Number_Of_Videos;
     end
     
-    %% TRAINING SVR
-    %tiene configuracion ya para no mostrar la grafica luego de cada iteration 'Showplots' false
-    Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',...
-        false,...
-        'OptimizeHyperparameters',...
-        {'BoxConstraint', 'Epsilon', 'KernelFunction'},...
-        'CacheSize','maximal',...
-        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,...
-        'ShowPlots',false));
-    if Test_Same_Training== 1
-        %To test with all distortions
-        TestData_AveragedFeaturesPerVideo=TrainingData_AveragedFeaturesPerVideo;
-        TestMOS_AveragedFeaturesPerVideo= TrainingMOS_AveragedFeaturesPerVideo;
-    end
     
-    yfit= predict(Mdl,TestData_AveragedFeaturesPerVideo);
     
-    R = corrcoef(yfit,TestMOS_AveragedFeaturesPerVideo);
-    Pearson(iteration)=R(1,2)
-    Spearman(iteration)=corr(yfit,TestMOS_AveragedFeaturesPerVideo,'Type','Spearman')
-    iteration;
-    fprintf('Iteration %d\n',iteration);
-    toc
-end
+    
+    
+%% calculating PCA
+close all
+%Aqui se puede definir el numero de componentes PCA que se van a calcular
+
+
+disp('calculating PCA');
+[coeff,score,latent,tsquared,explained] = pca(PCA_Data,'NumComponents',Number_Of_Components);
+
+
+
+%Plotting Stabilization
+figure
+scatter(score(1:Limites(1),dimension1),score(1:Limites(1),dimension2),'MarkerFaceColor',[1 1 0])
+
+h=xlabel('1st Principal Component') %or h=get(gca,'xlabel')
+set(h, 'FontSize', 20) 
+h=ylabel('2nd Principal Component') %or h=get(gca,'xlabel')
+set(h, 'FontSize', 20) 
+axis equal
+hold on
+grid on
+%plotting focus
+scatter(score(Limites(1)+1:Limites(2),dimension1),score(Limites(1)+1:Limites(2),dimension2),...
+    'MarkerFaceColor',[0 0 1])
+%plotting Artifacts
+scatter(score(Limites(2)+1:Limites(3),dimension1),score(Limites(2)+1:Limites(3),dimension2),...
+    'MarkerFaceColor',[1 0 0])
+
+%plotting Sharpness
+scatter(score(Limites(3)+1:Limites(4),dimension1),score(Limites(3)+1:Limites(4),dimension2),...
+    'MarkerFaceColor',[ 0.9412    0.0745    0.7098])
+
+%plotting Exposure
+scatter(score(Limites(4)+1:Limites(5),dimension1),score(Limites(4)+1:Limites(5),dimension2),...
+    'MarkerFaceColor',[0 .5 .5])
+
+
+%plotting Color
+scatter(score(Limites(5)+1:Limites(6),dimension1),score(Limites(5)+1:Limites(6),dimension2),...
+    'MarkerFaceColor',[0 1 1])
+
+
+title (['PCA 2D (dimensions= ',num2str(dimension1),', ',num2str(dimension2),') fc6 YCbCr 16 Frames Averaged'],'FontSize',22);
+lgd=legend({'Stabilization', 'Focus','Artifacts', 'Sharpness', 'Exposure', 'Color'})
+lgd.FontSize = 20;
+
 toc
-fprintf('Pearson = %.4f +- %.4f\nSpearman = %.4f +- %.4f\n',...
-    nanmedian(Spearman),nanstd(Spearman),nanmedian(Pearson),nanstd(Pearson));
-toc
 
 
-
-%  Exposure
-
-%Color

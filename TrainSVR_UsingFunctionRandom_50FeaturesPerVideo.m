@@ -19,30 +19,31 @@ clear all;
 
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
-addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
-
+addpath...
+('C:\Dropbox\Ubuntu\Features_fc6_Avance16Frames_YCbCr\Features_PerDistortion_YCbCr16Frames_1Matrix');
 
 addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el número de videos que se usara para Training por cada distorsion
+Number_FeatureVectors_PerVideo=25
 
 %Si se quiere entrenar con todos los videos de los 4 devices per scene, debe cambiarse el nombre
 %correspondiente del .mat que contiene the C3D features
 
 Stabilization   =1;
-Focus           =0;
-Artifacts       =0;
-Sharpness       =0;
-Exposure        =0;
-Color           =0;
+Focus           =1;
+Artifacts       =1;
+Sharpness       =1;
+Exposure        =1;
+Color           =1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-commonName_DataMat='DATA_Conv5b_Advance8_RGB_';
-commonName_MOSMat = 'MOS_Conv5b_Advance8_RGB_';
+commonName_DataMat='DATA_fc6_Advance16Frames_YCbCr_';
+commonName_MOSMat = 'MOS_fc6_Advance16Frames_YCbCr_';
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
 
@@ -65,17 +66,17 @@ for iteration=1:Number_Iterations
         %de esta
         %manera todas las C3D feature vector de un mismo video van a tener el mismo MOS.
         for i=1:size(Training_Data_Stabilization,1)
-            indice= 1+(50*(i-1));
-            Training_Data_Stabilization_50Vectors(indice:indice+49,:)=...
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Training_Data_Stabilization_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=...
                 squeeze(Training_Data_Stabilization(i,:,:));
-            Training_MOS_Stabilization_50Vectors(indice:indice+49,1)=Training_MOS_Stabilization(i);
+            Training_MOS_Stabilization_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Training_MOS_Stabilization(i);
         end
         
         for i=1:size(Test_Data_Stabilization,1)
-            indice= 1+(50*(i-1));
-            Test_Data_Stabilization_50Vectors(indice:indice+49,:)=...
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Test_Data_Stabilization_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=...
                 squeeze(Test_Data_Stabilization(i,:,:));
-            Test_MOS_Stabilization_50Vectors(indice:indice+49,1)=Test_MOS_Stabilization(i);
+            Test_MOS_Stabilization_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Test_MOS_Stabilization(i);
         end
         
         TrainingData_50FeaturesPerVideo =...
@@ -97,15 +98,15 @@ for iteration=1:Number_Iterations
          VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Focus,1)
-            indice= 1+(50*(i-1));
-            Training_Data_Focus_50Vectors(indice:indice+49,:)=squeeze(Training_Data_Focus(i,:,:));
-            Training_MOS_Focus_50Vectors(indice:indice+49,1)=Training_MOS_Focus(i);
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Training_Data_Focus_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=squeeze(Training_Data_Focus(i,:,:));
+            Training_MOS_Focus_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Training_MOS_Focus(i);
         end
         
         for i=1:size(Test_Data_Focus,1)
-            indice= 1+(50*(i-1));
-            Test_Data_Focus_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Focus(i,:,:));
-            Test_MOS_Focus_50Vectors(indice:indice+49,1)=Test_MOS_Focus(i);
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Test_Data_Focus_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=squeeze(Test_Data_Focus(i,:,:));
+            Test_MOS_Focus_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Test_MOS_Focus(i);
         end
         
         
@@ -132,16 +133,16 @@ for iteration=1:Number_Iterations
          VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Artifacts,1)
-            indice= 1+(50*(i-1));
-            Training_Data_Artifacts_50Vectors(indice:indice+49,:)=...
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Training_Data_Artifacts_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=...
                 squeeze(Training_Data_Artifacts(i,:,:));
-            Training_MOS_Artifacts_50Vectors(indice:indice+49,1)=Training_MOS_Artifacts(i);
+            Training_MOS_Artifacts_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Training_MOS_Artifacts(i);
         end
         
         for i=1:size(Test_Data_Artifacts,1)
-            indice= 1+(50*(i-1));
-            Test_Data_Artifacts_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Artifacts(i,:,:));
-            Test_MOS_Artifacts_50Vectors(indice:indice+49,1)=Test_MOS_Artifacts(i);
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Test_Data_Artifacts_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=squeeze(Test_Data_Artifacts(i,:,:));
+            Test_MOS_Artifacts_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Test_MOS_Artifacts(i);
         end
         
         
@@ -170,16 +171,16 @@ for iteration=1:Number_Iterations
          VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Sharpness,1)
-            indice= 1+(50*(i-1));
-            Training_Data_Sharpness_50Vectors(indice:indice+49,:)=...
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Training_Data_Sharpness_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=...
                 squeeze(Training_Data_Sharpness(i,:,:));
-            Training_MOS_Sharpness_50Vectors(indice:indice+49,1)=Training_MOS_Sharpness(i);
+            Training_MOS_Sharpness_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Training_MOS_Sharpness(i);
         end
         
         for i=1:size(Test_Data_Sharpness,1)
-            indice= 1+(50*(i-1));
-            Test_Data_Sharpness_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Sharpness(i,:,:));
-            Test_MOS_Sharpness_50Vectors(indice:indice+49,1)=Test_MOS_Sharpness(i);
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Test_Data_Sharpness_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=squeeze(Test_Data_Sharpness(i,:,:));
+            Test_MOS_Sharpness_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Test_MOS_Sharpness(i);
         end
         
         
@@ -208,16 +209,16 @@ for iteration=1:Number_Iterations
          VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Exposure,1)
-            indice= 1+(50*(i-1));
-            Training_Data_Exposure_50Vectors(indice:indice+49,:)=...
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Training_Data_Exposure_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=...
                 squeeze(Training_Data_Exposure(i,:,:));
-            Training_MOS_Exposure_50Vectors(indice:indice+49,1)=Training_MOS_Exposure(i);
+            Training_MOS_Exposure_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Training_MOS_Exposure(i);
         end
         
         for i=1:size(Test_Data_Exposure,1)
-            indice= 1+(50*(i-1));
-            Test_Data_Exposure_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Exposure(i,:,:));
-            Test_MOS_Exposure_50Vectors(indice:indice+49,1)=Test_MOS_Exposure(i);
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Test_Data_Exposure_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=squeeze(Test_Data_Exposure(i,:,:));
+            Test_MOS_Exposure_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Test_MOS_Exposure(i);
         end
         
         
@@ -243,16 +244,16 @@ for iteration=1:Number_Iterations
          VideosTraining_PerDistortion);
         
         for i=1:size(Training_Data_Color,1)
-            indice= 1+(50*(i-1));
-            Training_Data_Color_50Vectors(indice:indice+49,:)=...
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Training_Data_Color_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=...
                 squeeze(Training_Data_Color(i,:,:));
-            Training_MOS_Color_50Vectors(indice:indice+49,1)=Training_MOS_Color(i);
+            Training_MOS_Color_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Training_MOS_Color(i);
         end
         
         for i=1:size(Test_Data_Color,1)
-            indice= 1+(50*(i-1));
-            Test_Data_Color_50Vectors(indice:indice+49,:)=squeeze(Test_Data_Color(i,:,:));
-            Test_MOS_Color_50Vectors(indice:indice+49,1)=Test_MOS_Color(i);
+            indice= 1+(Number_FeatureVectors_PerVideo*(i-1));
+            Test_Data_Color_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),:)=squeeze(Test_Data_Color(i,:,:));
+            Test_MOS_Color_50Vectors(indice:indice+(Number_FeatureVectors_PerVideo-1),1)=Test_MOS_Color(i);
         end
         
         

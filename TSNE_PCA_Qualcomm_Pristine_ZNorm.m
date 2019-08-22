@@ -13,6 +13,10 @@ clear all;
 
 % name_MAT_file_data_total='Features_C3D_Qualcomm_averaged_AllDistortions.mat';
 
+
+addpath('C:\Dropbox\Javeriana\current_work\Features_fc6_QualcommDataset_AVIUncompressed\fc6_Onemat_PerDistortion_ZNorm');
+
+
 name_MAT_file_data_total='fc6_Qualcomm_and_Pristine_AllVideos_NoAverage_ZNorm.mat';
 file_labels='labels_fc6_Qualcomm_and_Pristine_AllVideos_NoAverage_ZNorm.mat';
 
@@ -40,17 +44,17 @@ X=train_X.All_data;
 labels=train_labels.labels;
 % Set parameters
 %% TSNE
-disp('calculating TSNE');
-% Run tSNE
-mappedX = tsne(X,'Algorithm','exact','NumDimensions', no_dims,'NumPCAComponents',...
-    initial_dims,'Perplexity', perplexity,'NumPrint',5);
-% Plot results
-gscatter(mappedX(:,1), mappedX(:,2), labels);
-title (['tsne fc6 Qualcomm and pristine Videos with perplexity=',num2str(perplexity),...
-    ' PCA =',num2str(initial_dims)],'FontSize',22);
-lgd=legend({'Pristine', 'Artifacts', 'Color','Exposure','Focus','Sharpness','Stabilization'})
-lgd.FontSize = 24;
-grid minor
+% disp('calculating TSNE');
+% % Run tSNE
+% mappedX = tsne(X,'Algorithm','exact','NumDimensions', no_dims,'NumPCAComponents',...
+%     initial_dims,'Perplexity', perplexity,'NumPrint',5);
+% % Plot results
+% gscatter(mappedX(:,1), mappedX(:,2), labels);
+% title (['tsne fc6 Qualcomm and pristine Videos with perplexity=',num2str(perplexity),...
+%     ' PCA =',num2str(initial_dims)],'FontSize',22);
+% lgd=legend({'Pristine', 'Artifacts', 'Color','Exposure','Focus','Sharpness','Stabilization'})
+% lgd.FontSize = 24;
+% grid minor
 
 %% PCA 3D, all classes
 disp('calculating PCA 3D');
@@ -119,6 +123,8 @@ acumulado=acumulado+limite_clase2
 scatter(score(acumulado+1:acumulado+limite_clase3,1),score(acumulado+1:acumulado+limite_clase3,2),...
     'MarkerFaceColor',[.75 0 .25])
 acumulado=acumulado+limite_clase3
+%Aqui es donde se escoge el color para cada una de las clases, especificando la posición que tiene
+%en el arreglo. 
 scatter(score(acumulado+1:acumulado+limite_clase4,1),score(acumulado+1:acumulado+limite_clase4,2),...
     'MarkerFaceColor',[0 .5 .5])
 

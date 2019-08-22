@@ -19,33 +19,32 @@ clear all;
 
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS_UniqueScene');
 % addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
-% addpath('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
 addpath...
-    ('C:\Dropbox\Ubuntu\Features_fc6_Avance8Frames_YCbCr\Features_Per_Distortion_1Matrix_DataMOS');
+('C:\Dropbox\Ubuntu\Features_fc6_Avance16Frames_MSCN\Features_Per_Distortion_1Matrix_DataMOS_fc6_MSCN_16Frames');
+
 
 addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el número de videos que se usara para Training por cada distorsion
-Number_FeatureVectors_PerVideo=50
+Number_FeatureVectors_PerVideo=25
 
 %Si se quiere entrenar con todos los videos de los 4 devices per scene, debe cambiarse el nombre
 %correspondiente del .mat que contiene the C3D features
 
-Stabilization   =1;
-Focus           =1;
-Artifacts       =1;
+Stabilization   =0;
+Focus           =0;
+Artifacts       =0;
 Sharpness       =1;
-Exposure        =1;
-Color           =1;
+Exposure        =0;
+Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-commonName_DataMat='DATA_fc6_Overlap8_YCbCr_';
-commonName_MOSMat = 'MOS_fc6_Overlap8_YCbCr_';
-tic
+commonName_DataMat='DATA_fc6_Advance16Frames_MSCN_';
+commonName_MOSMat = 'MOS_fc6_Advance16Frames_MSCN_';
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
 

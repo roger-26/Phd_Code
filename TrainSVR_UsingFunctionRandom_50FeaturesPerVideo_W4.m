@@ -29,7 +29,7 @@ Test_Same_Training= 0
 Number_Iterations=100;
 VideosTraining_PerDistortion= 28; %el número de videos que se usara para Training por cada distorsion
 Number_FeatureVectors_PerVideo=50
-
+Number_Iteration_Inside_SVR = 5;
 %Si se quiere entrenar con todos los videos de los 4 devices per scene, debe cambiarse el nombre
 %correspondiente del .mat que contiene the C3D features
 
@@ -279,7 +279,7 @@ for iteration=1:Number_Iterations
         'OptimizeHyperparameters',...
         {'BoxConstraint', 'Epsilon', 'KernelFunction'},...
         'CacheSize','maximal',...
-        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,...
+        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',Number_Iteration_Inside_SVR,...
         'ShowPlots',false));
     if Test_Same_Training== 1
         %To test with all distortions

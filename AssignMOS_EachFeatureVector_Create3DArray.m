@@ -25,8 +25,8 @@ MOS_Unbiased= qualcommSubjectiveData.unBiasedMOS;
 Number_Videos=208;%Esto es el numero de indices de la base de datos en los que busca para ver si hay 
 %coincidencia en el nombre con los videos de la carpeta. 
 
-Name_To_Save_Data= 'fc6_Advance8Frames_MSCN_Stabilization';
-Number_Of_Features_PerVideo=50
+Name_To_Save_Data= 'fc6_Advance16Frames_YCbCr_Stabilization';
+Number_Of_Features_PerVideo = 25
 
 
 rows_data=1;
@@ -40,7 +40,7 @@ mat = dir('*.mat');
 
 
 
-Videos_QUe_Coinciden=0
+Videos_QUe_Coinciden = 0;
 for i=1:Number_Videos
     aux1=qualcommVideoData.vidNames(i); %get the name of video of the Original MOS
     aux3=char(aux1); %
