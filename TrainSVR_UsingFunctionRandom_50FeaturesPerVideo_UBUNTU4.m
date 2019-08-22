@@ -33,11 +33,11 @@ VideosTraining_PerDistortion= 28; %el n�mero de videos que se usara para Train
 %correspondiente del .mat que contiene the C3D features
 
 Stabilization   =0;
-Focus           =0;
+Focus           =1;
 Artifacts       =0;
 Sharpness       =0;
 Exposure        =0;
-Color           =1;
+Color           =0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
