@@ -2,7 +2,7 @@ clc;
 close all;
 clear all;
 
-%Este c�digo entrena un SVR con los videos de QUALCOMM-LIVE dataset. Usamos una funci�n que
+%Este codigo entrena un SVR con los videos de QUALCOMM-LIVE dataset. Usamos una funci�n que
 %previamente genera y ordena cada uno de los videos por distorsi�n, de manera aleatoria dejando 28
 %videos para entrenamiento y el resto para prueba. Esto se ejecuta en cada una de las iteracciones
 %del servidor. No se guardan archivos .mat, solo se leen los que se tienen guardados con las
@@ -12,6 +12,7 @@ clear all;
 %hace colocando en 1 Test_Same_training. La matriz de entrenamiento se va haciendo grande a medida
 %que se generan los vectores por video aleatorio para cada distorsion, esta se une a la matriz que
 %tiene todos los videos ya anteriormente conseguidos.
+
 
 %A�adiendo a la ruta la carpeta donde se encuentran los datos
 % addpath('C:\Dropbox\Ubuntu\Features_conv5b_Avance8Frames\Features_Per_Distortion_1Matrix_DataMOS_Conv5b_RGB');
@@ -27,7 +28,7 @@ addpath('C:\Dropbox\git');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Test_Same_Training= 0
 Number_Iterations=100;
-VideosTraining_PerDistortion= 28; %el n�mero de videos que se usara para Training por cada distorsion
+VideosTraining_PerDistortion= 32; %el n�mero de videos que se usara para Training por cada distorsion
 
 
 Stabilization   =1;

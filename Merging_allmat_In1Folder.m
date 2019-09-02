@@ -2,11 +2,13 @@ clc;
 close all;
 clear all;
 %Se usa para unificar todos los .mat de una misma clase
-
+open F:\datasets\LIVEVQCPrerelease\MOS_LIVEVQC.mat
+MOS_LIVE_VQC= ans.MOS_LIVEVQC;
 %Este código une todos los .mat que estan en un folder en un solo .mat
 rows_data=1;
 %para leer todos los archivos .mat de la carpeta
 mat = dir('*.mat');
+Number_Vide
 for q = 1:length(mat) 
    aux = load(mat(q).name);
     Current_Video_to_Process=    mat(q).name 
@@ -15,6 +17,13 @@ for q = 1:length(mat)
    %contiene los datos deseados
 %    variable_containing_data = aux.data;
    variable_containing_data = aux.Feature_vect;
+   
+   
+   
+  LIVEVQC_Data_Averaged= squeeze(mean(variable_containing_data,1));
+   
+   
+   
    current_value_to_Save= variable_containing_data;   
    [rows normal_size]=size(current_value_to_Save);
    rows
@@ -36,7 +45,7 @@ Z_matrix = reshape(zscore(data(:)),size(data,1),size(data,2));
 maximum_number = max(Z_matrix(:))
 data_normalized=Z_matrix./maximum_number;
 
-save('C3D_fc6_Feat_PristineCamilo_ZNormalized','data_normalized')
+save('C3D_LIVE_VQC_8Frames_YCbCr','data_normalized')
 
 
 
