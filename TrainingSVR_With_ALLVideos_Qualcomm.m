@@ -97,23 +97,30 @@ TrainingData_AveragedFeaturesPerVideo =...
 TrainingMOS_AveragedFeaturesPerVideo =...
     [TrainingMOS_AveragedFeaturesPerVideo,Distortion_MOS];
 
+
+save('data_LIVEQualcomm','TrainingData_AveragedFeaturesPerVideo')
+save('MOS_LIVEQualcomm','TrainingMOS_AveragedFeaturesPerVideo')
+
+
+
 %loading data from LIVEVQC dataset
 data_LIVEVQC= load('G:\datasets\LIVEVQCPrerelease\LIVE_VQC_YCbCr_8Frames_C3D_Features\data_LIVEVQC.mat');
 MOS_LIVEVQC= load('G:\datasets\LIVEVQCPrerelease\LIVE_VQC_YCbCr_8Frames_C3D_Features\MOS_LIVEVQC.mat');
 data_LIVEVQC=data_LIVEVQC.LIVEVQC_Data_Averaged;
 MOS_LIVEVQC = MOS_LIVEVQC.MOS_LIVE_VQC;
 for i=1:1000
+    tic
     %Training stage
     Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',...
         false,...
         'OptimizeHyperparameters',...
         {'BoxConstraint', 'Epsilon', 'KernelFunction'},...
         'CacheSize','maximal',...
-        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,...
+        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',20,...
         'ShowPlots',false));
     
     
-    
+    %cargo los datos de LIVEVQC y los pruebo con el modelo entrenado en Qualcomm
     
     yfit_LIVE= predict(Mdl,data_LIVEVQC);
     R_LIVE = corrcoef(yfit_LIVE,MOS_LIVEVQC);
@@ -126,4 +133,5 @@ for i=1:1000
     fprintf('Iteration %d\n',i);
     max(Pearson)
     max(Spearman)
+    toc
 end
