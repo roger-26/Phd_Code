@@ -6,7 +6,9 @@ clc;
 close all;
 clear all;
 
-addpath('F:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease');
+% addpath('F:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease');
+
+addpath('/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease');
 % Name_Video='A001.mp4';
 
 
