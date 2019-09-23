@@ -24,7 +24,7 @@ MOS_LIVEVQC =  load('/home/javeriana/roger_gomez/Dropbox/Javeriana/current_work/
 data_LIVEVQC=data_LIVEVQC.LIVEVQC_Data_Averaged;
 MOS_LIVEVQC = MOS_LIVEVQC.MOS_LIVE_VQC;
 
-for i=1:1000
+for i=1:100
     tic
     [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje); %Divido aleatoriamente el 80% de la base de datos
     %para entrenamiento
@@ -59,6 +59,9 @@ for i=1:1000
     max(Spearman)
     max(Kendall_COrrelation)
     min(RMSE)
+    
+    save('Pearson.mat','Pearson');
+    save('Spearman.mat','Spearman');
     toc
 end
 
