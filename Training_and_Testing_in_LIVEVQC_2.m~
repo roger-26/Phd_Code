@@ -28,8 +28,8 @@ MOS_LIVEVQC = MOS_LIVEVQC.MOS_LIVE_VQC;
 
 for i=1:100
     tic
-    [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje); 
-    %Divido aleatoriamente el 80% de la base de datos     %para entrenamiento
+    [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje); %Divido aleatoriamente el 80% de la base de datos
+    %para entrenamiento
     
     Training_Data = data_LIVEVQC(trainInd,:);
     Training_MOS = MOS_LIVEVQC (trainInd);
