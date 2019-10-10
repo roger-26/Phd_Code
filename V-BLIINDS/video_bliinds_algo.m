@@ -7,7 +7,7 @@ time_start = tic
 disp('executing V-BLIINDS');
 % load('frames.mat');
 ini_fr = 1;
-end_fr = 50;
+end_fr = 159;
 
 listvideo = {'001Pri_IndPW_FQ_C4'};
 

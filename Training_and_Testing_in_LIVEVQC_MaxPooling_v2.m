@@ -63,8 +63,8 @@ for i=1:1000
     max(Spearman)
     max(Kendall_COrrelation)
     min(RMSE)
-    save('Pearson_MaxPooling_10SVRITerations.mat','Pearson');
-    save('Spearman_MaxPooling_10SVRITerations.mat','Spearman');
+%     save('Pearson_MaxPooling_10SVRITerations.mat','Pearson');
+%     save('Spearman_MaxPooling_10SVRITerations.mat','Spearman');
     toc
 end
 
