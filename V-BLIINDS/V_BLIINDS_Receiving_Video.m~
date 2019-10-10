@@ -4,9 +4,8 @@ clc
 tic
 %%% Compute Video BLIINDS Features
 
-% Video = 'G:\datasets\LIVEVQCPrerelease-20190429T235050Z-001\LIVEVQCPrerelease\A007.mp4'
-Video = ...
-    '/media/javeriana/TOSHIBA_2TB/Dataset/Distorted Surveillance Video Dataset/Full_Quality/Pristine/001Pri_IndPW_FQ_C4.mp4';
+Video = 'G:\datasets\LIVEVQCPrerelease-20190429T235050Z-001\LIVEVQCPrerelease\A007.mp4'
+Video =
 %loading video
 vid1=VideoReader(Video)
 Number_Of_Frames=vid1.NumberOfFrames
