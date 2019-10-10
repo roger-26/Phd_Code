@@ -1,5 +1,5 @@
 close all
-clear
+clear all
 clc
 time_start = tic
 %%% Compute Video BLIINDS Features
@@ -7,7 +7,7 @@ time_start = tic
 disp('executing V-BLIINDS');
 % load('frames.mat');
 ini_fr = 1;
-end_fr = 159;
+end_fr = 20;
 
 listvideo = {'001Pri_IndPW_FQ_C4'};
 
