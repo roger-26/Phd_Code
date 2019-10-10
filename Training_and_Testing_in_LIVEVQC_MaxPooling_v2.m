@@ -2,20 +2,29 @@ clc;
 close all;
 clear all;
 
-%con este código entreno en la LIVE-VQC y pruebo con la misma base de datos. Usando un esquema de
+%con este cï¿½digo entreno en la LIVE-VQC y pruebo con la misma base de datos. Usando un esquema de
 %80-20.
 
 Training_Percentage = 0.8;
 Test_Percentaje = 0.2;
-
+iterations=3500;
+Repetitions = 100;
 
 %loading data from LIVEVQC dataset
-
-addpath('C:\Dropbox\Javeriana\current_work\LIVEVQC_TestVQA\data_all_dataset\');
+%ubuntu
+addpath('/home/javeriana/roger_gomez/current_work/LIVEVQC_TestVQA/data_all_dataset/');
 data_LIVEVQC= load(...
-    'C:\Dropbox\Javeriana\current_work\LIVEVQC_TestVQA\data_all_dataset\data_LIVEVQC_MaxPooling.mat');
+    '/home/javeriana/roger_gomez/current_work/LIVEVQC_TestVQA/data_all_dataset/data_LIVEVQC_MaxPooling.mat');
 MOS_LIVEVQC= load...
-    ('C:\Dropbox\Javeriana\current_work\LIVEVQC_TestVQA\data_all_dataset\MOS_LIVEVQC.mat');
+    ('/home/javeriana/roger_gomez/current_work/LIVEVQC_TestVQA/data_all_dataset/MOS_LIVEVQC.mat');
+
+
+%predator
+% addpath('C:\Dropbox\Javeriana\current_work\LIVEVQC_TestVQA\data_all_dataset\');
+% data_LIVEVQC= load(...
+%     'C:\Dropbox\Javeriana\current_work\LIVEVQC_TestVQA\data_all_dataset\data_LIVEVQC_MaxPooling.mat');
+% MOS_LIVEVQC= load...
+%     ('C:\Dropbox\Javeriana\current_work\LIVEVQC_TestVQA\data_all_dataset\MOS_LIVEVQC.mat');
 
 % addpath('G:\datasets\LIVEVQCPrerelease\LIVE_VQC_YCbCr_8Frames_C3D_Features\data_all_dataset');
 % data_LIVEVQC= load(...
@@ -27,9 +36,9 @@ data_LIVEVQC=data_LIVEVQC.LIVEVQC_Data_Averaged;
 MOS_LIVEVQC = MOS_LIVEVQC.MOS_LIVE_VQC;
 
 
-for i=1:1000
+for i=1:Repetitions
     tic
-    [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje);
+    [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje);                                                                      
     %Divido aleatoriamente el 80% de la base de datos para entrenamiento
     
     Training_Data = data_LIVEVQC(trainInd,:);
@@ -44,7 +53,7 @@ for i=1:1000
         'OptimizeHyperparameters',...
         {'BoxConstraint', 'Epsilon', 'KernelFunction'},...
         'CacheSize','maximal',...
-        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,...
+        'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',iterations,...
         'ShowPlots',false));
     
     yfit_LIVE= predict(Mdl,Test_Data);
@@ -63,8 +72,8 @@ for i=1:1000
     max(Spearman)
     max(Kendall_COrrelation)
     min(RMSE)
-    save('Pearson_MaxPooling_10SVRITerations.mat','Pearson');
-    save('Spearman_MaxPooling_10SVRITerations.mat','Spearman');
+        save('Pearson_MaxPooling_3500SVRITerations.mat','Pearson');
+        save('Spearman_MaxPooling_3500SVRITerations.mat','Spearman');
     toc
 end
 
