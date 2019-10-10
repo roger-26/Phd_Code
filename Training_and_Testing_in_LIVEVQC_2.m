@@ -46,7 +46,7 @@ for i=1:100
         'ShowPlots',false));
     
     yfit_LIVE= predict(Mdl,Test_Data);
-    R_LIVE = corrcoef(yfit_LIVE,Test_MOS);
+    R_LIVE = corrcoef(yfit_LIVE,Test_MOS
     
     %probando con los mismos datos de entrenamiento, el resultado deberia ser cercano a 1
     yfit_SameTraining= predict(Mdl,Training_Data);
