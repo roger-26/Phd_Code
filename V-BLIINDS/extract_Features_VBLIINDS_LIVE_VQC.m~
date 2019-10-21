@@ -1,0 +1,15 @@
+clc;
+close all;
+
+
+%This code extract V-BLIINDS features of all mp4 videos in one folder
+%Author: Roger Gomez Nieto
+%email: rogergomez@ieee.org
+%date:  october 21, 2019
+
+cd '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/'
+
+for i=1:size(set3,1)
+    video = set3(1,1)
+    vid1=VideoReader(char(video))
+end 
