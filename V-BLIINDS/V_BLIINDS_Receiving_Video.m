@@ -50,7 +50,9 @@ fprintf(fid,'%d ',features_test(1,1:end));
 fprintf(fid,'\n');
 fclose(fid);
 
-system('./predictR.r')
+system('Rscript predictR.r');
+% system('./predictR.r')
+
 %%% Reading data from a file
 predicted_dmos=textread('predicted_dmos.txt')
 save(['results/' filename],'predicted_dmos','features_test')

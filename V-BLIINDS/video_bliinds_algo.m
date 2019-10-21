@@ -7,7 +7,7 @@ time_start = tic
 disp('executing V-BLIINDS');
 % load('frames.mat');
 ini_fr = 1;
-end_fr = 159;
+end_fr = 20;
 
 listvideo = {'001Pri_IndPW_FQ_C4'};
 
@@ -58,7 +58,8 @@ for ll = 1:length(listvideo)
     disp('calculating motion');
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
-    features_test = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
+    features_test = ...
+        [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
     
     %%%
     
@@ -66,8 +67,10 @@ for ll = 1:length(listvideo)
     fprintf(fid,'%d ',features_test(1,1:end));
     fprintf(fid,'\n');
     fclose(fid);
-    
-    system('./predictR.r')
+    disp('predicting with SVR');
+    %Esto se tiene que modificar para que corra desde Ubuntu
+    system('Rscript predictR.r');
+    % system('./predictR.r')
     
     %%% Reading data from a file
     
