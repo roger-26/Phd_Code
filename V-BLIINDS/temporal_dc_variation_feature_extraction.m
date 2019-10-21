@@ -47,7 +47,6 @@ mblock = 16;
 h=fspecial('gaussian',mblock);
 
 for x=1:size(frames,3)-1
-    x  
     imgP = double(frames(:,:,x+1));
     imgI = double(frames(:,:,x));
     [motion_vects16x16(:,:,x) temp] = motionEstNTSS(imgP,imgI,mblock,7);
@@ -59,8 +58,6 @@ row = size(frames,1);
 col = size(frames,2);
 
 for x=1:size(frames,3)-1
-    disp('calculating dct');
-    x
     mbCount = 1;
     for i = 1 :mbsize : row-mbsize+1
         for j = 1 :mbsize : col-mbsize+1

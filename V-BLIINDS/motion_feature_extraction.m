@@ -8,7 +8,6 @@ function [mean_Coh10x10 G] = motion_feature_extraction(frames)
 mblock = 8;
 % disp('using parfor');
 for x=1:size(frames,3)-1
-    x
     imgP = double(frames(:,:,x+1));
     imgI = double(frames(:,:,x)); 
     [motionVects10x10(:,:,x) temp] = motionEstNTSS(imgP,imgI,mblock,mblock+floor(mblock/2));

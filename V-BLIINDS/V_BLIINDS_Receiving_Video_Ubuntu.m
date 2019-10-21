@@ -14,7 +14,6 @@ vid1=VideoReader(Video)
 Number_Of_Frames=vid1.NumberOfFrames
 frames=[];
 for ii=1:Number_Of_Frames
-    ii
     I_orig =  read(vid1,ii);
     [m1,m2,m3]=size(I_orig);
     Iaux = zeros(m1,m2,m3);
@@ -38,10 +37,15 @@ for ii=1:Number_Of_Frames
     frames = cat(3,frames,I);
 end
 
+disp('computing niqe_features');
 niqe_features = compute_niqe_features(frames);
+disp('calculating dct');
 dt_dc_measure1 = temporal_dc_variation_feature_extraction(frames);
+disp('calculating NSS');
 [dt_dc_measure2, geo_ratio_features] = NSS_spectral_ratios_feature_extraction(frames);
+disp('calculating motion features');
 [mean_Coh10x10, G] = motion_feature_extraction(frames);
+
 
 features_test = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
 toc;
@@ -51,7 +55,7 @@ toc;
 % fprintf(fid,'%d ',features_test(1,1:end));
 % fprintf(fid,'\n');
 % fclose(fid);
-% 
+%
 % system('./predictR.r')
 % %%% Reading data from a file
 % predicted_dmos=textread('predicted_dmos.txt')

@@ -1,6 +1,6 @@
 clc;
 close all;
-
+clear all;
 
 %This code extract V-BLIINDS features of all mp4 videos in one folder
 %Author: Roger Gomez Nieto
@@ -8,23 +8,24 @@ close all;
 %date:  october 21, 2019
 
 cd '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/'
+set = readtable('set2.csv','ReadVariableNames',false);
 
-for i=1:size(set3,1)
+
+for video_set=1:size(set,1)
     tic
-    %reading the video. Se debe cargar de manera manual el set de names de
-    %los videos que se van a procesar, abriendolos desde la current folder
-    video = set3(i,1);
+    %reading the video. 
+    video = set(video_set,1);
     video_name= table2cell(video);
     video_listo = char(num2str(video_name{1}))
-    Videos_Processed(i) = video_listo;
+    Videos_Processed{video_set} = video_listo;
     vid1=VideoReader(strcat(...
         '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/',video_listo))
     %calculating the features
-
-    Number_Of_Frames=vid1.NumberOfFrames
+    
+    Number_Of_Frames=vid1.NumberOfFrames 
     frames=[];
+    disp('preparing data');
     for ii=1:Number_Of_Frames
-        ii
         I_orig =  read(vid1,ii);
         [m1,m2,m3]=size(I_orig);
         Iaux = zeros(m1,m2,m3);
@@ -47,13 +48,17 @@ for i=1:size(set3,1)
         % I = imresize(I,[256,256]);
         frames = cat(3,frames,I);
     end
-    
+    disp('computing niqe_features');
     niqe_features = compute_niqe_features(frames);
+    disp('calculating dct');
     dt_dc_measure1 = temporal_dc_variation_feature_extraction(frames);
+    disp('calculating NSS');
     [dt_dc_measure2, geo_ratio_features] = NSS_spectral_ratios_feature_extraction(frames);
+    disp('calculating motion features');
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
-    features_test(i,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
-    save('features_test_set3.mat','features_test');
+    features_test(video_set,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
+    save('features_test_set2.mat','features_test');
+    save('VideosProccessed_set2.mat','Videos_Processed');
     toc;
 end

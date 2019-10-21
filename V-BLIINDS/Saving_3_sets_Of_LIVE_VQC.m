@@ -20,13 +20,13 @@ for i = 1: size(Videos_Inside_Folder,1)/3
 end
 
 %guardando los conjuntos de datos para procesarlos de manera separada. 
-FilePath='/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/set1.txt'
+FilePath='/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/set1.csv'
 fid = fopen(FilePath,'w');
 CT = set_name;
 fprintf(fid,'%s\n', CT{:});
 fclose(fid)
 
-FilePath='/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/set2.txt'
+FilePath='/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/set2.csv'
 fid = fopen(FilePath,'w');
 CT = set_name2;
 fprintf(fid,'%s\n', CT{:});
