@@ -1,5 +1,5 @@
 close all
-clear all
+clear
 clc
 time_start = tic
 %%% Compute Video BLIINDS Features
@@ -58,8 +58,7 @@ for ll = 1:length(listvideo)
     disp('calculating motion');
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
-    features_test = ...
-        [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
+    features_test = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
     
     %%%
     
@@ -67,10 +66,8 @@ for ll = 1:length(listvideo)
     fprintf(fid,'%d ',features_test(1,1:end));
     fprintf(fid,'\n');
     fclose(fid);
-    disp('predicting with SVR');
-    %Esto se tiene que modificar para que corra desde Ubuntu
-    system('Rscript predictR.r');
-    % system('./predictR.r')
+    
+    system('./predictR.r')
     
     %%% Reading data from a file
     

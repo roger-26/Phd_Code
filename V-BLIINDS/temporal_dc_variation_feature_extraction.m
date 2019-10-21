@@ -47,13 +47,10 @@ mblock = 16;
 h=fspecial('gaussian',mblock);
 
 for x=1:size(frames,3)-1
-    x
-    tic  
+    x  
     imgP = double(frames(:,:,x+1));
     imgI = double(frames(:,:,x));
-    
     [motion_vects16x16(:,:,x) temp] = motionEstNTSS(imgP,imgI,mblock,7);
-    toc
 end
 
 
