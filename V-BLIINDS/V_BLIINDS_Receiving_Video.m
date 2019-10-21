@@ -4,8 +4,11 @@ clc
 tic
 %%% Compute Video BLIINDS Features
 
-Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
+Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
+% Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
 % Video = 'C:\Users\DeepLearning_PUJ\Videos\VQC_TOY_short.mp4'
+
+
 %loading video
 vid1=VideoReader(Video)
 Number_Of_Frames=vid1.NumberOfFrames
