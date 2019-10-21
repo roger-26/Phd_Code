@@ -1,5 +1,5 @@
 close all
-clear
+clear all
 clc
 time_start = tic
 %%% Compute Video BLIINDS Features
