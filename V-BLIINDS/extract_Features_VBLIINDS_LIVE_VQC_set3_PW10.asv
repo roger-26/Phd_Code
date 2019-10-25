@@ -15,9 +15,8 @@ aux2 = load('VideosProccessed_set3_PW10.mat');
 features_test = aux1.features_test;
 Videos_Processed = aux2.Videos_Processed;
 
- Number_videos_processed = size(features_test,1);
- videos_with_errors =1;
-for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
+ videos_size(features_test,1)
+for video_set=1:size(set,1)
     tic
     %reading the video.
     video = set(video_set,1);

@@ -8,20 +8,25 @@ clear all;
 %date:  october 21, 2019
 
 % cd '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/'
-% cd 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease\'
 cd 'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\'
 set = readtable('set1.csv','ReadVariableNames',false);
+aux1 = load('features_test_set1.mat');
+aux2 = load('VideosProccessed_set1.mat');
+features_test = aux1.features_test;
+Videos_Processed = aux2.Videos_Processed;
 
-
-for video_set=1:size(set,1)
+ videos_processed = size(features_test,1);
+ videos_with_errors =0;
+for video_set=videos_processed+1+videos_with_errors:size(set,1)
     tic
     %reading the video.
     video = set(video_set,1);
     video_name= table2cell(video);
     video_listo = char(num2str(video_name{1}))
     Videos_Processed{video_set} = video_listo;
-    vid1  =VideoReader(strcat(...
-    'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\',video_listo))
+    Path_Video = strcat(...
+    'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\',video_listo);
+    vid1=VideoReader(Path_Video);
 %      '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/',video_listo))
     %calculating the features
     
