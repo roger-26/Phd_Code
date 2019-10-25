@@ -8,7 +8,8 @@ clear all;
 %date:  october 21, 2019
 
 % cd '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/'
-cd 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease\'
+% cd 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease\'
+cd 'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\'
 set = readtable('set2.csv','ReadVariableNames',false);
 
 
@@ -19,8 +20,8 @@ for video_set=1:size(set,1)
     video_name= table2cell(video);
     video_listo = char(num2str(video_name{1}))
     Videos_Processed{video_set} = video_listo;
-    vid1=VideoReader(strcat(...
-    'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease\',video_listo))
+    vid1  =VideoReader(strcat(...
+    'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\',video_listo))
 %      '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/',video_listo))
     %calculating the features
     
@@ -60,7 +61,7 @@ for video_set=1:size(set,1)
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
     features_test(video_set,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
-    save('features_test_set2_PW10.mat','features_test');
-    save('VideosProccessed_set2_PW10.mat','Videos_Processed');
+    save('features_test_set2.mat','features_test');
+    save('VideosProccessed_set2.mat','Videos_Processed');
     toc;
 end

@@ -4,8 +4,8 @@ clc
 tic
 %%% Compute Video BLIINDS Features
 
-Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
-Video = D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease
+% Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
+Video = 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease/B282.mp4';
 % Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
 % Video = 'C:\Users\DeepLearning_PUJ\Videos\VQC_TOY_short.mp4'
 
