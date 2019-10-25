@@ -6,17 +6,16 @@ clear all;
 %Author: Roger Gomez Nieto
 %email: rogergomez@ieee.org
 %date:  october 21, 2019
-
-
-
+addpath /home/javeriana/roger_gomez/Phd_Code/V-BLIINDS
 cd '/media/javeriana/HDD_4TB/datasets/LIVE-Qualcomm/Artifacts/'
 %Fetching all names from AVI files in folder
 Videos_Inside_Folder = dir('*.avi');
 
 for video_set=1:size(Videos_Inside_Folder,1)
+    tic
     Video = Videos_Inside_Folder(video_set).name;
     vid1=VideoReader(Video)
-    
+    Videos_Processed{video_set} = Video;
     Number_Of_Frames=vid1.NumberOfFrames 
     frames=[];
     disp('preparing data');
