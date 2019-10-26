@@ -16,7 +16,7 @@ features_test = aux1.features_test;
 Videos_Processed = aux2.Videos_Processed;
 
  Number_videos_processed = size(features_test,1);
- videos_with_errors =19;
+ videos_with_errors =0;
 for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
     video_set
     tic
