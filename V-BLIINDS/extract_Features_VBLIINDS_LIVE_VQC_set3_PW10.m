@@ -7,17 +7,30 @@ clear all;
 %email: rogergomez@ieee.org
 %date:  october 21, 2019
 
+% cd '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/'
+cd 'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\'
+set = readtable('set3.csv','ReadVariableNames',false);
+aux1 = load('features_test_set3_PW10.mat');
+aux2 = load('VideosProccessed_set3_PW10.mat');
+features_test = aux1.features_test;
+Videos_Processed = aux2.Videos_Processed;
 
-
-cd '/media/javeriana/HDD_4TB/datasets/LIVE-Qualcomm/Artifacts/'
-%Fetching all names from AVI files in folder
-Videos_Inside_Folder = dir('*.avi');
-
-for video_set=1:size(Videos_Inside_Folder,1)
-    Video = Videos_Inside_Folder(video_set).name;
-    vid1=VideoReader(Video)
+ Number_videos_processed = size(features_test,1);
+ videos_with_errors =1;
+for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
+    tic
+    %reading the video.
+    video = set(video_set,1);
+    video_name= table2cell(video);
+    video_listo = char(num2str(video_name{1}))
+    Videos_Processed{video_set} = video_listo;
+    Path_Video = strcat(...
+    'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\',video_listo);
+    vid1=VideoReader(Path_Video);
+%      '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/',video_listo))
+    %calculating the features
     
-    Number_Of_Frames=vid1.NumberOfFrames 
+    Number_Of_Frames=vid1.NumberOfFrames
     frames=[];
     disp('preparing data');
     for ii=1:Number_Of_Frames
@@ -53,7 +66,7 @@ for video_set=1:size(Videos_Inside_Folder,1)
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
     features_test(video_set,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
-    save('Artifacts_featuresVBLIINDS_LiveQualcomm.mat','features_test');
-    save('Artifacts_VideosProccessedLiveQualcomm.mat','Videos_Processed');
+    save('features_test_set3_PW10.mat','features_test');
+    save('VideosProccessed_set3_PW10.mat','Videos_Processed');
     toc;
 end

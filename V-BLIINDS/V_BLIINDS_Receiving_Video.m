@@ -5,7 +5,12 @@ tic
 %%% Compute Video BLIINDS Features
 
 % Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
+<<<<<<< HEAD
 Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
+=======
+Video = 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease/B282.mp4';
+% Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
+>>>>>>> 5224cad21e8ed114e30c52b2d674d5f6e72b615d
 % Video = 'C:\Users\DeepLearning_PUJ\Videos\VQC_TOY_short.mp4'
 
 
