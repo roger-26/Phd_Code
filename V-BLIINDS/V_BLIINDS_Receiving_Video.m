@@ -4,13 +4,29 @@ clc
 tic
 %%% Compute Video BLIINDS Features
 
-Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
-% Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
+% Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
+Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
 % Video = 'C:\Users\DeepLearning_PUJ\Videos\VQC_TOY_short.mp4'
+
+
+
 
 
 %loading video22222222
 vid1=VideoReader(Video)
+
+
+
+
+
+vid_frames = read(vid1);  %read all frames
+clear v   %release it
+save('xyloframes.mat', 'vid_frames');
+
+
+
+
+
 Number_Of_Frames=vid1.NumberOfFrames
 frames=[];
 for ii=1:Number_Of_Frames
