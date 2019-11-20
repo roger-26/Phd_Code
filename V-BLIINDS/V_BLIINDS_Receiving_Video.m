@@ -4,8 +4,9 @@ clc
 tic
 %%% Compute Video BLIINDS Features
 
-% Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
-Video = 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease/B282.mp4';
+Video = '/home/javeriana/roger_gomez/videos/VQC_TOY_short.mp4';
+filename = 'VQC_TOY_short';
+% Video = 'D:\datasets\LIVEVQCPrerelease\LIVEVQCPrerelease/B282.mp4';
 % Video = 'C:\Dropbox\Videos\VQC_TOY_short.mp4'
 % Video = 'C:\Users\DeepLearning_PUJ\Videos\VQC_TOY_short.mp4'
 
@@ -48,15 +49,15 @@ features_test = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1
 toc;
 %% Parte del regresor de V-BLIINDS
 
-% fid = fopen('features_test.txt', 'w+');
-% fprintf(fid,'%d ',features_test(1,1:end));
-% fprintf(fid,'\n');
-% fclose(fid);
-% 
-% system('./predictR.r')
-% %%% Reading data from a file
-% predicted_dmos=textread('predicted_dmos.txt')
-% save(['results/' filename],'predicted_dmos','features_test')
+fid = fopen('features_test.txt', 'w+');
+fprintf(fid,'%d ',features_test(1,1:end));
+fprintf(fid,'\n');
+fclose(fid);
+
+system('./predictR.r')
+%%% Reading data from a file
+predicted_dmos=textread('predicted_dmos.txt')
+save(['results/' filename],'predicted_dmos','features_test')
 
 toc
 
