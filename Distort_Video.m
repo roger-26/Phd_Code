@@ -43,11 +43,12 @@ Only_Name_NoExt= char(Full_Name_Divided(1));
 %generate the name of distorted video
 namevideo_distorted=strcat(Only_Name_NoExt,'_',Distortion,'_',Level);
 %if the video is mp4, the output video have too mp4 extension. Otherwise, output video is AVI file
-if strcmp(char(Full_Name_Divided(2)),'mp4')
-    video_format_output = 'MPEG-4';
-else
-    video_format_output = 'Uncompressed AVI';
-end
+% if strcmp(char(Full_Name_Divided(2)),'mp4')
+%     video_format_output = 'MPEG-4';
+% else
+%     video_format_output = 'Uncompressed AVI';
+% end
+video_format_output = 'Uncompressed AVI';
 Path_Output_Full = strcat(Path_Output,namevideo_distorted,'.',char(Full_Name_Divided(2)));
 writerObj1 = VideoWriter(strcat(Path_Output,namevideo_distorted),video_format_output);
 writerObj1.FrameRate = vid1.FrameRate;
