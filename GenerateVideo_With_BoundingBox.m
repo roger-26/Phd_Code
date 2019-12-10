@@ -4,20 +4,20 @@
 
 
 
-
+addpath('C:\Dropbox\git');
 clc;
 close all;
-clear all;
 tic
-gt_Initial = importdata('020ExFo_IndPW_FQ_C3results_DeepSTRCF.txt');
-Original_Video='Distorted_Video_Prowling.mp4';
+% gt_Initial = importdata('C:\Users\DeepLearning_PUJ\Downloads\020ExFo_IndPW_FQ_C3results_DeepSTRCF.txt');
+gt_Initial = f1;
+Original_Video='G:\AppDrivenTracker\videos70\video63.mp4';
 Video_BB_Name=strcat(Original_Video,'_BB.mp4');
 
 vid1 = VideoReader(Original_Video);
 writerObj1 = VideoWriter(Video_BB_Name,'MPEG-4');
 writerObj1.FrameRate=vid1.FrameRate;
-open(writerObj1);
 Number_Of_Frames=vid1.NumberOfFrames
+open(writerObj1);
 for i = 1 : vid1.NumberOfFrames
     im=read(vid1,i);
 %                 f = @() rectangle('position',[x y w h]);

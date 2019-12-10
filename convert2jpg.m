@@ -4,10 +4,10 @@ clc;
 close all;
 clear all;
 
-Name_Video='palacio_justicia.mp4';
-Save_all_Frames=0;
-Frame1_ExisteGT=1780;
-FrameEnd_ExistsgT=1979;
+Name_Video='video70.mp4';
+Save_all_Frames=1;
+Frame1_ExisteGT=1;
+FrameEnd_ExistsgT=0;
 
 
 a=VideoReader(Name_Video)
@@ -69,7 +69,7 @@ for img = Frame1_ExisteGT:NumberOfFrames+Frame1_ExisteGT
     %b= imresize(b,[1080 1920]); %Si se quiere convertir en QVGA
     %imshow(b);
     
-    %imwrite(b,filename);
+    imwrite(b,filename);
     img
 end
  writerObj1.FrameRate
