@@ -47,6 +47,7 @@ switch type
         fs = 30;
         mat2avi('tmp.mp4',vidMat,fs,type,Q);     
         vidMat_n = avi2mat('tmp.mp4');            
+ 
     case 'blur'
         SIGMA = param(1);
 %         HSIZE = param(2)*ones(1,2);  
