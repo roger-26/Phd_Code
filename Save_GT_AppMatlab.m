@@ -1,4 +1,4 @@
-GroundTruth_WLPristine=gTruth.LabelData.BB;
+GroundTruth_WLPristine=gTruth.LabelData.bb;
 
 %%
 %Esto es para que solo guarde los frames en los que ground truth, se debe

@@ -15,7 +15,7 @@ tic
 
 %Name_video is the name of video with extension (i.e. 'video1.mp4')
 
-%distortion = 'gaussian', or 'blur' or 'MPEG-4'
+%distortion = 'gaussian', or 'blur' or 'MPEG-4' or 'salt & pepper'
 
 %level = 'low' or 'medium' or 'high' intensity of the distortion
 %***************************************************************
@@ -33,6 +33,8 @@ switch Distortion
         Q = [0.01, 0.05, 0.1]; % AWGN
     case 'blur'
         Q = [5, 10, 15]; % Blur
+    case 'salt & pepper'
+        Q = [0.01, 0.05, 0.1]; % S & P
 end
 %% Reading Video
 vid1=VideoReader(strcat(Path_Input,Name_video))
@@ -73,10 +75,13 @@ for i = 1 : vid1.NumberOfFrames
         case 'blur'
             im_distorted =   vidnoise(uint8(im),Distortion,Q(o));
             im_distorted = uint8(im_distorted);
+        case 'salt & pepper'
+            im_distorted = vidnoise(uint8(im),Distortion,Q(o));
+            im_distorted = uint8(im_distorted);
     end
     writeVideo(writerObj1,im_distorted);
     %shows progress, each 100 frames
-    if mod(i,100)==0
+    if mod(i,50)==0
         Msg = [num2str(i),' frames processed'];
         disp(Msg)
     end

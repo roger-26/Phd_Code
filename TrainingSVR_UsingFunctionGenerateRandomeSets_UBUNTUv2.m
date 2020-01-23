@@ -22,12 +22,12 @@ addpath('/home/javeriana/roger_gomez/Phd_Code/');
 Test_Same_Training= 0
 Number_Iterations=1000;
 
-Stabilization   =0;
-Focus           =0;
-Artifacts       =0;
+Stabilization   =1;
+Focus           =1;
+Artifacts       =1;
 Sharpness       =1;
-Exposure        =0;
-Color           =0;
+Exposure        =1;
+Color           =1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 %Obteniendo los conjuntos de training and test for all distortions.
@@ -178,8 +178,8 @@ for iteration=1:Number_Iterations
         Training_Data_Color_Averaged= squeeze(mean(Training_Data_Color,2));
         Test_Data_Color_Averaged    =   squeeze(mean(Test_Data_Color,2));
         
-        
-        
+     
+        %%
         %Uniendo las matrices de todas las distorsiones
         TrainingData_AveragedFeaturesPerVideo =...
             [TrainingData_AveragedFeaturesPerVideo;Training_Data_Color_Averaged];
@@ -193,7 +193,11 @@ for iteration=1:Number_Iterations
         TestMOS_AveragedFeaturesPerVideo =...
             [TestMOS_AveragedFeaturesPerVideo;Test_MOS_Color];
     end
-    
+       %% AUTOENCODER
+        %To train take the first 168 rows
+        all_data = [TrainingData_AveragedFeaturesPerVideo; TestData_AveragedFeaturesPerVideo];
+        MOS_all_data= [TrainingMOS_AveragedFeaturesPerVideo ;TestMOS_AveragedFeaturesPerVideo];
+       
     %% TRAINING SVR
     Mdl=fitrsvm(TrainingData_AveragedFeaturesPerVideo,TrainingMOS_AveragedFeaturesPerVideo,'Standardize',false,...
         'OptimizeHyperparameters',...
@@ -201,7 +205,7 @@ for iteration=1:Number_Iterations
         'CacheSize','maximal',...
         'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',10,'ShowPlots',false));
     if Test_Same_Training== 1
-        %To test with all distortions
+        %To test with all distortions                       
         TestData_AveragedFeaturesPerVideo=TrainingData_AveragedFeaturesPerVideo;
         TestMOS_AveragedFeaturesPerVideo= TrainingMOS_AveragedFeaturesPerVideo;
     end
