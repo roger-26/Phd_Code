@@ -9,15 +9,13 @@ clear all;
 
 % cd '/media/javeriana/HDD_4TB/datasets/LIVEVQCPrerelease/LIVEVQCPrerelease/'
 cd 'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\'
-set = readtable('set2.csv','ReadVariableNames',false);
+set = readtable('set3.csv','ReadVariableNames',false);
+aux1 = load('features_test_set3_PW10.mat');
+aux2 = load('VideosProccessed_set3_PW10.mat');
+features_test = aux1.features_test;
+Videos_Processed = aux2.Videos_Processed;
 
-% aux1 = load('features_test_set2_PW10.mat');
-% aux2 = load('VideosProccessed_set2_PW10.mat');
-% features_test = aux1.features_test;
-% Videos_Processed = aux2.Videos_Processed;
-%  Number_videos_processed = size(features_test,1);
-
-Number_videos_processed=0;
+ Number_videos_processed = size(features_test,1);
  videos_with_errors =0;
 for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
     video_set
@@ -69,8 +67,8 @@ for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
     features_test(video_set,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
-    save('features_test_set2_PW10.mat','features_test');
+    save('features_test_set3_PW10.mat','features_test');
     Videos_Processed{video_set} = video_listo;
-    save('VideosProccessed_set2_PW10.mat','Videos_Processed');
+    save('VideosProccessed_set3_PW10.mat','Videos_Processed');
     toc;
 end

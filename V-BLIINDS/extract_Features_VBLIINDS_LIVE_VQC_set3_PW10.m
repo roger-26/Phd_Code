@@ -16,14 +16,14 @@ features_test = aux1.features_test;
 Videos_Processed = aux2.Videos_Processed;
 
  Number_videos_processed = size(features_test,1);
- videos_with_errors =1;
+ videos_with_errors =119;%119 aranca bien
 for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
+    video_set
     tic
     %reading the video.
     video = set(video_set,1);
     video_name= table2cell(video);
     video_listo = char(num2str(video_name{1}))
-    Videos_Processed{video_set} = video_listo;
     Path_Video = strcat(...
     'C:\javeriana\LIVEVQCPrerelease\LIVEVQCPrerelease\',video_listo);
     vid1=VideoReader(Path_Video);
@@ -65,8 +65,10 @@ for video_set=Number_videos_processed+1+videos_with_errors:size(set,1)
     disp('calculating motion features');
     [mean_Coh10x10, G] = motion_feature_extraction(frames);
     
-    features_test(video_set,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log(1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
+    features_test(video_set,:) = [niqe_features log(1+dt_dc_measure1) log(1+dt_dc_measure2) log...
+        (1+geo_ratio_features) log(1+mean_Coh10x10) log(1+G)];
     save('features_test_set3_PW10.mat','features_test');
+    Videos_Processed{video_set} = video_listo;
     save('VideosProccessed_set3_PW10.mat','Videos_Processed');
     toc;
 end
