@@ -217,9 +217,9 @@ switch Distortion
     case 'Gaussian'
         Q = [0.01, 0.05, 0.1]; % AWGN
     case 'Blur'
-        Q = [5, 10, 15]; % Blur
+        Q = [5, 10, 15]; % Blur el mas alto es el 15
     case 'S & P'
-        Q = [0.01, 0.05, 0.1]; % S & P
+        Q = [0.01, 0.05, 0.1]; % S & P  el 3ro es el mas alto
     otherwise
         Q = 0;
 end
