@@ -24,7 +24,8 @@ addpath('data');
 % init_rect = [1476 207 178 520];
 
 % video_path= 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_SP_high\'
-video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\';
+% video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\';
+video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high\'
 
 init_rect = [1476 207 178 520]
 
@@ -39,7 +40,8 @@ results = tracker_FRIQUEE([video_path '\img'],'jpg',disp_vd,init_rect,1,end_fram
 % results = tracker([video_path '\img'],'jpg',disp_vd,init_rect,1,end_frame,prep);
 
 tracker_results = results.res;
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high\video1_blurHi_DLSSVM.mat',tracker_results)
+save(...
+   'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high\video1_blurHi_FRIQUEE.mat','tracker_results')
 
 
 tEnd = toc (tStart)

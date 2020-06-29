@@ -5,12 +5,13 @@
 
 
 addpath('C:\Dropbox\git');
+clear all;
 clc;
 close all;
 tic
-% gt_Initial = importdata('C:\Users\DeepLearning_PUJ\Downloads\020ExFo_IndPW_FQ_C3results_DeepSTRCF.txt');
-gt_Initial = f1;
-Original_Video='G:\AppDrivenTracker\videos70\video63.mp4';
+gt_Initial = importdata('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\groundtruth_rect.txt');
+% gt_Initial = f1;
+Original_Video='C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\video1.mp4';
 Video_BB_Name=strcat(Original_Video,'_BB.mp4');
 
 vid1 = VideoReader(Original_Video);
@@ -18,11 +19,12 @@ writerObj1 = VideoWriter(Video_BB_Name,'MPEG-4');
 writerObj1.FrameRate=vid1.FrameRate;
 Number_Of_Frames=vid1.NumberOfFrames
 open(writerObj1);
+%esto no se puede paralelizar, ya se intentó y sale error
 for i = 1 : vid1.NumberOfFrames
     im=read(vid1,i);
 %                 f = @() rectangle('position',[x y w h]);
     f = @() rectangle('position',gt_Initial(i,:));
-    params = {'linewidth',2,'edgecolor','r'};
+    params = {'linewidth',2,'edgecolor','g'};
     imgOut = insertInImage(im,f,params);
     writeVideo(writerObj1,imgOut);
     i
