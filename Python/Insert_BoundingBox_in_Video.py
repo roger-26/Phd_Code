@@ -9,37 +9,35 @@ email: rogergomez@ieee.org
 """
 import cv2
 import numpy as np
-import scipy.io as sio
-import os
+import scipy.io as sio  #para leer el .mat
+import os #para cambiar el directorio
+from scipy.io import loadmat
 
-number_of_trackers = 1
+number_of_trackers = 2
 #se debe poner en este path
-os.chdir(r'c:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine')
-
+# os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high')
+os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_GaussianHigh')
 
 #video pristine
-# DLSSVM_Tracking_mat = sio.loadmat('DLSSVM_tracking_video1_Pristine.mat')
-cap = cv2.VideoCapture('video1.mp4')
+# cap = cv2.VideoCapture('video1_blur_high.mp4')
+cap = cv2.VideoCapture('Cropvideo1_gaussian_high.mp4.avi')
 
-
-
-
-gt_mat = sio.loadmat('groundtruth_rect.mat')
-gt_values = list(gt_mat.values())
-gt=gt_values[3]#esta posición hay que verificarla porque puede cambiar
-
-tracker1_mat = sio.loadmat('DLSSVM_tracking_video1_Pristine.mat')
+#Ground Truth
+# gt_mat = sio.loadmat('groundtruth_rect.mat')
+# gt_mat = sio.loadmat('GT_Gaussian.mat');
+# gt_values = list(gt_mat.values())
+# gt=gt_values[3]#esta posición hay que verificarla porque puede cambiar
+GT_Gaussian = data = np.loadtxt("groundtruth_rect_Gaussian.txt", delimiter=",", dtype="int");
+gt = GT_Gaussian
+#Tracker 1
+tracker1_mat = sio.loadmat('DLSSVM_TrackingResults_Video1_GaussianHigh.mat')
 tracker1_tracking_values = list(tracker1_mat.values())
 tracker1_resuts = tracker1_tracking_values[3]
-
+#If want to compare two trackers
 if number_of_trackers >1:
-    tracker2_mat = sio.loadmat('FRIQUEE_tracking_video1_Pristine.mat')
+    tracker2_mat = sio.loadmat('DLSSVM_FRIQUEE_TrackingResults_Video1_GaussianHigh.mat')
     tracker2_tracking_values = list(tracker2_mat.values())
     tracker2_resuts = tracker2_tracking_values[3]
-
-
-
-
     
 gt_color = (0, 128, 0)   #green
 tracker1_bb_COLOR = (255, 0, 0)  #azul
@@ -99,6 +97,6 @@ while (cap.isOpened()):
     else:
         cv2.imshow('tracking_results', Second_BB)
     contador = contador +1
-    if cv2.waitKey(200) == ord('q'):#higher the number, slower the video show
+    if cv2.waitKey(100) == ord('q'):#higher the number, slower the video show
         break
 cap.release() #release software and hardware resources

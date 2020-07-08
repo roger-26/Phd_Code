@@ -1,4 +1,4 @@
-function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_plot)
+function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_plot,color)
 %This function returns the Area Under the Curve AUC of success plot.
 %Success_rate is the values for each threshold, according to the tracker
 %performance
@@ -17,6 +17,8 @@ function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_pl
 %   threshold to evaluate overlap. default is 0.01 for the plot have 100
 %   points
 
+%color: 'r' --> red   'g'--> green
+
 
     length_sequence = size(GT,1);
     Overlap_Per_frame = bboxOverlapRatio(BB_tracker,GT);
@@ -29,9 +31,8 @@ function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_pl
         NormalCount(cont) = sum(Overlap_Percentage>i);   
     end
     Success_rate = NormalCount/length_sequence;
-    plot(Success_rate,ejex,'LineWidth',3)
+    plot(Success_rate,ejex,color,'LineWidth',3)
     AUC= trapz(ejex,Success_rate);
-    title(['Success plot of ',num2str(name_video),' AUC= ',num2str(AUC)],'FontSize',24);
     grid minor
     ylabel('Success rate','FontSize',28);
     xlabel('Overlap threshold','FontSize',28);
