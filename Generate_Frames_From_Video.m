@@ -47,7 +47,7 @@ for img = 1+Initial_Frame:Number_Of_Frames
         b = imresize(b , desired_size); %Si se quiere convertir en QVGA
     end
     %imshow(b);
-    imwrite(b,fullDestinationFileName,'jpg');
+    imwrite(b,fullDestinationFileName,Desired_Type_File);
      if mod(img,50)==0
         img
     end

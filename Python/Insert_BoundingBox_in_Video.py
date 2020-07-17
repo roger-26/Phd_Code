@@ -27,6 +27,8 @@ cap = cv2.VideoCapture('Cropvideo1_gaussian_high.mp4.avi')
 # gt_mat = sio.loadmat('GT_Gaussian.mat');
 # gt_values = list(gt_mat.values())
 # gt=gt_values[3]#esta posición hay que verificarla porque puede cambiar
+
+#Para cargar un archivo txt 
 GT_Gaussian = data = np.loadtxt("groundtruth_rect_Gaussian.txt", delimiter=",", dtype="int");
 gt = GT_Gaussian
 #Tracker 1

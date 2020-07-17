@@ -2,7 +2,7 @@ clc;
 close all;
 clear all;
 
-%con este c�digo entreno en la LIVE-VQC y pruebo con la misma base de datos. Usando un esquema de
+%con este codigo entreno en la LIVE-VQC y pruebo con la misma base de datos. Usando un esquema de
 %80-20.
 
 Training_Percentage = 0.8;
@@ -28,15 +28,15 @@ MOS_LIVEVQC = MOS_LIVEVQC.MOS_LIVE_VQC;
 
 for i=1:100
     tic
-    [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje); 
+    [trainInd,valInd,testInd] = dividerand(585,Training_Percentage,0,Test_Percentaje);
     %Divido aleatoriamente el 80% de la base de datos     %para entrenamiento
-    
+
     Training_Data = data_LIVEVQC(trainInd,:);
     Training_MOS = MOS_LIVEVQC (trainInd);
-    
+
     Test_Data = data_LIVEVQC(testInd,:);
     Test_MOS = MOS_LIVEVQC (testInd)';
-    
+
     Mdl=fitrsvm(Training_Data,Training_MOS,'Standardize',...
         false,...
         'OptimizeHyperparameters',...
@@ -44,14 +44,14 @@ for i=1:100
         'CacheSize','maximal',...
         'HyperparameterOptimizationOptions',struct('UseParallel',1,'MaxObjectiveEvaluations',SVR_Iterations,...
         'ShowPlots',false));
-    
+
     yfit_LIVE= predict(Mdl,Test_Data);
-    R_LIVE = corrcoef(yfit_LIVE,Test_MOS
-    
+    R_LIVE = corrcoef(yfit_LIVE,Test_MOS)
+
     %probando con los mismos datos de entrenamiento, el resultado deberia ser cercano a 1
     yfit_SameTraining= predict(Mdl,Training_Data);
     R_SameTraining = corrcoef(yfit_SameTraining,Training_MOS)
-    
+
     Pearson(i)=R_LIVE(1,2)
     Spearman(i)=corr(yfit_LIVE,Test_MOS','Type','Spearman')
     Kendall_COrrelation(i) = corr(yfit_LIVE,Test_MOS','type','Kendall');
@@ -61,10 +61,7 @@ for i=1:100
     max(Spearman)
     max(Kendall_COrrelation)
     min(RMSE)
-    
     save('Pearson.mat','Pearson');
     save('Spearman.mat','Spearman');
     toc
 end
-
-

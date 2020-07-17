@@ -24,24 +24,23 @@ addpath('data');
 % init_rect = [1476 207 178 520];
 
 % video_path= 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_SP_high\'
-video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\';
+video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\';
 
-%init_rect = [1476 207 178 520]  video1 full poscapture distortion
-init_rect = [1231 150 126 355]
+init_rect = [1476 207 178 520]
 
-disp_vd = true;%show image with bounding box
-end_frame = 451;  %number of frames to process
+disp_vd = false;%show image with bounding box
+end_frame = 505;  %number of frames to process
 prep=0; %Esto cambia el espacio de color si se coloca en 1
 
 cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\compile'
 
 
-results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+results = tracker_FRIQUEE([video_path '\img'],'jpg',disp_vd,init_rect,1,end_frame,prep);
 % results = tracker([video_path '\img'],'jpg',disp_vd,init_rect,1,end_frame,prep);
 
 tracker_results = results.res;
 save(...
-'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\0275Pri_IndWL_C1_DLSSVM_FRIQUEE560.mat','tracker_results')
+'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\video1_Pristine_DLSSVM_FRIQUEE16.mat','tracker_results')
 
 
 tEnd = toc (tStart)
