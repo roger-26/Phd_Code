@@ -1,7 +1,7 @@
 clc
-path_frames = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\img';
+path_frames = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0274Pri_IndWL_C1\img';
 path_video = ...
-'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\0275Pri_IndWL_C1.mp4'
+'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0274Pri_IndWL_C1\0274Pri_IndWL_C1.mp4'
 Initial_Frame = 0
 change_size_flag = 0;
 Desired_Type_File = 'png'

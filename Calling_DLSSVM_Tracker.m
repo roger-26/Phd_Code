@@ -24,10 +24,10 @@ addpath('data');
 % init_rect = [1476 207 178 520];
 
 % video_path= 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_SP_high\'
-video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\';
+video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0274Pri_IndWL_C1\';
 
 %init_rect = [1476 207 178 520]  video1 full poscapture distortion
-init_rect = [1231 150 126 355]
+init_rect = [1557 366 89 294]
 
 disp_vd = true;%show image with bounding box
 end_frame = 451;  %number of frames to process
@@ -42,7 +42,6 @@ results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_fram
 tracker_results = results.res;
 save(...
 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\0275Pri_IndWL_C1_DLSSVM_FRIQUEE560.mat','tracker_results')
-
 
 tEnd = toc (tStart)
 profile viewer
