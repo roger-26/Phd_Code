@@ -27,9 +27,9 @@ addpath('data');
 video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0274Pri_IndWL_C1\';
 
 %init_rect = [1476 207 178 520]  video1 full poscapture distortion
-init_rect = [1557 366 89 294]
+init_rect = [1231 150 126 355]
 
-disp_vd = true;%show image with bounding box
+disp_vd = false;%show image with bounding box
 end_frame = 451;  %number of frames to process
 prep=0; %Esto cambia el espacio de color si se coloca en 1
 
@@ -41,7 +41,7 @@ results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_fram
 
 tracker_results = results.res;
 save(...
-'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0275Pri_IndWL_C1\0275Pri_IndWL_C1_DLSSVM_FRIQUEE560.mat','tracker_results')
+'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0274Pri_IndWL_C1\0274Pri_IndWL_C1_DLSSVM_FRIQUEE560.mat','tracker_results')
 
 tEnd = toc (tStart)
 profile viewer
