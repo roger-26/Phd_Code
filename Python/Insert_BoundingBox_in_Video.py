@@ -16,11 +16,11 @@ from scipy.io import loadmat
 number_of_trackers = 2
 #se debe poner en este path
 # os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high')
-os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_GaussianHigh')
+os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0370ExFo_IndWL_LQ_C1')
 
 #video pristine
 # cap = cv2.VideoCapture('video1_blur_high.mp4')
-cap = cv2.VideoCapture('Cropvideo1_gaussian_high.mp4.avi')
+cap = cv2.VideoCapture('0370ExFo_IndWL_LQ_C1.mp4')
 
 #Ground Truth
 # gt_mat = sio.loadmat('groundtruth_rect.mat')
@@ -29,15 +29,15 @@ cap = cv2.VideoCapture('Cropvideo1_gaussian_high.mp4.avi')
 # gt=gt_values[3]#esta posición hay que verificarla porque puede cambiar
 
 #Para cargar un archivo txt 
-GT_Gaussian = data = np.loadtxt("groundtruth_rect_Gaussian.txt", delimiter=",", dtype="int");
+GT_Gaussian = data = np.loadtxt("0370ExFo_IndWL_LQ_C1_gt.txt", delimiter=",", dtype="int");
 gt = GT_Gaussian
 #Tracker 1
-tracker1_mat = sio.loadmat('DLSSVM_TrackingResults_Video1_GaussianHigh.mat')
+tracker1_mat = sio.loadmat('0370ExFo_IndWL_LQ_C1_DLSSVM.mat')
 tracker1_tracking_values = list(tracker1_mat.values())
 tracker1_resuts = tracker1_tracking_values[3]
 #If want to compare two trackers
 if number_of_trackers >1:
-    tracker2_mat = sio.loadmat('DLSSVM_FRIQUEE_TrackingResults_Video1_GaussianHigh.mat')
+    tracker2_mat = sio.loadmat('0370ExFo_IndWL_LQ_C1_FRIQUEE560_Normalized.mat')
     tracker2_tracking_values = list(tracker2_mat.values())
     tracker2_resuts = tracker2_tracking_values[3]
     

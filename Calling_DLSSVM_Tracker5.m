@@ -31,18 +31,18 @@ video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_T
 
 
 disp_vd = true;%show image with bounding box
-end_frame = 346;  %number of frames to process
+end_frame = 345;  %number of frames to process
 prep=0; %Esto cambia el espacio de color si se coloca en 1
 
 cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\compile'
 
 
-results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
-% results = tracker([video_path '\img'],'jpg',disp_vd,init_rect,1,end_frame,prep);
+% results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+results = tracker([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 tracker_results = results.res;
 save(...
-    'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0372ExFo_IndWL_LQ_C3\0372ExFo_IndWL_LQ_C3_FRIQUEE560_Normalized.mat'...
+    'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0372ExFo_IndWL_LQ_C3\0372ExFo_IndWL_LQ_C3_DLSSVM.mat'...
     ,'tracker_results')
 
 
