@@ -51,6 +51,8 @@ if __name__ == '__main__':
   my_label.after(delay, lambda: stream(my_label))
   root.geometry("1280x720")
   w.bind("<Button 1>",getorigin)
+  
+  
   root.mainloop()
 
 

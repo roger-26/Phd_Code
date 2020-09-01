@@ -26,7 +26,8 @@ addpath('data');
 init_rect = [1297 156 78 266]
 
 % video_path= 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_SP_high\'
-video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0284Exp_IndWL_MQ_C3\';
+video_path = ...
+    'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0284Exp_IndWL_MQ_C3\';
 
 
 
@@ -37,12 +38,20 @@ prep=0; %Esto cambia el espacio de color si se coloca en 1
 cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\compile'
 
 
-% results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
-results = tracker([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+%  results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+% results = tracker([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+
+% results = ...
+%     tracker_TLVQM_Features_LC([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+% results = ...
+%     tracker_TLVQM_Features_HC([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+results = ...
+    tracker_TLVQM_Features([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+%TLVQM have the combined features
 
 tracker_results = results.res;
 save(...
-    'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0284Exp_IndWL_MQ_C3\0284Exp_IndWL_MQ_C3_DLSSVM.mat'...
+    'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0284Exp_IndWL_MQ_C3\0284Exp_IndWL_MQ_C3_TLVQM.mat'...
     ,'tracker_results')
 
 

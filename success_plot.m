@@ -17,7 +17,7 @@ function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_pl
 %   threshold to evaluate overlap. default is 0.01 for the plot have 100
 %   points
 
-%color: 'r' --> red   'g'--> green
+%color: indicated with a triplet RGB from 0 to 1 i.e. [0.95 0.9 0.25]
 
 
     length_sequence = size(GT,1);
@@ -31,7 +31,11 @@ function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_pl
         NormalCount(cont) = sum(Overlap_Percentage>i);   
     end
     Success_rate = NormalCount/length_sequence;
-    plot(Success_rate,ejex,color,'LineWidth',3)
+%     plot(Success_rate,ejex,color,'LineWidth',3)
+     plot(Success_rate,ejex,'Color', color,'LineWidth',3)
+    
+    
+    
     AUC= trapz(ejex,Success_rate);
     grid minor
     ylabel('Success rate','FontSize',28);
