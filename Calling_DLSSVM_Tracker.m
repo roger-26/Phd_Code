@@ -29,7 +29,7 @@ video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_T
 %init_rect = [1476 207 178 520]  video1 full poscapture distortion
 init_rect = [1231 150 126 355]
 
-disp_vd = false;%show image with bounding box
+disp_vd = true;%show image with bounding box
 end_frame = 451;  %number of frames to process
 prep=0; %Esto cambia el espacio de color si se coloca en 1
 

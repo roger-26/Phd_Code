@@ -1,4 +1,4 @@
-function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_plot,color)
+function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_plot,do_plot,color)
 %This function returns the Area Under the Curve AUC of success plot.
 %Success_rate is the values for each threshold, according to the tracker
 %performance
@@ -17,6 +17,8 @@ function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_pl
 %   threshold to evaluate overlap. default is 0.01 for the plot have 100
 %   points
 
+%do_plot =1 do the plot do_plot=0 not show the plot
+
 %color: indicated with a triplet RGB from 0 to 1 i.e. [0.95 0.9 0.25]
 
 
@@ -32,14 +34,13 @@ function[AUC,Success_rate] = success_plot(GT,BB_tracker,name_video,resolution_pl
     end
     Success_rate = NormalCount/length_sequence;
 %     plot(Success_rate,ejex,color,'LineWidth',3)
-     plot(Success_rate,ejex,'Color', color,'LineWidth',3)
-    
-    
-    
     AUC= trapz(ejex,Success_rate);
-    grid minor
-    ylabel('Success rate','FontSize',28);
-    xlabel('Overlap threshold','FontSize',28);
-    axis([0 1 0 1]);
-    set(gca,'FontSize',18);
+    if do_plot ==1
+        plot(Success_rate,ejex,'Color', color,'LineWidth',3)
+        grid minor
+        ylabel('Success rate','FontSize',28);
+        xlabel('Overlap threshold','FontSize',28);
+        axis([0 1 0 1]);
+        set(gca,'FontSize',18);
+    end
 end

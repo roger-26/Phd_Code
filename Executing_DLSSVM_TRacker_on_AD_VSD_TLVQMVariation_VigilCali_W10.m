@@ -26,7 +26,8 @@ name_videos_in_folder =  ...
 %     load('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\videos_Ad_VSD_extracted.mat');
 
 %cargando la estructura con los resultados que ya se han obtenido
-% carga1= load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat');
+% load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat');
+load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_3000_4475.mat');
 % initial_size_results = size(results_ADVSD,2);
 
 %cargando los nombres de todos los videos
@@ -47,7 +48,7 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 
-parfor i=1900:2199
+parfor i=3001:3350   
     
     done=0;
   
@@ -156,6 +157,6 @@ parfor i=1900:2199
     end
 end
 
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_P2.mat','results_ADVSD')
+save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_3000_32455.mat','results_ADVSD')
 t_total = toc(tStart)
 profile viewer

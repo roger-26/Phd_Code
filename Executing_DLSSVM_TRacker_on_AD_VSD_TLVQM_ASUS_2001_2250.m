@@ -26,7 +26,7 @@ name_videos_in_folder =  ...
 %     load('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\videos_Ad_VSD_extracted.mat');
 
 %cargando la estructura con los resultados que ya se han obtenido
-% carga1= load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat');
+load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_2001_2250.mat');
 % initial_size_results = size(results_ADVSD,2);
 
 %cargando los nombres de todos los videos
@@ -47,13 +47,14 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 
-parfor i=1900:2199
+for i=2031:2250
     
     done=0;
-  
-    if iscell(results_ADVSD(i).video)
-        done = 1;
-        disp([name_videos_in_folder(i),' skipped']);
+if i <size(results_ADVSD,2)
+        if iscell(results_ADVSD(i).video)
+            done = 1;
+            disp([name_videos_in_folder(i),' skipped']);
+        end
     end
   
     if done==0
@@ -73,7 +74,8 @@ parfor i=1900:2199
         video_path = strcat(folder_video_individual_frames,'\');
         
         path_GT=strcat...
-            ('C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideosGT\',name_individual_video,'_gt.txt');
+            ('C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideosGT\',...
+            name_individual_video,'_gt.txt');
         GT= load(path_GT);
         % GT= load(path_GT{1,1});
         init_rect = GT(1,:);
@@ -92,7 +94,8 @@ parfor i=1900:2199
         
         tracker_results = results.res;
         results_ADVSD(i).DLSSVM_BB = tracker_results;
-        [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+        [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,...
+            [0.9 0.6 0]);
         results_ADVSD(i).DLSSVM_AUC = AUC;
         results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;
         
@@ -104,7 +107,8 @@ parfor i=1900:2199
         
         results_TLVQM_LC_2 = results_TLVQM_LC.res;
         
-        [AUC_LC,Success_rate_LC] = success_plot(results_TLVQM_LC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+        [AUC_LC,Success_rate_LC] = success_plot(results_TLVQM_LC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,...
+            do_plot,[0.9 0.6 0]);
         results_ADVSD(i).TLVQM_LC_AUC = AUC_LC;
         results_ADVSD(i).TLVQM_LC_BB = results_TLVQM_LC_2;
         results_ADVSD(i).TLVQM_LC_SuccessRate = Success_rate_LC;
@@ -118,7 +122,8 @@ parfor i=1900:2199
         
         results_TLVQM_HC_2 = results_TLVQM_HC.res;
         
-        [AUC_HC,Success_rate_HC] = success_plot(results_TLVQM_HC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+        [AUC_HC,Success_rate_HC] = success_plot(results_TLVQM_HC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,...
+            do_plot,[0.9 0.6 0]);
         results_ADVSD(i).TLVQM_HC_AUC = AUC_HC;
         results_ADVSD(i).TLVQM_HC_BB = results_TLVQM_HC_2;
         results_ADVSD(i).TLVQM_HC_SuccessRate = Success_rate_HC;
@@ -134,7 +139,8 @@ parfor i=1900:2199
         
         results_TLVQM_2 = results_TLVQM.res;
         
-        [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+        [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,...
+            do_plot,[0.9 0.6 0]);
         results_ADVSD(i).TLVQM_AUC = AUC_TLVQM;
         results_ADVSD(i).TLVQM_BB = results_TLVQM_2;
         results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
@@ -144,7 +150,8 @@ parfor i=1900:2199
         %         parsave('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat',temp4);
         %         m=matfile('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat', temp4,'writable',true);
         
-        
+        save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_2001_2250.mat'...
+            ,'results_ADVSD')
         
         %
         %     tEnd = toc (tStart)
@@ -156,6 +163,6 @@ parfor i=1900:2199
     end
 end
 
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_P2.mat','results_ADVSD')
+% save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_P2.mat','results_ADVSD')
 t_total = toc(tStart)
 profile viewer

@@ -33,9 +33,9 @@ Generate_Frames_From_Video(path_frames,path_video, Desired_Type_File,Initial_Fra
 Name_Images         = ''; 
 a                   =VideoReader(path_video);
 Number_Of_Frames =a.NumberOfFrames;
-Number_frames_newFunction = a.NumFrames;
+% Number_frames_newFunction = a.NumFrames;
 % Initial_Frame=0; %Add an offset for don't initiate since frame 1
-disp('generating frames from video')
+% disp('generating frames from video')
 % Folder_With_Frames = strcat(folder_video,'/img')
 for img = 1+Initial_Frame:Number_Of_Frames
     %esta numeración es la que pide el tracker STRUCK para no dar error en
@@ -48,9 +48,10 @@ for img = 1+Initial_Frame:Number_Of_Frames
     end
     %imshow(b);
     imwrite(b,fullDestinationFileName,Desired_Type_File);
-     if mod(img,50)==0
-        img
-    end
+    
+%      if mod(img,200)==0
+%         img
+%     end
 end
 %this part generate a txt file with number of frames
 %last_frame = length(number_frames_obtained);

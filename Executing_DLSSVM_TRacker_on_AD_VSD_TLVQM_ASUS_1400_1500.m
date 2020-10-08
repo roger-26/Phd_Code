@@ -26,7 +26,7 @@ name_videos_in_folder =  ...
 %     load('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\videos_Ad_VSD_extracted.mat');
 
 %cargando la estructura con los resultados que ya se han obtenido
-% carga1= load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat');
+load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat');
 % initial_size_results = size(results_ADVSD,2);
 
 %cargando los nombres de todos los videos
@@ -47,15 +47,17 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 
-parfor i=1900:2199
+for i=1400:1500
     
     done=0;
-  
-    if iscell(results_ADVSD(i).video)
-        done = 1;
-        disp([name_videos_in_folder(i),' skipped']);
-    end
-  
+    
+%     if i <size(results_ADVSD,2)
+        if iscell(results_ADVSD(i).video)
+            done = 1;
+            disp([name_videos_in_folder(i),' skipped']);
+        end
+%     end
+    
     if done==0
         %% generando el folder donde esta la carpeta img con las imágenes jpg
         time_start_frame_generation = tic;
@@ -139,11 +141,11 @@ parfor i=1900:2199
         results_ADVSD(i).TLVQM_BB = results_TLVQM_2;
         results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
         
+        save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_1400_1500.mat','results_ADVSD')
         %función para guardar dentro de un parfor
         %         temp4= results_ADVSD;
         %         parsave('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat',temp4);
         %         m=matfile('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat', temp4,'writable',true);
-        
         
         
         %
@@ -156,6 +158,8 @@ parfor i=1900:2199
     end
 end
 
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_P2.mat','results_ADVSD')
+% save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_12_1500.mat','results_ADVSD')
+        
+% save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_P2.mat','results_ADVSD')
 t_total = toc(tStart)
 profile viewer

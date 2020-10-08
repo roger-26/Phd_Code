@@ -6,7 +6,7 @@ close all
 
 % GT= load ('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_pristine\groundtruth_rect.mat');
 % GT= load('groundtruth_rect_Gaussian.mat')
-
+addpath 'C:\Dropbox\git'
 GT = load('0284Exp_IndWL_MQ_C3_gt.txt');
 DLSSV_Reuslts = load('0284Exp_IndWL_MQ_C3_DLSSVM.mat');
 FRIQUEE_Tracking_Results = load ('0284Exp_IndWL_MQ_C3_FRIQUEE560_Normalized.mat');
