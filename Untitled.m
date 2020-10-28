@@ -26,7 +26,7 @@ name_videos_in_folder =  ...
 %     load('C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\videos_Ad_VSD_extracted.mat');
 
 %cargando la estructura con los resultados que ya se han obtenido
-load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_1500_1750.mat');
+% load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_2507_2750.mat');
 % initial_size_results = size(results_ADVSD,2);
 
 %cargando los nombres de todos los videos
@@ -47,15 +47,16 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 
-parfor i=1686:1721
+for i=2501:2750
     
     done=0;
-%     if i <size(results_ADVSD,2)
+% if i <=size(results_ADVSD,2)
 %         if iscell(results_ADVSD(i).video)
 %             done = 1;
 %             disp([name_videos_in_folder(i),' skipped']);
 %         end
 %     end
+  
     if done==0
         %% generando el folder donde esta la carpeta img con las imágenes jpg
         time_start_frame_generation = tic;
@@ -86,65 +87,68 @@ parfor i=1686:1721
         
         %  results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
         t1 = datetime('now');
-        disp(['DLSSVM ',name_videos_in_folder(i), num2cell(t1)]);
-        results = tracker([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-        end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+
         
-        tracker_results = results.res;
-        results_ADVSD(i).DLSSVM_BB = tracker_results;
-        [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-        results_ADVSD(i).DLSSVM_AUC = AUC;
-        results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;
+        %% TLVQM_HC
+%         disp(['TLVQM_HC ',name_videos_in_folder(i)]);
+%         %     disp('calculating TLVQM HC');
+%         results_TLVQM_HC = ...
+%             tracker_TLVQM_HC_Features_CropDivided([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+%         
+%         results_TLVQM_HC_2 = results_TLVQM_HC.res;
+%         
+%         [AUC_HC,Success_rate_HC] = success_plot(results_TLVQM_HC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+%         results_ADVSD(i).TLVQM_HC_AUC = AUC_HC;
+%         results_ADVSD(i).TLVQM_HC_BB = results_TLVQM_HC_2;
+%         results_ADVSD(i).TLVQM_HC_SuccessRate = Success_rate_HC;
         
-        
+        %
         disp(['TLVQM_LC ',name_videos_in_folder(i)]);
-        %     disp('calculating TLVQM LC');
-        results_TLVQM_LC = ...
-            tracker_TLVQM_Features_LC([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-        
-        results_TLVQM_LC_2 = results_TLVQM_LC.res;
-        
-        [AUC_LC,Success_rate_LC] = success_plot(results_TLVQM_LC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-        results_ADVSD(i).TLVQM_LC_AUC = AUC_LC;
-        results_ADVSD(i).TLVQM_LC_BB = results_TLVQM_LC_2;
-        results_ADVSD(i).TLVQM_LC_SuccessRate = Success_rate_LC;
-        
-        
-        
-        disp(['TLVQM_HC ',name_videos_in_folder(i)]);
-        %     disp('calculating TLVQM HC');
-        results_TLVQM_HC = ...
-            tracker_TLVQM_Features_HC([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-        
-        results_TLVQM_HC_2 = results_TLVQM_HC.res;
-        
-        [AUC_HC,Success_rate_HC] = success_plot(results_TLVQM_HC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-        results_ADVSD(i).TLVQM_HC_AUC = AUC_HC;
-        results_ADVSD(i).TLVQM_HC_BB = results_TLVQM_HC_2;
-        results_ADVSD(i).TLVQM_HC_SuccessRate = Success_rate_HC;
+                %     disp('calculating TLVQM LC');
+                results_TLVQM_LC = ...<
+                    tracker_TLVQM_LC_Features_CropDivided([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+                
+                results_TLVQM_LC_2 = results_TLVQM_LC.res;
+                 end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+                [AUC_LC,Success_rate_LC] = success_plot(results_TLVQM_LC_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+                results_ADVSD(i).TLVQM_LC_AUC = AUC_LC;
+                results_ADVSD(i).TLVQM_LC_BB = results_TLVQM_LC_2;
+                results_ADVSD(i).TLVQM_LC_SuccessRate = Success_rate_LC;
         
         
+
+          %% TLVQM
+%                 disp(['TLVQM ',name_videos_in_folder(i)]);
+%                 %     disp('calculating TLVQM');
+%                 results_TLVQM = ...
+%                     tracker_TLVQM_Features_CropDivided([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+%                 %                 end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+%                 results_TLVQM_2 = results_TLVQM.res;
+%                 
+%                 [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+%                 results_ADVSD(i).TLVQM_AUC = AUC_TLVQM;
+%                 results_ADVSD(i).TLVQM_BB = results_TLVQM_2;
+%                 results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
+    %% DLSSVM
+                
+%                 disp(['DLSSVM ',name_videos_in_folder(i), num2cell(t1)]);
+%                 results = tracker([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+%                 end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+%                 
+%                 tracker_results = results.res;
+%                 results_ADVSD(i).DLSSVM_BB = tracker_results;
+%                 [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+%                 results_ADVSD(i).DLSSVM_AUC = AUC;
+%                 results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;        
         
         
-        
-        disp(['TLVQM ',name_videos_in_folder(i)]);
-        %     disp('calculating TLVQM');
-        results_TLVQM = ...
-            tracker_TLVQM_Features([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-        
-        results_TLVQM_2 = results_TLVQM.res;
-        
-        [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-        results_ADVSD(i).TLVQM_AUC = AUC_TLVQM;
-        results_ADVSD(i).TLVQM_BB = results_TLVQM_2;
-        results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
         
         %función para guardar dentro de un parfor
         %         temp4= results_ADVSD;
         %         parsave('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat',temp4);
         %         m=matfile('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat', temp4,'writable',true);
         
-        
+         save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_2507_2750.mat','results_ADVSD')
         
         %
         %     tEnd = toc (tStart)
@@ -155,7 +159,7 @@ parfor i=1686:1721
         %         rmdir(folder_video_individual_frames,'s');
     end
 end
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_1726_1750.mat','results_ADVSD')
+
 % save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_P2.mat','results_ADVSD')
 t_total = toc(tStart)
 profile viewer

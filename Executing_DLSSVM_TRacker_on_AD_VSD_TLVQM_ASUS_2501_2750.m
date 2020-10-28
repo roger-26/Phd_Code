@@ -50,12 +50,12 @@ image_type = 'png';
 for i=2501:2750
     
     done=0;
-if i <=size(results_ADVSD,2)
-        if iscell(results_ADVSD(i).video)
-            done = 1;
-            disp([name_videos_in_folder(i),' skipped']);
-        end
-    end
+% if i <=size(results_ADVSD,2)
+%         if iscell(results_ADVSD(i).video)
+%             done = 1;
+%             disp([name_videos_in_folder(i),' skipped']);
+%         end
+%     end
   
     if done==0
         %% generando el folder donde esta la carpeta img con las imágenes jpg
@@ -87,21 +87,35 @@ if i <=size(results_ADVSD,2)
         
         %  results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
         t1 = datetime('now');
-        disp(['DLSSVM ',name_videos_in_folder(i), num2cell(t1)]);
-        results = tracker([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-        end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+        %% TLVQM
+        disp(['TLVQM ',name_videos_in_folder(i)]);
+        %     disp('calculating TLVQM');
+        results_TLVQM = ...
+            tracker_TLVQM_Features_CropDivided([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
         
-        tracker_results = results.res;
-        results_ADVSD(i).DLSSVM_BB = tracker_results;
-        [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-        results_ADVSD(i).DLSSVM_AUC = AUC;
-        results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;
+        results_TLVQM_2 = results_TLVQM.res;
         
+        [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+        results_ADVSD(i).TLVQM_AUC = AUC_TLVQM;
+        results_ADVSD(i).TLVQM_BB = results_TLVQM_2;
+        results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
+        
+        %% 
+%         disp(['DLSSVM ',name_videos_in_folder(i), num2cell(t1)]);
+%         results = tracker([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+%         end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+%         
+%         tracker_results = results.res;
+%         results_ADVSD(i).DLSSVM_BB = tracker_results;
+%         [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+%         results_ADVSD(i).DLSSVM_AUC = AUC;
+%         results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;
+        %%
         
         disp(['TLVQM_LC ',name_videos_in_folder(i)]);
         %     disp('calculating TLVQM LC');
         results_TLVQM_LC = ...
-            tracker_TLVQM_Features_LC([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+            tracker_TLVQM_LC_Features_CropDivided([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
         
         results_TLVQM_LC_2 = results_TLVQM_LC.res;
         
@@ -111,7 +125,7 @@ if i <=size(results_ADVSD,2)
         results_ADVSD(i).TLVQM_LC_SuccessRate = Success_rate_LC;
         
         
-        
+        %% TLVQM_HC
         disp(['TLVQM_HC ',name_videos_in_folder(i)]);
         %     disp('calculating TLVQM HC');
         results_TLVQM_HC = ...
@@ -128,17 +142,7 @@ if i <=size(results_ADVSD,2)
         
         
         
-        disp(['TLVQM ',name_videos_in_folder(i)]);
-        %     disp('calculating TLVQM');
-        results_TLVQM = ...
-            tracker_TLVQM_Features([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
         
-        results_TLVQM_2 = results_TLVQM.res;
-        
-        [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-        results_ADVSD(i).TLVQM_AUC = AUC_TLVQM;
-        results_ADVSD(i).TLVQM_BB = results_TLVQM_2;
-        results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
         
         %función para guardar dentro de un parfor
         %         temp4= results_ADVSD;
