@@ -1,3 +1,3 @@
-function parsave(fname,results_ADVSD)
-  save(fname, 'results_ADVSD')
+function parsave(fname, x)
+  save(fname, 'x')
 end
