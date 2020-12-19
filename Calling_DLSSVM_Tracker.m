@@ -36,8 +36,11 @@ prep=0; %Esto cambia el espacio de color si se coloca en 1
 cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\compile'
 
 
-results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
-% results = tracker([video_path '\img'],'jpg',disp_vd,init_rect,1,end_frame,prep);
+% results = tracker_FRIQUEE([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+% results = tracker([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+
+results = ...
+            tracker_TLVQM_Features_LC([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 tracker_results = results.res;
 save(...
