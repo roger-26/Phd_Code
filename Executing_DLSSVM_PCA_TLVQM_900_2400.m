@@ -47,7 +47,7 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 
-parfor i=1:800
+parfor i=1:1200
     if mod(i,100)==0
         done =1;
         if i ~= 2030 && 3080
@@ -93,21 +93,22 @@ parfor i=1:800
                 t1 = datetime('now');
                 %% DLSSVM
                 
-                disp(['DLSSVM ',name_videos_in_folder(i), num2cell(t1)]);
-                results = tracker([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-                end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
-                
-                tracker_results = results.res;
-                results_ADVSD(i).DLSSVM_BB = tracker_results;
-                [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
-                results_ADVSD(i).DLSSVM_AUC = AUC;
-                results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;
+%                 disp(['DLSSVM ',name_videos_in_folder(i), num2cell(t1)]);
+%                 results = tracker([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+%                 end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+%                 
+%                 tracker_results = results.res;
+%                 results_ADVSD(i).DLSSVM_BB = tracker_results;
+%                 [AUC,Success_rate] = success_plot(tracker_results,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
+%                 results_ADVSD(i).DLSSVM_AUC = AUC;
+%                 results_ADVSD(i).DLSSVM_SuccessRate = Success_rate;
                 %% TLVQM
                 disp(['TLVQM ',name_videos_in_folder(i)]);
                 %     disp('calculating TLVQM');
                 results_TLVQM = ...
-                    tracker_TLVQM_Features_PCA_Input([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
-                %                 end_frame = size(results.res,1);%frames en los que se pudo calcular el resultado
+                    tracker_GrayscaleNormalized_TLVQM_Normalized_PCA_Input...
+                    ([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
+                end_frame = size(results_TLVQM.res,1);%frames en los que se pudo calcular el resultado
                 results_TLVQM_2 = results_TLVQM.res;
                 
                 [AUC_TLVQM,Success_rate_TLVQM] = success_plot(results_TLVQM_2,GT(1:end_frame,:),name_videos_in_folder(i),0.01,do_plot,[0.9 0.6 0]);
@@ -169,6 +170,6 @@ parfor i=1:800
     end
 end
 
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_TLVQM_PCA_InPUT_1_1200.mat','results_ADVSD')
+save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_GrayscaleNormalized_TLVQMNormalized_1_1200.mat','results_ADVSD')
 t_total = toc(tStart)
 profile viewer
