@@ -32,9 +32,9 @@ addpath('data');
 % init_rect = [1231 150 126 355]
 
 %%
-video_path = 'C:\surveillanceVideos_Frames\0200Exp_IndLPP_LQ_C3'
+video_path = 'C:\surveillanceVideos_Frames\0100Fo_IndPW_LQ_C2'
 end_frame = 345;  %number of frames to process
-init_rect=[1009,430,90,176];
+init_rect=[1315,87,1448,331];
 %%
 
 
@@ -51,8 +51,11 @@ cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\co
 %     tracker_TLVQM_Features_LC([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 
+% [result] = ...
+%     tracker_TLVQM_Features_PCA_Input([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+
 [result] = ...
-    tracker_TLVQM_Features_PCA_Input([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+    tracker_OriginalGrayscale_TLVQM_Normalized([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 
 tracker_results = results.res;
