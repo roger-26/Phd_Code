@@ -161,32 +161,26 @@ for frame_id = start_frame:end_frame
     disp(['calculating TLVQM features in patches in frame: ',num2str(frame_id)]);
     [rows, columns, numberOfColorChannels] = size(I_orig);
     Number_divisions = 48;
-    Number_TLVQM_Features = 58;
-    
     I=I_orig;
     size_patch = [floor(rows/Number_divisions), columns/Number_divisions];
 %     imshow(I)
 %     figure
     patch_counter=0;
     time_LC = tic;
-    
-    
-%     patch_data = zeros(size_patch(1),size_patch(2),3,Number_divisions*Number_divisions,'int8');
-     patch_position=zeros(2,Number_divisions*Number_divisions,'int8');
-    matrix_patches_58=zeros(Number_divisions,Number_divisions,Number_TLVQM_Features);
-
-%En este for se calculan los patches y se les extraen las TLVQM
+    patch_data = zeros(size_patch(1),size_patch(2),3,Number_divisions*Number_divisions,'int8');
+    patch_position=zeros(2,Number_divisions*Number_divisions,'int8');
+    %En este for se calculan los patches y se les extraen las TLVQM
     %features
-    parfor i=1:Number_divisions
+    for i=1:Number_divisions
         for j=1: Number_divisions
             patch_counter =patch_counter+1;
-%              patch_position(:,patch_counter)=[j,i];
+            patch_position(:,patch_counter)=[j,i];
 %             patch(patch_counter).position=[j,i];
             rectangle_to_crop = [(size_patch(2)*(i-1))+1, (size_patch(1)*(j-1))+1, size_patch(2)-1,size_patch(1)-1];
             
-%             patch_data(:,:,:,patch_counter)=imcrop(I, rectangle_to_crop); 
-            data =imcrop(I, rectangle_to_crop);
-            YUV_Data = im2double(rgb2yuv(data,0));
+            patch_data(:,:,:,patch_counter)=imcrop(I, rectangle_to_crop); 
+            patch(patch_counter).data =imcrop(I, rectangle_to_crop);
+            YUV_Data = im2double(rgb2yuv(patch(patch_counter).data,0));
             
             %previous patch
             PreviousFrame_patches =imcrop(I_orig_previous, rectangle_to_crop);

@@ -31,14 +31,19 @@ addpath('data');
 %init_rect = [1476 207 178 520]  video1 full poscapture distortion
 % init_rect = [1231 150 126 355]
 
-%%
-video_path = 'C:\surveillanceVideos_Frames\0100Fo_IndPW_LQ_C2'
-end_frame = 345;  %number of frames to process
-init_rect=[1315,87,1448,331];
-%%
+ %%
+% video_path = 'C:\surveillanceVideos_Frames\0100Fo_IndPW_LQ_C2'
+% end_frame = 345;  %number of frames to process
+% init_rect=[1315,87,1448,331];
+
+%% Video Pristino
+video_path = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0274Pri_IndWL_C1'
+end_frame = 451;  %number of frames to process
+init_rect=[1231 150 126 355];
+%% 
 
 
-disp_vd = true;%show image with bounding box
+disp_vd = 0;%show image with bounding box
 prep=0; %Esto cambia el espacio de color si se coloca en 1
 % end_frame = 451;  %number of frames to process
 cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\compile'
@@ -55,7 +60,7 @@ cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\co
 %     tracker_TLVQM_Features_PCA_Input([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 [result] = ...
-    tracker_OriginalGrayscale_TLVQM_Normalized([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+    DLSSV_TLVQMPatches_Normalized([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 
 tracker_results = results.res;
