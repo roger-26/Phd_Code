@@ -1,5 +1,10 @@
-%Ejecutando el tracker DLSSVM sobre AD-VSD, con las variaciones TLVQM HC y
-%LC
+%Ejecutando el tracker DLSSVM sobre AD-VSD, se introduce el número de los
+%videos  que se quieres procesar
+
+%Author: Roger Gomez Nieto
+% Date: 19 january 2021
+
+
 % clear all
 clear all
 profile on
@@ -47,7 +52,7 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 videos_to_test = [1,3,163,274,282,298,903,1011];
-for j=1:size(videos_to_test)
+for j=1:size(videos_to_test,2)
     
     i=videos_to_test(j);
     %% generando el folder donde esta la carpeta img con las imágenes jpg
@@ -72,8 +77,8 @@ for j=1:size(videos_to_test)
     GT= load(path_GT);
     % GT= load(path_GT{1,1});
     init_rect = GT(1,:);
-%     
-%     results_ADVSD(i).video=name_videos_in_folder(i);
+    %
+    %     results_ADVSD(i).video=name_videos_in_folder(i);
     %     disp(results_ADVSD(i).video);
     size_GT = size(GT,1);
     % end_frame = 346;  %number of frames to process
@@ -156,9 +161,10 @@ for j=1:size(videos_to_test)
     
     %eliminando la carpeta con los frames del video
     %         rmdir(folder_video_individual_frames,'s');
-    
+    save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\TLVQM_PCA_Input_allPatches_Videos_Selected.mat',...
+        'results_ADVSD')
 end
 
-save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_OriginalGrayscale_TLVQM_Normalized_1_800.mat','results_ADVSD')
+
 t_total = toc(tStart)
 profile viewer

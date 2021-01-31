@@ -60,7 +60,7 @@ cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\co
 %     tracker_TLVQM_Features_PCA_Input([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 [result] = ...
-    DLSSV_TLVQMPatches_Normalized([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+    DLSSV_TLVQMPatches_Normalized_ROI([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 
 tracker_results = results.res;
