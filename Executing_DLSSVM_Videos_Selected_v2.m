@@ -52,8 +52,7 @@ do_plot=0; %para que no haga las graficas del success plot
 
 image_type = 'png';
 % videos_to_test = [1,3,163,274,282,298,903,1011];
-Set2_40_videos = [274,298,1,3,282,163,903,1011,3245,470,1113,1329,1548,1758,1870,1982,2206,2647,2743,2842,2938,3028,3230,3559,3892,...
-    4113,290,314,350,1116,1131,1140,2006,2010,2022,2024,2074,2879,2911,3709];
+Set2_40_videos = [1131,1140,2006,2010,2022,2024,2074,2879,2911,3709];
 videos_to_test = Set2_40_videos;
 for j=1:size(videos_to_test,2)
     
@@ -104,7 +103,7 @@ for j=1:size(videos_to_test,2)
     disp(['TLVQM ',name_videos_in_folder(i)]);
     %     disp('calculating TLVQM');
     results_TLVQM = ...
-        DLSSV_TLVQMPatches_Normalized...
+        DLSSV_TLVQMPatches_PCA10Frames...
         ([video_path '\img'],image_type,disp_vd,init_rect,1,size_GT,prep);
     end_frame = size(results_TLVQM.res,1);%frames en los que se pudo calcular el resultado
     results_TLVQM_2 = results_TLVQM.res;
@@ -164,7 +163,7 @@ for j=1:size(videos_to_test,2)
     
     %eliminando la carpeta con los frames del video
     %         rmdir(folder_video_individual_frames,'s');
-    save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\TLVQM_PCA_Input_allPatches_Videos_Selected.mat',...
+    save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\DLSSV_TLVQMPatches_PCA10Frames_Predator_set1_Last10.mat',...
         'results_ADVSD')
 end
 

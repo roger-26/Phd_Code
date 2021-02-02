@@ -10,16 +10,15 @@
 %      s_frames: the number of frames                                %
 %                                                                    %
 % ********************************************************************
-%    Este código tiene la grayscale image autentica, a la cual se le añaden los dos canales adicionales de las TLVQM 
+%    Este código tiene la grayscale image autentica, a la cual se le añaden los dos canales adicionales de las TLVQM
 %   features normalizados entre 0 y 255. Además, el PCA se calcula a toda
 %   la matrix resultante de TLVQM de M*N*2, donde MxN es el número de
-%   patches que se calculan, inicialmente de un size de 40x40, se toman 22*22 patches con en un área con el mismo centro del 
-%   bounding box alrededor del Bounding Box para que
-%   sean cuadrados. Del PCA se toman los coeficientes, no los score.  
+%   patches que se calculan, inicialmente de un size de 40x40, alrededor del Bounding Box para que
+%   sean cuadrados. Del PCA se toman los coeficientes, no los score.
 %   Date: 18 january 2021
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [result] = DLSSV_TLVQMPatches_Normalized(input, ext, show_img, init_rect, start_frame, end_frame, prep, s_frames)
+function [result] = DLSSV_TLVQMPatches_PCA10Frames(input, ext, show_img, init_rect, start_frame, end_frame, prep, s_frames)
 
 % Display runtime result
 
@@ -108,7 +107,132 @@ k = 1; % Pattern index
 
 %% Crear folder para guardar los frames con las modificaciones de calidad
 folder_created_Modified_frames = 'I2';
-mkdir(input, folder_created_Modified_frames);  
+mkdir(input, folder_created_Modified_frames);
+
+
+%% Calculating the PCA with the first 10 frames
+patches_to_save_each_frame = 230; 
+disp(['calculating PCA coeffs']);
+time_PCA = tic;
+for frame_id=start_frame:10
+
+    % if show_img == true (line 64), Pressing press the key, you can just stop the process.
+    if finish == 1
+        break;
+    end
+    
+    if ~config.display
+        %clc  % clear display
+        %display(input);  %folder
+        if mod(frame_id,500)==0
+            display(['frame: ',num2str(frame_id),'/',num2str(end_frame)]); % Now Schedule  ex: "frame: 10/725"
+        end
+    end
+    
+    
+    if nargin == 8
+        I_orig = imread(s_frames{frame_id-start_frame+1});
+        I_orig_next = imread(s_frames{frame_id-start_frame+2});
+        I_orig_previous = imread(s_frames{frame_id-start_frame});
+        % I_orig = img( s_frame{ the_num_of_current_loop } )
+    else
+        
+        I_orig = imread(fullfile(input,file_list{frame_id}));
+        
+        if frame_id == end_frame
+            I_orig_next = I_orig;
+        else
+            I_orig_next = imread(fullfile(input,file_list{frame_id+1}));
+        end
+        
+        if frame_id == 1
+            I_orig_previous = I_orig;
+        else
+            I_orig_previous = imread(fullfile(input,file_list{frame_id-1}));
+        end
+        %
+        %                 % Default I_orig = img( frame_id )
+        %
+        %                 catch
+        %                     I_orig = imread(fullfile(input,file_list{frame_id-1}));
+        
+    end
+    
+    
+    
+    %% Calculando la variación con las TLVQM features para añadirlas al video de entrada.
+    
+    [rows, columns, numberOfColorChannels] = size(I_orig);
+    Number_divisions = 48;
+    Number_TLVQM_Features = 58;
+    
+    I=I_orig;
+    size_patch = [floor(rows/Number_divisions), columns/Number_divisions];
+    %     imshow(I)
+    %     figure
+    patch_counter=0;
+    
+    
+    
+    %     patch_data = zeros(size_patch(1),size_patch(2),3,Number_divisions*Number_divisions,'int8');
+    patch_position=zeros(2,Number_divisions*Number_divisions,'int8');
+    matrix_patches_58=zeros(Number_divisions,Number_divisions,Number_TLVQM_Features);
+    
+    %En este for se calculan los patches y se les extraen las TLVQM
+    %features
+    parfor i=1:Number_divisions
+        for j=1: Number_divisions
+            patch_counter =patch_counter+1;
+            %              patch_position(:,patch_counter)=[j,i];
+            %             patch(patch_counter).position=[j,i];
+            rectangle_to_crop = [(size_patch(2)*(i-1))+1, (size_patch(1)*(j-1))+1, size_patch(2)-1,size_patch(1)-1];
+            
+            %             patch_data(:,:,:,patch_counter)=imcrop(I, rectangle_to_crop);
+            data =imcrop(I, rectangle_to_crop);
+            YUV_Data = im2double(rgb2yuv(data,0));
+            
+            %previous patch
+            PreviousFrame_patches =imcrop(I_orig_previous, rectangle_to_crop);
+            YUV_PreviousFrame = im2double(rgb2yuv(PreviousFrame_patches,0));
+            
+            %next_patch
+            NextFrame_patches =imcrop(I_orig_next, rectangle_to_crop);
+            YUV_NextFrame = im2double(rgb2yuv(NextFrame_patches,0));
+            
+            % Compute temporal features for each patch
+            TLVQM_LC = compute_LC_features_TLVQM(YUV_Data, ...
+                YUV_PreviousFrame, ...
+                YUV_NextFrame);
+            
+            TLVQM_HC = compute_HC_features_TLVQM(YUV_Data);%30 features
+            %             patch(patch_counter).TLVQM_HC_LC=[patch(patch_counter).TLVQM_LC patch(patch_counter).TLVQM_HC];
+            %Esta es la matrix de 48*48*58, a la que se le va a aplicar PCA
+            matrix_patches_58(j,i,:)= [TLVQM_LC TLVQM_HC];
+            %             [coeff,score,latent,tsquared,explained] = pca(patch(patch_counter).TLVQM_HC_LC');
+            %             patch(patch_counter).TLVQM_HC_LC_PCA_FirstTwoComponents = score(1:2);
+            
+            
+        end
+    end
+    
+    
+    %volviendo la matriz 2D para usar PCA normal
+    Matrix_Patches_2D= reshape(matrix_patches_58,[2304,58]);
+    %asigno los valores aleatorios y guardo esos patches
+    r2 = randi(2304,patches_to_save_each_frame,1);
+    Ten_Percent_Random_Patches = Matrix_Patches_2D(r2,:);
+    Final_Matriz_PCA_10_Frames((((frame_id-1)*patches_to_save_each_frame)+1):frame_id*patches_to_save_each_frame,:) = ...
+        Ten_Percent_Random_Patches;
+    
+end
+  %Eliminando las filas con NAN
+    Final_Matriz_PCA_10_Frames(:,13)=[];
+    Final_Matriz_PCA_10_Frames(:,49:57)=[];
+    
+    %Calculando el PCA con dos componentes
+    [coeff_PCA,score,latent]=pca(Final_Matriz_PCA_10_Frames, 'NumComponents',2);
+
+toc(time_PCA);
 
 
 %%
@@ -166,26 +290,26 @@ for frame_id = start_frame:end_frame
     
     I=I_orig;
     size_patch = [floor(rows/Number_divisions), columns/Number_divisions];
-%     imshow(I)
-%     figure
+    %     imshow(I)
+    %     figure
     patch_counter=0;
     time_LC = tic;
     
     
-%     patch_data = zeros(size_patch(1),size_patch(2),3,Number_divisions*Number_divisions,'int8');
-     patch_position=zeros(2,Number_divisions*Number_divisions,'int8');
+    %     patch_data = zeros(size_patch(1),size_patch(2),3,Number_divisions*Number_divisions,'int8');
+    patch_position=zeros(2,Number_divisions*Number_divisions,'int8');
     matrix_patches_58=zeros(Number_divisions,Number_divisions,Number_TLVQM_Features);
-
-%En este for se calculan los patches y se les extraen las TLVQM
+    
+    %En este for se calculan los patches y se les extraen las TLVQM
     %features
     parfor i=1:Number_divisions
         for j=1: Number_divisions
             patch_counter =patch_counter+1;
-%              patch_position(:,patch_counter)=[j,i];
-%             patch(patch_counter).position=[j,i];
+            %              patch_position(:,patch_counter)=[j,i];
+            %             patch(patch_counter).position=[j,i];
             rectangle_to_crop = [(size_patch(2)*(i-1))+1, (size_patch(1)*(j-1))+1, size_patch(2)-1,size_patch(1)-1];
             
-%             patch_data(:,:,:,patch_counter)=imcrop(I, rectangle_to_crop); 
+            %             patch_data(:,:,:,patch_counter)=imcrop(I, rectangle_to_crop);
             data =imcrop(I, rectangle_to_crop);
             YUV_Data = im2double(rgb2yuv(data,0));
             
@@ -202,26 +326,40 @@ for frame_id = start_frame:end_frame
                 YUV_PreviousFrame, ...
                 YUV_NextFrame);
             
-           TLVQM_HC = compute_HC_features_TLVQM(YUV_Data);%30 features
-%             patch(patch_counter).TLVQM_HC_LC=[patch(patch_counter).TLVQM_LC patch(patch_counter).TLVQM_HC];
+            TLVQM_HC = compute_HC_features_TLVQM(YUV_Data);%30 features
+            %             patch(patch_counter).TLVQM_HC_LC=[patch(patch_counter).TLVQM_LC patch(patch_counter).TLVQM_HC];
             %Esta es la matrix de 48*48*58, a la que se le va a aplicar PCA
             matrix_patches_58(j,i,:)= [TLVQM_LC TLVQM_HC];
-%             [coeff,score,latent,tsquared,explained] = pca(patch(patch_counter).TLVQM_HC_LC');
-%             patch(patch_counter).TLVQM_HC_LC_PCA_FirstTwoComponents = score(1:2);
-
-         
+            %             [coeff,score,latent,tsquared,explained] = pca(patch(patch_counter).TLVQM_HC_LC');
+            %             patch(patch_counter).TLVQM_HC_LC_PCA_FirstTwoComponents = score(1:2);
+            
+            
         end
     end
     toc(time_LC);
     
+    
+    %cambiando el size de 48*48*58 a 2304*58
+    Matrix_Patches_2D= reshape(matrix_patches_58,[Number_divisions*Number_divisions,Number_TLVQM_Features]);
+    
+    %se eliminan las columnas con NaN
+    Matrix_Patches_2D(:,13)=[];
+    Matrix_Patches_2D(:,49:57)=[];
+    
+    %Ahora se hace la normalización para que la media quede en cero
+    mydata_mean = mean(Matrix_Patches_2D);
+    mydata_mean = repmat(mydata_mean,Number_divisions*Number_divisions,1);
+    my_data_norm = Matrix_Patches_2D - mydata_mean;
+    
+    
+    reduced_Patch_Matrix = my_data_norm*coeff_PCA;
+    
+    
     %calculating the PCA to the image 48*48*58. You must convert from
-    %double to int before to use hyperpca 
-    [reduced_Patch_Matrix,coeff_PCA3d] = hyperpca(uint8(matrix_patches_58),2);
+    %double to int before to use hyperpca
+%     [reduced_Patch_Matrix,coeff_PCA3d] = hyperpca(uint8(matrix_patches_58),2);
     %to get the grayscale image from original input image
     grayscale_I =rgb2gray(I_orig);
-    imshow(grayscale_I)
-    figure
-    imshow(I_orig(:,:,1))
     %normalize the matrix resulting from the PCA to get a range from 0 to
     %255
     reduced_Patch_Matrix_Normalized = reduced_Patch_Matrix;
@@ -229,13 +367,30 @@ for frame_id = start_frame:end_frame
     reduced_Patch_Matrix_Normalized = reduced_Patch_Matrix_Normalized / max(reduced_Patch_Matrix_Normalized(:)) ;
     reduced_Patch_Matrix_Normalized = 255*reduced_Patch_Matrix_Normalized;
     
+    %Aqui los valores quedan entre 0 y 255
     Patch_PCA = reduced_Patch_Matrix_Normalized;
+    
+    %Aqui hay que volver al original size de 48*48*2
+    
+    A=zeros(48,48,2);
+    B = Patch_PCA;
+    numel(A),numel(B)
+    size(A), size(B)
+    LIDX = 1:numel(A) ;
+    [rowA, colA] = ind2sub(size(A), LIDX);
+    [rowB, colB] = ind2sub(size(B), LIDX);
+    
+    %Se asigna según la posición los dos TLVQM channels resultantes del PCA
+    for i=1:size(B)
+        row_index=rowA(i);
+        col_index=colA(i);
+       Patch_Image_Original_size(row_index,col_index,:)=B(i,:); 
+    end
+    
     %J queda con el tamaño de la imagen original, pero con dos canales, que es el TLVQM reducido a dos componentes
     %principales
-    J = imresize(Patch_PCA,[size(I_orig,1) size(I_orig,2)]);
+    J = imresize(Patch_Image_Original_size,[size(I_orig,1) size(I_orig,2)]);
     
-    figure
-    imshow(J(:,:,2));
     
     
     
@@ -275,7 +430,7 @@ for frame_id = start_frame:end_frame
     %TLVQM luego de PCA(48*48*58 a 48*48*2) e interpolación, y normalización entre 0 y 255
     I2(:,:,1)=grayscale_I;
     I2(:,:,2:3)=J;
-
+    
     if hacer_graficas
         figure
         imshow(I2)
@@ -287,10 +442,10 @@ for frame_id = start_frame:end_frame
     %Guardando la imagen que va a tener el tracker de entrada
     name_to_save_PCAVQA_Image = strcat(num2str(frame_id),'.png');
     imwrite(I_orig,strcat(input, '\',folder_created_Modified_frames,'\', name_to_save_PCAVQA_Image))
-%     Video_PCA_TLVQM_Features(frame_id).frame = I_orig5;
-
-%     imshow(I_orig)
-%     title('input frame to tracker');
+    %     Video_PCA_TLVQM_Features(frame_id).frame = I_orig5;
+    
+    %     imshow(I_orig)
+    %     title('input frame to tracker');
     %%
     % For the first frame loop
     if frame_id == start_frame
@@ -349,7 +504,7 @@ for frame_id = start_frame:end_frame
     % (2) Local Rank Transform: I don't know, you can Google it yourself.
     % I noticed that only BC will be used in the rest of the code
     % ********************************************************************
-
+    
     
     
     tic
