@@ -440,10 +440,10 @@ for frame_id = start_frame:end_frame
     %Aqui se decide cual va a usarse, de las anteriores configuraciones.
     I_orig = I2;
     
-    %Guardando la imagen que va a tener el tracker de entrada
+    %% Guardando la imagen que va a tener el tracker de entrada
     name_to_save_PCAVQA_Image = strcat(num2str(frame_id),'.png');
-    imwrite(I_orig,strcat(input, '\',folder_created_Modified_frames,'\', name_to_save_PCAVQA_Image))
-    %     Video_PCA_TLVQM_Features(frame_id).frame = I_orig5;
+%     imwrite(I_orig,strcat(input, '\',folder_created_Modified_frames,'\', name_to_save_PCAVQA_Image))
+    
     
     %     imshow(I_orig)
     %     title('input frame to tracker');
