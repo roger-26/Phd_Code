@@ -119,7 +119,28 @@ for j=1:size(videos_to_test,2)
     results_ADVSD(i).TLVQM_SuccessRate = Success_rate_TLVQM;
     
     
-  
+    
+    
+    
+    
+    
+    
+    
+    
+    %función para guardar dentro de un parfor
+    %         temp4= results_ADVSD;
+    %         parsave('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat',temp4);
+    %         m=matfile('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations.mat', temp4,'writable',true);
+    
+    %         save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_ADVSD_DLSSVM_TLVQMVariations_2507_2750.mat','results_ADVSD')
+    
+    %
+    %     tEnd = toc (tStart)
+    %     aux=results_ADVSD;
+    %     save_parfor(aux);
+    
+    %eliminando la carpeta con los frames del video
+    %         rmdir(folder_video_individual_frames,'s');
     save('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\DLSSV_TLVQMPatches_PCA_LOG10Frames_Vigilcali_set1.mat',...
         'results_ADVSD')
 end

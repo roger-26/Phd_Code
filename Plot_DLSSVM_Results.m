@@ -32,6 +32,9 @@ aux_results_PCA_test1=...
     load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\TLVQM_PCA_Input_allPatches_Videos_Selected.mat');
 results_PCA_test1=aux_results_PCA_test1.results_ADVSD(Set2_40_videos);
 
+logaritmo_results = ...
+    load('C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\DLSSV_TLVQMPatches_PCA_LOG10Frames_Vigilcali_set1.mat');
+results_loga = logaritmo_results.results_ADVSD(Set2_40_videos);
 
 results_PCA_10frames =load(...
     'C:\Dropbox\Javeriana\current_work\tracker_prediction\results_DLSSVM_ADVSD\DLSSV_TLVQMPatches_PCA10Frames_Predator_set1.mat');
@@ -55,5 +58,6 @@ aux2=matrix_results2(:,1);
 aux3=[aux1;aux2];
 aux3(40)=matrix_results(40,5);
 matrix_results(:,6)=aux3;
-boxplot(matrix_results,{'DLSSVM','TLVQM_LC','TLVQM_HC','TLVQM','PCA1','1 PCA whole video'})
+matrix_results(:,7)=[results_loga.TLVQM_AUC];
+boxplot(matrix_results,{'DLSSVM','TLVQM_LC','TLVQM_HC','TLVQM','PCA1','1 PCA whole video','Log PCA'})
 grid minor

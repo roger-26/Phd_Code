@@ -43,7 +43,7 @@ init_rect=[1231 150 126 355];
 %% 
 
 
-disp_vd = 0;%show image with bounding box
+disp_vd = 1;%show image with bounding box
 prep=0; %Esto cambia el espacio de color si se coloca en 1
 % end_frame = 451;  %number of frames to process
 cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\compile'
@@ -60,7 +60,7 @@ cd 'C:\Dropbox\Javeriana\current_work\tracker_prediction\DLSSVM_only_code\mex\co
 %     tracker_TLVQM_Features_PCA_Input([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 [result] = ...
-    DLSSV_TLVQMPatches_PCA10Frames([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
+    DLSSV_TLVQMPatches_PCA_LOG10Frames([video_path '\img'],'png',disp_vd,init_rect,1,end_frame,prep);
 
 
 tracker_results = results.res;
