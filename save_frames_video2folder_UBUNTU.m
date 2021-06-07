@@ -15,7 +15,7 @@ if exist_folder~=7
     %         folder_video_individual_frames
     mkdir(folder_video_individual_frames);
 end
-    path_frames = strcat(folder_video_individual_frames,'\img');
+    path_frames = strcat(folder_video_individual_frames,'/img');
     mkdir(path_frames);
 
 % path_frames = ...
@@ -25,7 +25,7 @@ end
 % 'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0284Exp_IndWL_MQ_C3\0284Exp_IndWL_MQ_C3.mp4'
 
 
-path_video = strcat(folder_containing_videos,'\',video_name_with_ext)
+path_video = strcat(folder_containing_videos,'/',video_name_with_ext)
 
 
 Initial_Frame = 0;

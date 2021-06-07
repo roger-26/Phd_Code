@@ -14,18 +14,17 @@ import scipy.io as sio  # para leer el .mat
 import os  # para cambiar el directorio
 from scipy.io import loadmat
 
-number_of_trackers = 2
+number_of_trackers = 1
+Name_tracker1 = "ROC"
 # se debe poner en este path
-# os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high')
-#os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0370ExFo_IndWL_LQ_C1')
-
 os.chdir(r'C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideos')
-original_video = '0092Fo_IndPW_HQ_C2'
+original_video = '1825Fo_IndPW_HQ_C4'
 path_gt = 'C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideosGT\\'+original_video+'_gt.txt'
+path_video ='C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideos\\'+original_video+'.mp4'
 
 # video pristine
 # cap = cv2.VideoCapture('video1_blur_high.mp4')
-cap = cv2.VideoCapture('3121Pri_OutPPP_C1.mp4')
+cap = cv2.VideoCapture(path_video)
 fps = cap.get(cv2.CAP_PROP_FPS)
 
 #para guardar el video
@@ -37,15 +36,26 @@ out = cv2.VideoWriter('output.avi',fourcc, fps, (frame_width1,frame_height1))
 
 # Para cargar un archivo txt
 # gt = GT_Gaussian
-#GT_Gaussian = data = np.loadtxt("C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideosGT/3121Pri_OutPPP_C1_gt.txt", delimiter=",", dtype="int");
+gt = np.loadtxt(path_gt,delimiter=",",dtype="int")
 
-gt = path_gt
+
 # Tracker 1
-tracker1_mat = sio.loadmat('0370ExFo_IndWL_LQ_C1_DLSSVM.mat')
-tracker1_tracking_values = list(tracker1_mat.values())
-tracker1_resuts = tracker1_tracking_values[3]
+filename_t1='C:\Dropbox\Javeriana\current_work\\tracker_prediction\Deblurred_Videos\\results\\MFT\\'+original_video+'_SRN_Results.txt'
+# filename_t1='C:\Dropbox\Javeriana\current_work\\tracker_prediction\Deblurred_Videos\\results\\RCO_tracker_Set210\\'+original_video+'_SRN_Results.txt'
+tracker1_resuts = data = np.loadtxt(filename_t1, delimiter=",", dtype="int");
+
+#tracker1_mat = sio.loadmat('0370ExFo_IndWL_LQ_C1_DLSSVM.mat')
+# tracker1_tracking_values = list(tracker1_mat.values())
+# tracker1_resuts = tracker1_tracking_values[3]
+
 # If want to compare two trackers
 if number_of_trackers > 1:
+    filename_t2 = 'C:\Dropbox\Javeriana\current_work\\tracker_prediction\Deblurred_Videos\\results\\MFT\\' + original_video + '_SRN_Results.txt'
+    # filename_t1='C:\Dropbox\Javeriana\current_work\\tracker_prediction\Deblurred_Videos\\results\\RCO_tracker_Set210\\'+original_video+'_SRN_Results.txt'
+
+
+    tracker2_resuts = data = np.loadtxt(filename_t2, delimiter=",", dtype="int");
+
     tracker2_mat = sio.loadmat('0370ExFo_IndWL_LQ_C1_FRIQUEE560_Normalized.mat')
     tracker2_tracking_values = list(tracker2_mat.values())
     tracker2_resuts = tracker2_tracking_values[3]
@@ -55,7 +65,8 @@ tracker1_bb_COLOR = (255, 0, 0)  # azul
 Second_Tracker_Color = (0, 0, 255)  # red
 TEXT_COLOR = (255, 255, 255)  # blanco
 contador = 0
-while (cap.isOpened()):
+# while (cap.isOpened()):
+while (contador<450):
     ret, frame = cap.read()
     # cv2.imshow('Frame', frame)
     # if frame is read correctly ret is True
@@ -84,7 +95,8 @@ while (cap.isOpened()):
     Second_BB = cv2.rectangle(image_with_BB, p3, p4, tracker1_bb_COLOR, thickness=3)
     cv2.putText(
         Second_BB,
-        "DLSSVM",
+        # "DLSSVM",
+        Name_tracker1,
         tuple(p3),
         cv2.FONT_HERSHEY_SIMPLEX,
         0.75,

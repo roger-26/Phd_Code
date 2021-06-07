@@ -17,11 +17,15 @@ from scipy.io import loadmat
 number_of_trackers = 2
 # se debe poner en este path
 # os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\video1_blur_high')
-os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0370ExFo_IndWL_LQ_C1')
+#os.chdir(r'C:\Dropbox\Javeriana\current_work\tracker_prediction\Test_Videos_Tracking\0370ExFo_IndWL_LQ_C1')
+
+os.chdir(r'C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideos')
+original_video = '0092Fo_IndPW_HQ_C2'
+path_gt = 'C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideosGT\\'+original_video+'_gt.txt'
 
 # video pristine
 # cap = cv2.VideoCapture('video1_blur_high.mp4')
-cap = cv2.VideoCapture('0370ExFo_IndWL_LQ_C1.mp4')
+cap = cv2.VideoCapture('3121Pri_OutPPP_C1.mp4')
 fps = cap.get(cv2.CAP_PROP_FPS)
 
 #para guardar el video
@@ -32,8 +36,10 @@ out = cv2.VideoWriter('output.avi',fourcc, fps, (frame_width1,frame_height1))
 
 
 # Para cargar un archivo txt
-GT_Gaussian = data = np.loadtxt("0370ExFo_IndWL_LQ_C1_gt.txt", delimiter=",", dtype="int");
-gt = GT_Gaussian
+# gt = GT_Gaussian
+#GT_Gaussian = data = np.loadtxt("C:\Dropbox\Javeriana\datasets\AD-VSD\surveillanceVideosDataset\surveillanceVideosGT/3121Pri_OutPPP_C1_gt.txt", delimiter=",", dtype="int");
+
+gt = path_gt
 # Tracker 1
 tracker1_mat = sio.loadmat('0370ExFo_IndWL_LQ_C1_DLSSVM.mat')
 tracker1_tracking_values = list(tracker1_mat.values())

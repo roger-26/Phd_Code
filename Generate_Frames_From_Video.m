@@ -37,7 +37,7 @@ Number_Of_Frames =a.NumberOfFrames;
 % Initial_Frame=0; %Add an offset for don't initiate since frame 1
 % disp('generating frames from video')
 % Folder_With_Frames = strcat(folder_video,'/img')
-for img = 1+Initial_Frame:Number_Of_Frames
+parfor img = 1+Initial_Frame:Number_Of_Frames
     %esta numeración es la que pide el tracker STRUCK para no dar error en
     %la consecución de los frames. 
     filename        =strcat(Name_Images,num2str(img,'%04i'),'.',Desired_Type_File);
@@ -53,10 +53,10 @@ for img = 1+Initial_Frame:Number_Of_Frames
 %         img
 %     end
 end
-%this part generate a txt file with number of frames
+%% this part generate a txt file with number of frames
 %last_frame = length(number_frames_obtained);
-name_file_frames=strcat(path_frames,'/', name_video,'_frames.txt');
-fileID = fopen(name_file_frames,'w');
-nbytes = fprintf(fileID,'1,%d',Number_Of_Frames);
-fclose(fileID);
+% name_file_frames=strcat(path_frames,'/', name_video,'_frames.txt');
+% fileID = fopen(name_file_frames,'w');
+% nbytes = fprintf(fileID,'1,%d',Number_Of_Frames);
+% fclose(fileID);
 end
