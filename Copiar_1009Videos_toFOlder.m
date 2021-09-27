@@ -1,6 +1,7 @@
 clear all
 clc
-path_csv = 'C:\Dropbox/Javeriana/current_work/tracker_prediction/Deblurred_Videos/selected_videos3.csv';
+path_csv = 'C:\Dropbox\Javeriana\current_work\tracker_prediction\VariacionResolucion_ImpactoTracker\videos_MFTMayor05_30FPS_1385.csv'
+% path_csv = 'C:\Dropbox/Javeriana/current_work/tracker_prediction/Deblurred_Videos/selected_videos3.csv';
 opts = detectImportOptions(path_csv);
 opts.Delimiter=' ';
 opts.DataLines=[1,Inf];

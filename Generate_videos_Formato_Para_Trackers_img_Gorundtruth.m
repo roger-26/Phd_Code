@@ -2,9 +2,13 @@
 %que exigen los tracker que es un folder con img y groundtruth.txt al lado
 %de ese folder  img que contiene los frames
 %Roger - 13 mayo 2021
-videos_selected = load('C:\Dropbox\Javeriana\current_work\Deblur_Tracking/videos_set_1K.txt');
+% videos_selected = load('C:\Dropbox\Javeriana\current_work\Deblur_Tracking/videos_set_1K.txt');
+videos_selected = ...
+    csvimport...
+    ('C:\Dropbox\Javeriana\current_work\tracker_prediction\VariacionResolucion_ImpactoTracker/videos_MFTMayor05_30FPS_1385.csv');
+
 ADVSD_names = load('C:\Dropbox/Javeriana/datasets/AD-VSD/videos_Ad_VSD.mat')
-FilePath=('C:\Dropbox\Javeriana\datasets\AD-VSD/shell2.txt');
+FilePath=('C:\Dropbox\Javeriana\current_work\tracker_prediction\VariacionResolucion_ImpactoTracker/copy_GT.txt');
 fid = fopen(FilePath,'w');
 for i=1:size(videos_selected,1)
     number_current_video=videos_selected(i);

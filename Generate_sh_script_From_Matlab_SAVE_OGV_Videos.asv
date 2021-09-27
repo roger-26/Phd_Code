@@ -1,0 +1,22 @@
+%Código para guardar un scrip con comandos bash o shell generados en un txt
+%desde Matlab, de forma automática.
+%Author: Roger Gomez Nieto
+% Date: 21 de abril de 2021.
+
+
+
+addpath 'C:\Dropbox\git'
+videos_selected = csvimport('C:\Dropbox\Javeriana\current_work\tracker_prediction\VariacionResolucion_ImpactoTracker/videos_MFTMayor05_30FPS_1385.csv');
+% ADVSD_names = load('C:\Dropbox/Javeriana/datasets/AD-VSD/videos_Ad_VSD.mat')
+FilePath=('C:\Dropbox\Javeriana\current_work\tracker_prediction\VariacionResolucion_ImpactoTracker/script_convert_2_ogv.txt');
+fid = fopen(FilePath,'w');
+for i=1:size(videos_selected,1)
+    number_current_video=videos_selected(i);
+    current_video_name_with_ext = number_current_video
+    [filepath,name_individual_video,ext] =fileparts(current_video_name_with_ext);   
+    video_name=name_individual_video;
+    command1=strcat("ffmpeg -i 0001Pri_IndWL_MQ_C4.mp4 -c:v libtheora -q:v 10 -c:a libvorbis -q:a 10 output.ogv",video_name,...
+        "_gt.txt /home/vigilcali/roger_nieto/Videos_Set2_211Videos_InFrames/deblurred_videos/",video_name,"_deblurredSRN/groundtruth.txt")
+    fprintf(fid,'%s\n', command1);
+end
+fclose(fid)
