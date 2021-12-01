@@ -12,7 +12,7 @@ import os
 #print [name for name in os.listdir("F:\datasets\VOT2020-ST/") if os.path.isdir(name)]
 import os
 
-folder = 'F:\datasets\VOT2020-ST_1-4_Scale/'
+folder = 'F:\datasets\VOT2020-ST_1-10_Scale/'
 
 sub_folders = [name for name in os.listdir(folder) if os.path.isdir(os.path.join(folder, name))]
 
@@ -22,7 +22,7 @@ sub_folders = [name for name in os.listdir(folder) if os.path.isdir(os.path.join
 for ii in range(1,59):
 
     img_array = []
-    name_total = 'F:\datasets\VOT2020-ST_1-4_Scale/' + sub_folders[ii] + '\img/*.jpg'
+    name_total = 'F:\datasets\VOT2020-ST_1-10_Scale/' + sub_folders[ii] + '\img/*.jpg'
     for filename in glob.glob(name_total):
         img = cv2.imread(filename)
         height, width, layers = img.shape

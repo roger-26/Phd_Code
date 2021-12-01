@@ -25,9 +25,15 @@ for i = 1 : vid1.NumberOfFrames
 %                 f = @() rectangle('position',[x y w h]);
     f = @() rectangle('position',gt_Initial(i,:));
     params = {'linewidth',2,'edgecolor','g'};
+    
+    Tracker2= gt_Initial(i,:)+100
+    f = @() rectangle('position',Tracker2);
+    params = {'linewidth',2,'edgecolor','r'};
+    
     imgOut = insertInImage(im,f,params);
+    imshow(imgOut)
     writeVideo(writerObj1,imgOut);
-    i
+    i 
 end
 close(writerObj1)
 toc
