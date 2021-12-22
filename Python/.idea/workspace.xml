@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f8d8271-56f8-4a57-9be1-a2290f82d129" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ML_Practice.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Practice_ML2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DecisionTree_For_Regresion.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DecisionTree_GoBeach.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RandomForest_With_Bagging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Get_Median_PerScale_SDCT_Tracker.asv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,8 +68,8 @@
       <recent name="C:\Dropbox\git\Python" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Practice_ML2">
-    <configuration name="Extract_Frames_From_Videos" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.RandomForest_With_Bagging">
+    <configuration name="DecisionTree_For_Regresion" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -80,7 +82,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Extract_Frames_From_Videos.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DecisionTree_For_Regresion.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -89,7 +91,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Generate_Video_From_Frames" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="DecisionTree_GoBeach" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -102,7 +104,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Generate_Video_From_Frames.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DecisionTree_GoBeach.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -133,17 +135,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ML_Practice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Practice_ML2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ML_Practice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Practice_ML2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,17 +157,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Practice_ML2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="RandomForest_With_Bagging" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Practice_ML2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RandomForest_With_Bagging.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -195,18 +203,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.Insert_BoundingBox_in_Video" />
-      <item itemvalue="Python.Generate_Video_From_Frames" />
-      <item itemvalue="Python.Extract_Frames_From_Videos" />
-      <item itemvalue="Python.ML_Practice" />
       <item itemvalue="Python.Practice_ML2" />
+      <item itemvalue="Python.DecisionTree_GoBeach" />
+      <item itemvalue="Python.DecisionTree_For_Regresion" />
+      <item itemvalue="Python.RandomForest_With_Bagging" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.RandomForest_With_Bagging" />
+        <item itemvalue="Python.DecisionTree_For_Regresion" />
+        <item itemvalue="Python.DecisionTree_GoBeach" />
         <item itemvalue="Python.Practice_ML2" />
         <item itemvalue="Python.Insert_BoundingBox_in_Video" />
-        <item itemvalue="Python.ML_Practice" />
-        <item itemvalue="Python.Extract_Frames_From_Videos" />
-        <item itemvalue="Python.Generate_Video_From_Frames" />
       </list>
     </recent_temporary>
   </component>
@@ -241,7 +249,9 @@
       <workItem from="1633723849325" duration="336000" />
       <workItem from="1637267476682" duration="44000" />
       <workItem from="1637267582171" duration="854000" />
-      <workItem from="1638391726314" duration="5392000" />
+      <workItem from="1638391726314" duration="11651000" />
+      <workItem from="1638819692044" duration="2810000" />
+      <workItem from="1639170947722" duration="773000" />
     </task>
     <servers />
   </component>
